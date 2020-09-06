@@ -4,8 +4,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShop.API", "eShop.API\eSho
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Entities", "Data.Entities\Data.Entities.csproj", "{D5A1E1A6-84C5-4A02-B907-53ED6998D835}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Abstraction", "Data.Abstraction\Data.Abstraction.csproj", "{B6A0AB5D-F214-4548-A142-0C7ADB236DFC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Implementation", "Data.Implementation\Data.Implementation.csproj", "{BF5709F2-6D7E-4961-A0C2-28A69DE7B7EC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Models", "Business.Models\Business.Models.csproj", "{00FDF3D3-FAE0-49DC-A7BE-2210AAF5F3FF}"
@@ -28,10 +26,6 @@ Global
 		{D5A1E1A6-84C5-4A02-B907-53ED6998D835}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5A1E1A6-84C5-4A02-B907-53ED6998D835}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5A1E1A6-84C5-4A02-B907-53ED6998D835}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B6A0AB5D-F214-4548-A142-0C7ADB236DFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B6A0AB5D-F214-4548-A142-0C7ADB236DFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B6A0AB5D-F214-4548-A142-0C7ADB236DFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B6A0AB5D-F214-4548-A142-0C7ADB236DFC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BF5709F2-6D7E-4961-A0C2-28A69DE7B7EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BF5709F2-6D7E-4961-A0C2-28A69DE7B7EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF5709F2-6D7E-4961-A0C2-28A69DE7B7EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
