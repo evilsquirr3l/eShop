@@ -1,7 +1,12 @@
+using System.ComponentModel.DataAnnotations;
 namespace Data.Entities
 {
     public class Category : BaseEntity<int>
     {
-        //TODO: string name, string description, 
+        
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        public string Description { get; set; }
     }
 }
