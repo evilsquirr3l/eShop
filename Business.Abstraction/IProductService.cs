@@ -8,6 +8,7 @@ namespace Business.Abstraction
     {
         Task Create(Product product); ICollection<Product> GetAll();
         Task<Product> GetById(int id);
+        Task<IEnumerable<Product>> GetAll();
         Task Update(int id);
         Task Delete(Product product);
 
