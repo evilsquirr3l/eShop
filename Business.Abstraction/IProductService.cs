@@ -1,16 +1,16 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Business.Models.DTO;
+using Data.Entities;
 
 namespace Business.Abstraction
 {
     public interface IProductService
     {
-        Task Create(Product product); 
-        Task<Product> GetById(int id);
-        Task<IEnumerable<Product>> GetAll();
-        Task Update(Product product);
-        Task Delete(Product product);
+        Task Create(ProductDTO productDto); 
+        Task<ProductDTO> GetById(int id);
+        Task<IEnumerable<ProductDTO>> GetAll();
+        Task Update(ProductDTO productDto);
+        Task Delete(ProductDTO productDto);
 
     }
 }
