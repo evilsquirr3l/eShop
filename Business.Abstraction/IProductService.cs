@@ -9,7 +9,7 @@ namespace Business.Abstraction
         Task Create(Product product); 
         Task<Product> GetById(int id);
         Task<IEnumerable<Product>> GetAll();
-        Task Update(int id);
+        Task Update(Product product);
         Task Delete(Product product);
 
     }
