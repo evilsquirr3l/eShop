@@ -6,7 +6,7 @@ namespace Business.Abstraction
 {
     public interface IProductService
     {
-        Task Create(Product product); ICollection<Product> GetAll();
+        Task Create(Product product); 
         Task<Product> GetById(int id);
         Task<IEnumerable<Product>> GetAll();
         Task Update(int id);
