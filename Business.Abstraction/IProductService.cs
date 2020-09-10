@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Data.Entities;
+using Business.Models;
 
 namespace Business.Abstraction
 {
