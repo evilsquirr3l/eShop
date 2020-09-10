@@ -1,6 +1,6 @@
-﻿namespace Business.Models.DTO
+﻿namespace Business.Models
 {
-    public class Product: Base<int>
+    public class ProductDTO: BaseDTO<int>
     {
         public string Name { get; set; }
         public decimal Price { get; set; }
