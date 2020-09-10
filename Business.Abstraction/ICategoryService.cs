@@ -1,7 +1,15 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Business.Models.DTO;
+
 namespace Business.Abstraction
 {
     public interface ICategoryService
     {
-        //TODO: crud
+        Task Create(Category Category);
+        Task<IEnumerable<Category>> GetAll();
+        Task<Category> GetById(int id);
+        Task Update(Category Category);
+        Task Delete(Category Category);
     }
 }
