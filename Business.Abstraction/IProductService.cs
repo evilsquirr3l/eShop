@@ -1,15 +1,15 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Business.Models.DTO;
 
 namespace Business.Abstraction
 {
     public interface IProductService
     {
-        void Create(Product product);
-        ICollection<Product> GetAll();
-        Product GetById(int id);
-        void Update(int id);
-        void Delete(Product product);
+        Task Create(Product product); ICollection<Product> GetAll();
+        Task<Product> GetById(int id);
+        Task Update(int id);
+        Task Delete(Product product);
 
     }
 }
