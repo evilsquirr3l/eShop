@@ -6,6 +6,7 @@ using Business.Abstraction;
 using Business.Models;
 using Data.Entities;
 using Data.Implementation;
+using Microsoft.EntityFrameworkCore;
 
 namespace Business.Implementation
 {
@@ -21,25 +22,25 @@ namespace Business.Implementation
         }
         public async Task Create(ProductDTO productDto)
         { 
-            _dbContext.Products.Add((_mapper.Map<Product>(productDto))); 
-            _dbContext.SaveChanges();
+            _dbContext.Products.AddAsync((_mapper.Map<Product>(productDto))); 
+            _dbContext.SaveChangesAsync();
         }
 
         public async Task<ProductDTO> GetById(int id)
         {
-            return  _mapper.Map<ProductDTO>(_dbContext.Products.Find(id));
+            return  _mapper.Map<ProductDTO>(_dbContext.Products.FindAsync(id));
         }
 
         public async Task<IEnumerable<ProductDTO>> GetAll()
         {
-            var response = _dbContext.Products.Select(x => _mapper.Map<ProductDTO>(x));
-            return response;
+            var products = await _dbContext.Products.ToListAsync();
+            return _mapper.Map<IEnumerable<ProductDTO>>(products);
         }
 
         public async Task Update(ProductDTO productDto)
         {
             _dbContext.Products.Update(_mapper.Map<Product>(productDto));
-            _dbContext.SaveChanges();
+            _dbContext.SaveChangesAsync();
         }
 
         public async Task Delete(ProductDTO productDto)
