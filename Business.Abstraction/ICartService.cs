@@ -6,10 +6,10 @@ namespace Business.Abstraction
 {
     public interface ICartService
     {
-        Task Create(CartDTO cart);
-        Task<IEnumerable<CartDTO>> GetAll();
-        Task<CartDTO> GetById(int id);
-        Task Update(CartDTO cart);
-        Task Delete(CartDTO cart);
+        Task Create(CartDto cart);
+        Task<IEnumerable<CartDto>> GetAll();
+        Task<CartDto> GetById(int id);
+        Task Update(CartDto cart);
+        Task Delete(CartDto cart);
     }
 }
