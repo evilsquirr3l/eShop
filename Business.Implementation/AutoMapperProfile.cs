@@ -8,10 +8,13 @@ namespace Business.Implementation
     {
         public AutoMapperProfile()
         {
-            CreateMap<ProductDTO, Product>().ReverseMap();
-            CreateMap<CartDTO, Cart>().ReverseMap();
-            CreateMap<CategoryDTO, Category>().ReverseMap();
-            CreateMap<CustomerDTO, Customer>().ReverseMap();
+            CreateMap<ProductDto, Product>().ReverseMap();
+            
+            CreateMap<CartDto, Cart>().ReverseMap();
+            
+            CreateMap<CategoryDto, Category>().ReverseMap();
+            
+            CreateMap<CustomerDto, Customer>().ReverseMap();
         }
     }
 }
