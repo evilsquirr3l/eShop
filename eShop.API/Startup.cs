@@ -25,7 +25,6 @@ namespace eShop.API
         {
             //TODO: remove this default shit
             //TODO: register services
-
             services.RegisterDataServices(
                 Configuration.GetConnectionString("DefaultConnection"));
             
