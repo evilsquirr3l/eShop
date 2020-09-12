@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 namespace Data.Entities
 {
@@ -9,6 +10,8 @@ namespace Data.Entities
         public decimal Price { get; set; }
         [Required]
         public string ImageUrl { get; set; }
+
+        public Category Category { get; set; }  
 
         public string Description { get; set; }
     }

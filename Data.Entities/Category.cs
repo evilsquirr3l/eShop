@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 namespace Data.Entities
 {
@@ -8,5 +9,6 @@ namespace Data.Entities
         public string Name { get; set; }
         [Required]
         public string Description { get; set; }
+        public ICollection<Product> Products { get; set; }
     }
 }
