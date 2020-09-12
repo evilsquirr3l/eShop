@@ -7,7 +7,10 @@ namespace Business.Implementation
     {
         public static IServiceCollection BindMapper(this IServiceCollection services)
         {
-            services.AddTransient<IMapper>();
+            var mapperConfig = new MapperConfiguration(c => c.AddProfile(new AutoMapperProfile()));
+            var mapper = mapperConfig.CreateMapper();
+
+            services.AddSingleton(mapper);
             return services;
         }
     }

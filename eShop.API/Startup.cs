@@ -27,7 +27,7 @@ namespace eShop.API
             //TODO: register services
             DataServices.RegisterDataServices(services,
                Configuration.GetConnectionString("DefaultConnection"));
-            ServiceCollectionExtension.BindMapper(services);
+            services.BindMapper();
             services.AddControllersWithViews();
           
             // In production, the Angular files will be served from this directory
