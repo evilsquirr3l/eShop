@@ -24,11 +24,11 @@ namespace Business.Implementation
         public async Task Create(CartDTO cartDto)
         {
             _dbContext.Carts.AddAsync((_mapper.Map<Cart>(cartDto)));
-            _dbContext.SaveChangesAsync();
+           await _dbContext.SaveChangesAsync();
         }
         public async Task<CartDTO> GetById(int id)
         {
-            return _mapper.Map<CartDTO>(_dbContext.Carts.FindAsync(id));
+            return _mapper.Map<CartDTO>(await _dbContext.Carts.FindAsync(id));
         }
 
         public async Task<IEnumerable<CartDTO>> GetAll()
@@ -39,14 +39,14 @@ namespace Business.Implementation
 
         public async Task Update(CartDTO cartDto)
         {
-            _dbContext.Carts.Update(_mapper.Map<Cart>(cartDto));
-            _dbContext.SaveChangesAsync();
+             _dbContext.Carts.Update(_mapper.Map<Cart>(cartDto));
+           await _dbContext.SaveChangesAsync();
         }
 
         public async Task Delete(CartDTO cartDto)
         {
             _dbContext.Carts.Remove(_mapper.Map<Cart>(cartDto));
-            _dbContext.SaveChangesAsync();
+           await _dbContext.SaveChangesAsync();
         }
     }
 }
