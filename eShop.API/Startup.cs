@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Data.Implementation;
+using Microsoft.EntityFrameworkCore;
+
 namespace eShop.API
 {
     public class Startup
@@ -23,9 +25,14 @@ namespace eShop.API
         {
             //TODO: remove this default shit
             //TODO: register services
+
             services.RegisterDataServices(
                 Configuration.GetConnectionString("DefaultConnection"));
+            
+            services.RegisterBusinessServices();
+          
             services.AddControllersWithViews();
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
         }

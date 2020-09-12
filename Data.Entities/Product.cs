@@ -18,6 +18,7 @@ namespace Data.Entities
 
         public int CategoryId { get; set; }
 
+
         public string Description { get; set; }
     }
 }
