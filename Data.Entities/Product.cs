@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 namespace Data.Entities
@@ -11,7 +12,7 @@ namespace Data.Entities
         [Required]
         public string ImageUrl { get; set; }
 
-        public Category Category { get; set; }  
+        public ICollection<Category> Category { get; set; }  
 
         public string Description { get; set; }
     }
