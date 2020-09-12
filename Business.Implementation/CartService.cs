@@ -46,7 +46,7 @@ namespace Business.Implementation
         public async Task Delete(CartDTO cartDto)
         {
             _dbContext.Carts.Remove(_mapper.Map<Cart>(cartDto));
-            _dbContext.SaveChanges();
+            _dbContext.SaveChangesAsync();
         }
     }
 }
