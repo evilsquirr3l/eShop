@@ -5,7 +5,7 @@ namespace Business.Implementation
 {
     public static class ServiceCollectionExtension
     {
-        public static IServiceCollection BindMapper(this IServiceCollection services)
+        public static IServiceCollection RegisterBusinessServices(this IServiceCollection services)
         {
             var mapperConfig = new MapperConfiguration(c => c.AddProfile(new AutoMapperProfile()));
             var mapper = mapperConfig.CreateMapper();

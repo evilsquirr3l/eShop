@@ -1,16 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShop.API", "eShop.API\eShop.API.csproj", "{78CD90EF-98AE-4962-9876-736B188E36AE}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShop.API", "eShop.API\eShop.API.csproj", "{78CD90EF-98AE-4962-9876-736B188E36AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Entities", "Data.Entities\Data.Entities.csproj", "{D5A1E1A6-84C5-4A02-B907-53ED6998D835}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Entities", "Data.Entities\Data.Entities.csproj", "{D5A1E1A6-84C5-4A02-B907-53ED6998D835}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Implementation", "Data.Implementation\Data.Implementation.csproj", "{BF5709F2-6D7E-4961-A0C2-28A69DE7B7EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Implementation", "Data.Implementation\Data.Implementation.csproj", "{BF5709F2-6D7E-4961-A0C2-28A69DE7B7EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Models", "Business.Models\Business.Models.csproj", "{00FDF3D3-FAE0-49DC-A7BE-2210AAF5F3FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business.Models", "Business.Models\Business.Models.csproj", "{00FDF3D3-FAE0-49DC-A7BE-2210AAF5F3FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Abstraction", "Business.Abstraction\Business.Abstraction.csproj", "{BC2C3D24-DE5E-4E4D-9413-033F4B37ED38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business.Abstraction", "Business.Abstraction\Business.Abstraction.csproj", "{BC2C3D24-DE5E-4E4D-9413-033F4B37ED38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Implementation", "Business.Implementation\Business.Implementation.csproj", "{08B67F4E-2789-4603-AFA7-09AF19E083FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business.Implementation", "Business.Implementation\Business.Implementation.csproj", "{08B67F4E-2789-4603-AFA7-09AF19E083FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,5 +45,11 @@ Global
 		{08B67F4E-2789-4603-AFA7-09AF19E083FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08B67F4E-2789-4603-AFA7-09AF19E083FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08B67F4E-2789-4603-AFA7-09AF19E083FC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2A877909-5DD6-4BDC-8323-B19C6F7EB552}
 	EndGlobalSection
 EndGlobal
