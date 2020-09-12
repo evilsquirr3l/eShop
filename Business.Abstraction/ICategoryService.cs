@@ -6,10 +6,14 @@ namespace Business.Abstraction
 {
     public interface ICategoryService
     {
-        Task Create(CategoryDTO categoryDto);
-        Task<IEnumerable<CategoryDTO>> GetAll();
-        Task<CategoryDTO> GetById(int id);
-        Task Update(CategoryDTO categoryDto);
-        Task Delete(CategoryDTO categoryDto);
+        Task Create(CategoryDto categoryDto);
+        
+        Task<IEnumerable<CategoryDto>> GetAll();
+        
+        Task<CategoryDto> GetById(int id);
+        
+        Task Update(CategoryDto categoryDto);
+        
+        Task Delete(CategoryDto categoryDto);
     }
 }

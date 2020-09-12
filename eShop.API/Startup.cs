@@ -25,11 +25,14 @@ namespace eShop.API
         {
             //TODO: remove this default shit
             //TODO: register services
-            DataServices.RegisterDataServices(services,
-               Configuration.GetConnectionString("DefaultConnection"));
+
+            services.RegisterDataServices(
+                Configuration.GetConnectionString("DefaultConnection"));
+            
             services.RegisterBusinessServices();
-            services.AddControllersWithViews();
           
+            services.AddControllersWithViews();
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
         }
