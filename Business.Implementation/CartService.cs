@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Business.Implementation
 {
-    class CartService
+    internal class CartService
     {
-        private readonly IMapper _mapper;
         private readonly ShopDbContext _dbContext;
+        private readonly IMapper _mapper;
 
         public CartService(IMapper mapper, ShopDbContext dbContext)
         {
@@ -21,9 +21,10 @@ namespace Business.Implementation
 
         public async Task Create(CartDto cartDto)
         {
-           await _dbContext.Carts.AddAsync((_mapper.Map<Cart>(cartDto)));
-           await _dbContext.SaveChangesAsync();
+            await _dbContext.Carts.AddAsync(_mapper.Map<Cart>(cartDto));
+            await _dbContext.SaveChangesAsync();
         }
+
         public async Task<CartDto> GetById(int id)
         {
             return _mapper.Map<CartDto>(await _dbContext.Carts.FindAsync(id));
@@ -37,15 +38,14 @@ namespace Business.Implementation
 
         public async Task Update(CartDto cartDto)
         {
-             _dbContext.Carts.Update(_mapper.Map<Cart>(cartDto));
-           await _dbContext.SaveChangesAsync();
+            _dbContext.Carts.Update(_mapper.Map<Cart>(cartDto));
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task Delete(CartDto cartDto)
         {
             _dbContext.Carts.Remove(_mapper.Map<Cart>(cartDto));
-           await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
         }
     }
 }
-

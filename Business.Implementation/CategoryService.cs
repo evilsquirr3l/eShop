@@ -11,8 +11,8 @@ namespace Business.Implementation
 {
     public class CategoryService : ICategoryService
     {
-        private readonly IMapper _mapper;
         private readonly ShopDbContext _dbContext;
+        private readonly IMapper _mapper;
 
         public CategoryService(IMapper mapper, ShopDbContext dbContext)
         {
@@ -22,9 +22,10 @@ namespace Business.Implementation
 
         public async Task Create(CategoryDto categoryDto)
         {
-            await _dbContext.Categories.AddAsync((_mapper.Map<Category>(categoryDto)));
+            await _dbContext.Categories.AddAsync(_mapper.Map<Category>(categoryDto));
             await _dbContext.SaveChangesAsync();
         }
+
         public async Task<CategoryDto> GetById(int id)
         {
             return _mapper.Map<CategoryDto>(await _dbContext.Categories.FindAsync(id));
@@ -45,7 +46,7 @@ namespace Business.Implementation
         public async Task Delete(CategoryDto categoryDto)
         {
             _dbContext.Categories.Remove(_mapper.Map<Category>(categoryDto));
-           await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
         }
     }
 }
