@@ -6,14 +6,14 @@ namespace Business.Abstraction
 {
     public interface IProductService
     {
-        Task Create(ProductDto productDto);
+        Task CreateAsync(ProductDto productDto);
 
-        Task<ProductDto> GetById(int id);
+        Task<ProductDto> GetByIdAsync(int id);
 
-        Task<IEnumerable<ProductDto>> GetAll();
+        Task<IEnumerable<ProductDto>> GetAllAsync();
 
-        Task Update(ProductDto productDto);
+        Task UpdateAsync(ProductDto productDto);
 
-        Task Delete(ProductDto productDto);
+        Task DeleteAsync(ProductDto productDto);
     }
 }

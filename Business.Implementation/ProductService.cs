@@ -20,32 +20,36 @@ namespace Business.Implementation
             _dbContext = dbContext;
         }
 
-        public async Task Create(ProductDto productDto)
+        public async Task CreateAsync(ProductDto productDto)
         {
             await _dbContext.Products.AddAsync(_mapper.Map<Product>(productDto));
+            
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<ProductDto> GetById(int id)
+        public async Task<ProductDto> GetByIdAsync(int id)
         {
             return _mapper.Map<ProductDto>(await _dbContext.Products.FindAsync(id));
         }
 
-        public async Task<IEnumerable<ProductDto>> GetAll()
+        public async Task<IEnumerable<ProductDto>> GetAllAsync()
         {
             var products = await _dbContext.Products.ToListAsync();
+            
             return _mapper.Map<IEnumerable<ProductDto>>(products);
         }
 
-        public async Task Update(ProductDto productDto)
+        public async Task UpdateAsync(ProductDto productDto)
         {
             _dbContext.Products.Update(_mapper.Map<Product>(productDto));
+            
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task Delete(ProductDto productDto)
+        public async Task DeleteAsync(ProductDto productDto)
         {
             _dbContext.Products.Remove(_mapper.Map<Product>(productDto));
+            
             await _dbContext.SaveChangesAsync();
         }
     }
