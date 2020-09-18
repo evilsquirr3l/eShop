@@ -20,29 +20,29 @@ namespace Business.Implementation
             _dbContext = dbContext;
         }
 
-        public async Task Create(CategoryDTO categoryDto)
+        public async Task Create(CategoryDto categoryDto)
         {
             await _dbContext.Categories.AddAsync((_mapper.Map<Category>(categoryDto)));
             await _dbContext.SaveChangesAsync();
         }
-        public async Task<CategoryDTO> GetById(int id)
+        public async Task<CategoryDto> GetById(int id)
         {
-            return _mapper.Map<CategoryDTO>(await _dbContext.Categories.FindAsync(id));
+            return _mapper.Map<CategoryDto>(await _dbContext.Categories.FindAsync(id));
         }
 
-        public async Task<IEnumerable<CategoryDTO>> GetAll()
+        public async Task<IEnumerable<CategoryDto>> GetAll()
         {
             var categories = await _dbContext.Categories.ToListAsync();
-            return _mapper.Map<IEnumerable<CategoryDTO>>(categories);
+            return _mapper.Map<IEnumerable<CategoryDto>>(categories);
         }
 
-        public async Task Update(CategoryDTO categoryDto)
+        public async Task Update(CategoryDto categoryDto)
         {
             _dbContext.Categories.Update(_mapper.Map<Category>(categoryDto));
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task Delete(CategoryDTO categoryDto)
+        public async Task Delete(CategoryDto categoryDto)
         {
             _dbContext.Categories.Remove(_mapper.Map<Category>(categoryDto));
            await _dbContext.SaveChangesAsync();
