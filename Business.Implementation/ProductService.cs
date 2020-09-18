@@ -22,7 +22,7 @@ namespace Business.Implementation
         }
         public async Task Create(ProductDTO productDto)
         { 
-            _dbContext.Products.AddAsync((_mapper.Map<Product>(productDto)));
+            await _dbContext.Products.AddAsync((_mapper.Map<Product>(productDto)));
             await _dbContext.SaveChangesAsync();
         }
 

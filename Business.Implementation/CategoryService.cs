@@ -22,7 +22,7 @@ namespace Business.Implementation
 
         public async Task Create(CategoryDTO categoryDto)
         {
-            _dbContext.Categories.AddAsync((_mapper.Map<Category>(categoryDto)));
+            await _dbContext.Categories.AddAsync((_mapper.Map<Category>(categoryDto)));
             await _dbContext.SaveChangesAsync();
         }
         public async Task<CategoryDTO> GetById(int id)
