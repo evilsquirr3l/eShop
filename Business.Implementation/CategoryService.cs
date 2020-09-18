@@ -22,8 +22,8 @@ namespace Business.Implementation
 
         public async Task Create(CategoryDTO categoryDto)
         {
-            _dbContext.Categories.AddAsync((_mapper.Map<Category>(categoryDto)));
-            _dbContext.SaveChangesAsync();
+           await _dbContext.Categories.AddAsync((_mapper.Map<Category>(categoryDto)));
+           await _dbContext.SaveChangesAsync();
         }
         public async Task<CategoryDTO> GetById(int id)
         {
@@ -39,13 +39,13 @@ namespace Business.Implementation
         public async Task Update(CategoryDTO categoryDto)
         {
             _dbContext.Categories.Update(_mapper.Map<Category>(categoryDto));
-            _dbContext.SaveChangesAsync();
+           await _dbContext.SaveChangesAsync();
         }
 
         public async Task Delete(CategoryDTO categoryDto)
         {
             _dbContext.Categories.Remove(_mapper.Map<Category>(categoryDto));
-            _dbContext.SaveChanges();
+           await _dbContext.SaveChangesAsync();
         }
     }
 }
