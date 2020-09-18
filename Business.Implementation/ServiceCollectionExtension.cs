@@ -1,6 +1,5 @@
 using AutoMapper;
 using Business.Abstraction;
-using Data.Entities;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Business.Implementation
