@@ -11,8 +11,8 @@ namespace Business.Implementation
 {
     public class CategoryService : ICategoryService
     {
-        private readonly IMapper _mapper;
         private readonly ShopDbContext _dbContext;
+        private readonly IMapper _mapper;
 
         public CategoryService(IMapper mapper, ShopDbContext dbContext)
         {
@@ -20,32 +20,37 @@ namespace Business.Implementation
             _dbContext = dbContext;
         }
 
-        public async Task Create(CategoryDto categoryDto)
+        public async Task CreateAsync(CategoryDto categoryDto)
         {
-            await _dbContext.Categories.AddAsync((_mapper.Map<Category>(categoryDto)));
+            await _dbContext.Categories.AddAsync(_mapper.Map<Category>(categoryDto));
+            
             await _dbContext.SaveChangesAsync();
         }
-        public async Task<CategoryDto> GetById(int id)
+
+        public async Task<CategoryDto> GetByIdAsync(int id)
         {
             return _mapper.Map<CategoryDto>(await _dbContext.Categories.FindAsync(id));
         }
 
-        public async Task<IEnumerable<CategoryDto>> GetAll()
+        public async Task<IEnumerable<CategoryDto>> GetAllAsync()
         {
             var categories = await _dbContext.Categories.ToListAsync();
+            
             return _mapper.Map<IEnumerable<CategoryDto>>(categories);
         }
 
-        public async Task Update(CategoryDto categoryDto)
+        public async Task UpdateAsync(CategoryDto categoryDto)
         {
             _dbContext.Categories.Update(_mapper.Map<Category>(categoryDto));
+            
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task Delete(CategoryDto categoryDto)
+        public async Task DeleteAsync(CategoryDto categoryDto)
         {
             _dbContext.Categories.Remove(_mapper.Map<Category>(categoryDto));
-           await _dbContext.SaveChangesAsync();
+            
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

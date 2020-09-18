@@ -1,23 +1,22 @@
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+
 namespace Data.Entities
 {
     public class Product : BaseEntity
     {
-        [Required]
+        [Required] 
         public string Name { get; set; }
-        
-        [Required]
+
+        [Required] 
         public decimal Price { get; set; }
-        
-        [Required]
+
+        [Required] 
         public string ImageUrl { get; set; }
 
         public Category Category { get; set; }
 
         public int CategoryId { get; set; }
-        
+
         public string Description { get; set; }
     }
 }

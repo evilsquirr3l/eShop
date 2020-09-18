@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Business.Models;
 
@@ -6,14 +6,14 @@ namespace Business.Abstraction
 {
     public interface ICartService
     {
-        Task Create(CartDto cart);
+        Task CreateAsync(CartDto cartDto);
         
-        Task<IEnumerable<CartDto>> GetAll();
+        Task<CartDto> GetByIdAsync(int id);
         
-        Task<CartDto> GetById(int id);
+        Task<IEnumerable<CartDto>> GetAllAsync();
         
-        Task Update(CartDto cart);
+        Task UpdateAsync(CartDto cartDto);
         
-        Task Delete(CartDto cart);
+        Task DeleteAsync(CartDto cartDto);
     }
 }

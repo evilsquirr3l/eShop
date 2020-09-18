@@ -4,16 +4,16 @@ using Data.Entities;
 
 namespace Business.Implementation
 {
-    class AutoMapperProfile : Profile
+    internal class AutoMapperProfile : Profile
     {
         public AutoMapperProfile()
         {
             CreateMap<ProductDto, Product>().ReverseMap();
-            
+
             CreateMap<CartDto, Cart>().ReverseMap();
-            
+
             CreateMap<CategoryDto, Category>().ReverseMap();
-            
+
             CreateMap<CustomerDto, Customer>().ReverseMap();
         }
     }
