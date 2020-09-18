@@ -1,6 +1,6 @@
 # eShop
 
-[![Build Status](https://travis-ci.com/evilsquirr3l/eShop.svg?branch=master)](https://travis-ci.com/evilsquirr3l/eShop)
+[![Build Status](https://travis-ci.com/evilsquirr3l/eShop.svg?branch=master)](https://travis-ci.com/evilsquirr3l/eShop) ![.NET Core](https://github.com/evilsquirr3l/eShop/workflows/.NET%20Core/badge.svg?branch=master)
 
 git push origin master --force again, and I'll tear your arms straight off ^_^
 ## Running the Project
