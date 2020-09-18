@@ -22,8 +22,8 @@ namespace Business.Implementation
         }
         public async Task Create(ProductDTO productDto)
         { 
-            _dbContext.Products.AddAsync((_mapper.Map<Product>(productDto))); 
-            _dbContext.SaveChangesAsync();
+          await  _dbContext.Products.AddAsync((_mapper.Map<Product>(productDto))); 
+          await _dbContext.SaveChangesAsync();
         }
 
         public async Task<ProductDTO> GetById(int id)
@@ -40,13 +40,13 @@ namespace Business.Implementation
         public async Task Update(ProductDTO productDto)
         {
             _dbContext.Products.Update(_mapper.Map<Product>(productDto));
-            _dbContext.SaveChangesAsync();
+          await  _dbContext.SaveChangesAsync();
         }
 
         public async Task Delete(ProductDTO productDto)
         {
             _dbContext.Products.Remove(_mapper.Map<Product>(productDto));
-            _dbContext.SaveChanges();
+           await _dbContext.SaveChangesAsync();
         }
     }
 }
