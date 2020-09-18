@@ -23,7 +23,7 @@ namespace Business.Implementation
 
         public async Task Create(CartDTO cartDto)
         {
-            _dbContext.Carts.AddAsync((_mapper.Map<Cart>(cartDto)));
+           await _dbContext.Carts.AddAsync((_mapper.Map<Cart>(cartDto)));
            await _dbContext.SaveChangesAsync();
         }
         public async Task<CartDTO> GetById(int id)
