@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Business.Abstraction;
 using Business.Models;
 using Data.Entities;
 using Data.Implementation;
@@ -8,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Business.Implementation
 {
-    internal class CartService
+    public class CartService : ICartService
     {
         private readonly ShopDbContext _dbContext;
         private readonly IMapper _mapper;
