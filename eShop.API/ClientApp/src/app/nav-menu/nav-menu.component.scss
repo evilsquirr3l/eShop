@@ -4,16 +4,8 @@ body {
   padding-top: 20px;
 }
 
-/*** Variables ***/
 $Lato:  'Lato', sans-serif;
-$Open-sans: 'Open Sans', sans-serif;
 $dark-gray: #3c3c3c;
-$light-gray: #a6a6a6;
-$UIblue: #3CBBF7;
-$UIred: #E74C3C;
-$UIyellow: #F8E71C;
-$UIgreen: #13bf11;
-$dark-brown: #542900;
 
 /* --------------------------------
 Small Window Size and Mobile Style
@@ -55,10 +47,6 @@ Small Window Size and Mobile Style
   }
 }
 
-/* --------------------------------
-        General Style
--------------------------------- */
-
 html, body {
   font-family: $Lato;
   font-weight: 300;
@@ -88,19 +76,6 @@ p.intro-des {
     font-size: 15px;
   }
 }
-
-.button-row-container {
-  width: 250px;
-  height: 50px;
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 auto;
-}
-
-/*** Navbar ***/
 
 .navbar-container {
   position: fixed;
@@ -159,86 +134,5 @@ p.intro-des {
   &:after {
     height: 2px !important;
     background: #9B5DE5 !important;
-  }
-}
-
-
-section.page-container {
-
-  width: 90%;
-  max-width: 800px;
-  height: 100vh;
-  position: relative;
-  text-align: center;
-}
-
-
-.section-container {
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  width: 90%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-
-  h4 {
-    font-size: 50px;
-    font-weight: 300;
-    color: #3c3c3c;
-    margin-bottom: 30px;
-  }
-}
-
-/*** General Button Styles ***/
-
-.button-container {
-  display: inline-block;
-  margin: 10px 10px;
-  cursor: pointer;
-  font-weight: 400;
-  letter-spacing: 2px;
-  height: 45px;
-  width: 200px;
-  -ms-perspective: 1000;
-
-  .flipper {
-    transition: all .5s ease-in-out;
-    -webkit-transform-style: preserve-3d;
-    -ms-transform-style: preserve-3d;
-    transform-style: preserve-3d;
-
-    position: relative;
-  }
-
-  .button {
-    height: 45px;
-    width: 200px;
-    border-radius: 3px;
-    backface-visibility: hidden;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    -webkit-box-shadow: 1px 2px 4px -1px rgba(60,60,60,0.64);
-    box-shadow: 1px 2px 4px -1px rgba(60,60,60,0.64);
-
-    i.fa {
-      color: white;
-      font-size: 20px;
-      margin: auto;
-      text-shadow: .5px 1px 2px #3c3c3c;
-    }
-
-    &.front {
-      z-index: 10;
-    }
-
-    &.back {
-      color: white;
-      font-size: 15px;
-      text-transform: uppercase;
-    }
   }
 }
