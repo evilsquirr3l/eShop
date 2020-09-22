@@ -4,7 +4,7 @@ namespace Business.Implementation.Validations
 {
     public static class CartValidation
     {
-        public static void ValidateProduct(CartDto cartDto)
+        public static void ValidateCart(CartDto cartDto)
         {
 
             if (cartDto.TotalPrice < 0)
