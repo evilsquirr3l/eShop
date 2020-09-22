@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Business.Abstraction;
+using Business.Implementation.Validations;
 using Business.Models;
 using Data.Entities;
 using Data.Implementation;
@@ -22,6 +23,7 @@ namespace Business.Implementation
 
         public async Task CreateAsync(CartDto cartDto)
         {
+            CartValidation.ValidateCart(cartDto);
             await _dbContext.Carts.AddAsync(_mapper.Map<Cart>(cartDto));
             
             await _dbContext.SaveChangesAsync();
@@ -41,6 +43,7 @@ namespace Business.Implementation
 
         public async Task UpdateAsync(CartDto cartDto)
         {
+            CartValidation.ValidateCart(cartDto);
             _dbContext.Carts.Update(_mapper.Map<Cart>(cartDto));
             
             await _dbContext.SaveChangesAsync();
