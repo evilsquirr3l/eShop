@@ -4,9 +4,8 @@ namespace Business.Implementation.Validations
 {
     public static class CategoryValidation
     {
-        public static void ValidateProduct(CategoryDto categoryDto)
+        public static void ValidateCategory(CategoryDto categoryDto)
         {
-            
             if (string.IsNullOrEmpty(categoryDto.Name))
             {
                 throw new ValidationException("Name can't be empty.");
@@ -16,7 +15,6 @@ namespace Business.Implementation.Validations
             {
                 throw new ValidationException("Description can't be empty");
             }
-
         }
     }
 }
