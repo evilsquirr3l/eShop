@@ -15,6 +15,7 @@ import { FooterComponent } from './footer/footer.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { ProductsListComponent } from './products-list/products-list.component';
 import {AngularFontAwesomeModule} from "angular-font-awesome";
+import { IntroComponent } from './intro/intro.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {AngularFontAwesomeModule} from "angular-font-awesome";
     AboutComponent,
     FooterComponent,
     ProductCardComponent,
-    ProductsListComponent
+    ProductsListComponent,
+    IntroComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
