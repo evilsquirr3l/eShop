@@ -12,6 +12,9 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { AuthorsComponent } from './authors/authors.component';
 import { AboutComponent } from './about/about.component';
 import { FooterComponent } from './footer/footer.component';
+import { ProductCardComponent } from './product-card/product-card.component';
+import { ProductsListComponent } from './products-list/products-list.component';
+import {AngularFontAwesomeModule} from "angular-font-awesome";
 
 @NgModule({
   declarations: [
@@ -22,12 +25,15 @@ import { FooterComponent } from './footer/footer.component';
     FetchDataComponent,
     AuthorsComponent,
     AboutComponent,
-    FooterComponent
+    FooterComponent,
+    ProductCardComponent,
+    ProductsListComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    AngularFontAwesomeModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
