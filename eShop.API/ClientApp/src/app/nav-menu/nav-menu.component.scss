@@ -8,46 +8,6 @@ body {
 $Lato:  'Lato', sans-serif;
 $dark-gray: #3c3c3c;
 
-/* --------------------------------
-Small Window Size and Mobile Style
--------------------------------- */
-
-@media screen and (max-width: 875px) {
-  .button-container {
-    margin: 10px 10px !important;
-  }
-
-  h2 {
-    font-size: 15vw !important;
-  }
-}
-
-@media screen and (max-width: 550px) {
-
-  .nav, .navbar {
-    width: 90% !important;
-
-    .nav-item {
-      font-size: 10px !important;
-    }
-  }
-}
-
-@media screen and (max-width: 350px) {
-
-  .navbar-container {
-    height: 100px !important;
-    margin-bottom: 80px;
-  }
-  .nav, .navbar {
-    flex-wrap: wrap !important;
-
-    .nav-item {
-      margin: 5px 5px !important;
-    }
-  }
-}
-
 html, body {
   font-family: $Lato;
   font-weight: 300;
