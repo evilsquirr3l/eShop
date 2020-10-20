@@ -1,6 +1,6 @@
 
 .new_footer_top {
-  padding: 0px 0px 270px;
+  padding: 0 0 270px;
   position: relative;
   overflow-x: hidden;
 }
@@ -13,7 +13,7 @@
   font-weight: 300;
   line-height: 20px;
   color: #7f88a6;
-  padding: 27px 0px;
+  padding: 27px 0;
 }
 .new_footer_top .company_widget p {
   font-size: 16px;
@@ -42,8 +42,6 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
   outline: none;
 }
 
-
-
 .new_footer_top .f_widget.about-widget .f_list li a:hover {
   color: #5e2ced;
 }
@@ -51,13 +49,13 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
   margin-bottom: 11px;
 }
 .f_widget.about-widget .f_list li:last-child {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 .f_widget.about-widget .f_list li {
   margin-bottom: 15px;
 }
 .f_widget.about-widget .f_list {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 .new_footer_top .f_social_icon a {
   width: 44px;
