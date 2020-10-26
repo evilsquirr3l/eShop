@@ -15,7 +15,7 @@ To run the project perform the following steps:
 
     `npm install -g @angular/cli`
 
-4. Open a command prompt and `cd` into the project's `Client` folder
+4. Open a command prompt and `cd` into the project's `ClientApp` folder
 
 5. Run `npm install`
 
