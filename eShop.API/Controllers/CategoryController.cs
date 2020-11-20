@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace eShop.API.Controllers
 {
+    [Produces("application/json")]
+    [Route("api/[controller]")]
+    [ApiController]
     public class CategoryController : Controller
     {
 
@@ -18,19 +21,23 @@ namespace eShop.API.Controllers
         }
 
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<CategoryDto>>> GetAll() 
+            => Ok(await _categoryService.GetAllAsync());
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<CategoryDto>>> GetById(int id)
         {
-            var book = await _categoryService.GetByIdAsync(id);
+            var category = await _categoryService.GetByIdAsync(id);
 
-            if (book == null)
+            if (category == null)
             {
                 return NotFound();
             }
-
-            return Ok(book);
+            
+            return Ok(category);
         }
-
+        
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] CategoryDto categoryDto)
         {
@@ -42,10 +49,10 @@ namespace eShop.API.Controllers
             {
                 return BadRequest(e.Message);
             }
-
+        
             return CreatedAtAction(nameof(Create), new {categoryDto.Id}, categoryDto);
         }
-
+        
         [HttpPut]
         public async Task<ActionResult> Update(CategoryDto categoryDto)
         {
@@ -57,15 +64,15 @@ namespace eShop.API.Controllers
             {
                 return BadRequest(e.Message);
             }
-
+        
             return Ok();
         }
-
+        
         [HttpDelete]
         public async Task<ActionResult> Delete(CategoryDto categoryDto)
         {
             await _categoryService.DeleteAsync(categoryDto);
-
+        
             return Ok();
         }
     }
