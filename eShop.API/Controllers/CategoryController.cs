@@ -10,33 +10,22 @@ namespace eShop.API.Controllers
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoryController : Controller
+    public class CategoryController : ControllerBase
     {
-
         private readonly ICategoryService _categoryService;
 
         public CategoryController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
         }
-
-
+        
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CategoryDto>>> GetAll() 
             => Ok(await _categoryService.GetAllAsync());
-        
+
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<CategoryDto>>> GetById(int id)
-        {
-            var category = await _categoryService.GetByIdAsync(id);
-
-            if (category == null)
-            {
-                return NotFound();
-            }
-            
-            return Ok(category);
-        }
+            => Ok(await _categoryService.GetByIdAsync(id));
         
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] CategoryDto categoryDto)
