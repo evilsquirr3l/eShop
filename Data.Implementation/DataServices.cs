@@ -7,8 +7,8 @@ namespace Data.Implementation
     {
         public static IServiceCollection RegisterDataServices(this IServiceCollection services, string connectionString)
         {
-            services.AddDbContextPool<ShopDbContext>(options =>
-                options.UseSqlServer(connectionString));
+            services.AddDbContext<ShopDbContext>(options =>
+                options.UseNpgsql(connectionString));
             
             return services;
         }
