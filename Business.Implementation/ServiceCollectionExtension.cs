@@ -1,5 +1,9 @@
 using AutoMapper;
 using Business.Abstraction;
+using Business.Implementation.Services;
+using Business.Implementation.Validations;
+using Business.Models;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Business.Implementation
@@ -15,7 +19,8 @@ namespace Business.Implementation
             services.AddTransient<ICartService, CartService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IProductService, ProductService>();
-            
+            services.AddTransient<IValidator<CartDto>, CartValidation>();
+
             return services;
         }
     }

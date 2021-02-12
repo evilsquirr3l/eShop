@@ -2,28 +2,30 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Business.Abstraction;
-using Business.Implementation.Validations;
 using Business.Models;
 using Data.Entities;
 using Data.Implementation;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
-namespace Business.Implementation
+namespace Business.Implementation.Services
 {
     public class CartService : ICartService
     {
         private readonly ShopDbContext _dbContext;
         private readonly IMapper _mapper;
+        private readonly AbstractValidator<CartDto> _validator;
 
-        public CartService(IMapper mapper, ShopDbContext dbContext)
+        public CartService(IMapper mapper, ShopDbContext dbContext, AbstractValidator<CartDto> validator)
         {
             _mapper = mapper;
             _dbContext = dbContext;
+            _validator = validator;
         }
 
         public async Task CreateAsync(CartDto cartDto)
         {
-            CartValidation.ValidateCart(cartDto);
+            await _validator.ValidateAsync(cartDto);
             await _dbContext.Carts.AddAsync(_mapper.Map<Cart>(cartDto));
             
             await _dbContext.SaveChangesAsync();
@@ -43,7 +45,7 @@ namespace Business.Implementation
 
         public async Task UpdateAsync(CartDto cartDto)
         {
-            CartValidation.ValidateCart(cartDto);
+            await _validator.ValidateAsync(cartDto);
             _dbContext.Carts.Update(_mapper.Map<Cart>(cartDto));
             
             await _dbContext.SaveChangesAsync();
