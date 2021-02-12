@@ -25,8 +25,8 @@ namespace eShop.API
 
             services.RegisterBusinessServices();
 
-            services.AddControllersWithViews();
-
+            services.AddControllers();
+            
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
         }
 

@@ -8,7 +8,7 @@ using Data.Entities;
 using Data.Implementation;
 using Microsoft.EntityFrameworkCore;
 
-namespace Business.Implementation
+namespace Business.Implementation.Services
 {
     public class CategoryService : ICategoryService
     {

@@ -1,16 +1,13 @@
 ﻿using Business.Models;
+using FluentValidation;
 
 namespace Business.Implementation.Validations
 {
-    public static class CartValidation
+    public class CartValidation : AbstractValidator<CartDto>
     {
-        public static void ValidateCart(CartDto cartDto)
+        public CartValidation()
         {
-
-            if (cartDto.TotalPrice < 0)
-            {
-                throw new ValidationException("Price can't be of negative value");
-            }
+            RuleFor(x => x.TotalPrice).GreaterThan(0);
         }
     }
 }
