@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Business.Abstraction;
-using Business.Implementation.Validations;
 using Business.Models;
 using Data.Entities;
 using Data.Implementation;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
 namespace Business.Implementation.Services
@@ -14,16 +14,18 @@ namespace Business.Implementation.Services
     {
         private readonly ShopDbContext _dbContext;
         private readonly IMapper _mapper;
+        private readonly AbstractValidator<CategoryDto> _validator;
 
-        public CategoryService(IMapper mapper, ShopDbContext dbContext)
+        public CategoryService(IMapper mapper, ShopDbContext dbContext, AbstractValidator<CategoryDto> validator)
         {
             _mapper = mapper;
             _dbContext = dbContext;
+            _validator = validator;
         }
 
         public async Task CreateAsync(CategoryDto categoryDto)
         {
-            CategoryValidation.ValidateCategory(categoryDto);
+            await _validator.ValidateAsync(categoryDto);
             await _dbContext.Categories.AddAsync(_mapper.Map<Category>(categoryDto));
             
             await _dbContext.SaveChangesAsync();
@@ -43,7 +45,7 @@ namespace Business.Implementation.Services
 
         public async Task UpdateAsync(CategoryDto categoryDto)
         {
-            CategoryValidation.ValidateCategory(categoryDto);
+            await _validator.ValidateAsync(categoryDto);
             _dbContext.Categories.Update(_mapper.Map<Category>(categoryDto));
             
             await _dbContext.SaveChangesAsync();

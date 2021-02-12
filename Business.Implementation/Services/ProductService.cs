@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Business.Abstraction;
-using Business.Implementation.Validations;
 using Business.Models;
 using Data.Entities;
 using Data.Implementation;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
 namespace Business.Implementation.Services
@@ -14,16 +14,18 @@ namespace Business.Implementation.Services
     {
         private readonly ShopDbContext _dbContext;
         private readonly IMapper _mapper;
+        private readonly AbstractValidator<ProductDto> _validator;
 
-        public ProductService(IMapper mapper, ShopDbContext dbContext)
+        public ProductService(IMapper mapper, ShopDbContext dbContext, AbstractValidator<ProductDto> validator)
         {
             _mapper = mapper;
             _dbContext = dbContext;
+            _validator = validator;
         }
 
         public async Task CreateAsync(ProductDto productDto)
         {
-            ProductValidation.ValidateProduct(productDto);
+            await _validator.ValidateAsync(productDto);
             await _dbContext.Products.AddAsync(_mapper.Map<Product>(productDto));
             
             await _dbContext.SaveChangesAsync();
@@ -43,7 +45,7 @@ namespace Business.Implementation.Services
 
         public async Task UpdateAsync(ProductDto productDto)
         {
-            ProductValidation.ValidateProduct(productDto);
+            await _validator.ValidateAsync(productDto);
             _dbContext.Products.Update(_mapper.Map<Product>(productDto));
             
             await _dbContext.SaveChangesAsync();

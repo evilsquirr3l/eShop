@@ -19,7 +19,9 @@ namespace Business.Implementation
             services.AddTransient<ICartService, CartService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IProductService, ProductService>();
-            services.AddTransient<IValidator<CartDto>, CartValidation>();
+            services.AddTransient<AbstractValidator<CartDto>, CartValidation>();
+            services.AddTransient<AbstractValidator<CategoryDto>, CategoryValidation>();
+            services.AddTransient<AbstractValidator<ProductDto>, ProductValidation>();
 
             return services;
         }
