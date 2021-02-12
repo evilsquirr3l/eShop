@@ -1,20 +1,14 @@
 ﻿using Business.Models;
+using FluentValidation;
 
 namespace Business.Implementation.Validations
 {
-    public static class CategoryValidation
+    public class CategoryValidation : AbstractValidator<CategoryDto>
     {
-        public static void ValidateCategory(CategoryDto categoryDto)
+        public CategoryValidation()
         {
-            if (string.IsNullOrEmpty(categoryDto.Name))
-            {
-                throw new ValidationException("Name can't be empty.");
-            }
-
-            if (string.IsNullOrEmpty(categoryDto.Description))
-            {
-                throw new ValidationException("Description can't be empty");
-            }
+            RuleFor(x => x.Name).NotEmpty();
+            RuleFor(x => x.Description).NotEmpty();
         }
     }
 }
