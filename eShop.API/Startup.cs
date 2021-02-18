@@ -1,5 +1,7 @@
 using Business.Implementation;
+using Business.Implementation.Validations;
 using Data.Implementation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -25,7 +27,10 @@ namespace eShop.API
 
             services.RegisterBusinessServices();
 
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation(opt =>
+            {
+                opt.RegisterValidatorsFromAssemblyContaining<ProductValidation>();
+            });
             
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
         }
