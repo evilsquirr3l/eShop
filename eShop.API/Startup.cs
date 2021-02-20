@@ -27,10 +27,7 @@ namespace eShop.API
 
             services.RegisterBusinessServices();
 
-            services.AddControllers().AddFluentValidation(opt =>
-            {
-                opt.RegisterValidatorsFromAssemblyContaining<ProductValidation>();
-            });
+            services.AddControllers().AddFluentValidation();
             
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
         }
