@@ -9,7 +9,7 @@ To run the project perform the following steps:
 
 1. Install Node.js 12 or higher - https://nodejs.org
 
-2. Install ASP.NET core 3.1 or higher - https://dot.net
+2. Install ASP.NET core 5.0 or higher - https://dot.net
 
 3. Install the Angular CLI:
 
