@@ -30,6 +30,8 @@ namespace eShop.API
             services.AddControllers().AddFluentValidation();
             
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
+            
+            services.AddSwaggerGen();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -44,6 +46,13 @@ namespace eShop.API
                 app.UseHsts();
             }
 
+            app.UseSwagger();
+            
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "eShop");
+            });
+            
             app.UseHttpsRedirection();
             
             app.UseStaticFiles();
