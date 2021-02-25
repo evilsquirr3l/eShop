@@ -1,10 +1,9 @@
 using Business.Implementation;
-using Business.Implementation.Validations;
 using Data.Implementation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -29,8 +28,8 @@ namespace eShop.API
 
             services.AddControllers().AddFluentValidation();
             
-            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
-            
+            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
+
             services.AddSwaggerGen();
         }
 
@@ -71,7 +70,7 @@ namespace eShop.API
             {
                 spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment()) spa.UseAngularCliServer("start");
+                if (env.IsDevelopment()) spa.UseReactDevelopmentServer(npmScript: "start");
             });
         }
     }
