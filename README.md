@@ -2,33 +2,41 @@
 
 [![Build Status](https://travis-ci.com/evilsquirr3l/eShop.svg?branch=master)](https://travis-ci.com/evilsquirr3l/eShop) ![.NET Core](https://github.com/evilsquirr3l/eShop/workflows/.NET%20Core/badge.svg?branch=master)
 
-git push origin master --force again, and I'll tear your arms straight off ^_^
-## Running the Project
+Web application is currently under development by Team7.
 
-To run the project perform the following steps:
+# Client (front-end)
 
-1. Install Node.js 12 or higher - https://nodejs.org
+- [React](https://reactjs.org/docs/getting-started.html) with [Redux](https://redux.js.org/introduction/getting-started) and [TypeScript](https://www.typescriptlang.org/docs)
+- [Material-UI](https://material-ui.com/)
 
-2. Install ASP.NET core 5.0 or higher - https://dot.net
+# Service (back-end)
 
-3. Install the Angular CLI:
+- [ASP.NET Core 5.0](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core?view=aspnetcore-5.0)
+- [AutoMapper](https://github.com/AutoMapper/AutoMapper) handling Entity-to-DTO mapping
+- [FluentValidation](https://fluentvalidation.net/) for building strongly-typed validation rules
+- Unit and integration tests using [Moq](https://github.com/moq/moq4) and [nUnit](https://nunit.org/) with [FluentAssertions](https://fluentassertions.com/)
+- [Swagger UI](https://github.com/swagger-api/swagger-ui)
+- [PostgreSQL](https://www.postgresql.org/) as object-relational database system
 
-    `npm install -g @angular/cli`
+# DevOps (back-end)
 
-4. Open a command prompt and `cd` into the project's `ClientApp` folder
+- [GitHub Actions](https://docs.github.com/en/actions/learn-github-actions)
+- [Travis CI](https://travis-ci.org/)
+- [Docker](https://www.docker.com/)
 
-5. Run `npm install`
+# How to run locally
 
-6. Run `ng build --watch` to start the Angular build process and watch for changes. The build process will add the output to the project's `wwwroot` folder.
-
-7. Open a new command window in the root of the project and run the following commands:
-
-```
-dotnet restore
+1. [Download and install the .NET 5 SDK](https://dotnet.microsoft.com/download)
+2. Open a terminal such as **PowerShell**, **Command Prompt**, or **bash** and navigate to the root folder
+3. Run the following `dotnet` commands:
+```sh
 dotnet build
-dotnet watch run
+dotnet run --project eShop.API
 ```
-
-8. Visit http://localhost:5000 in the browser
-
-9. An MVC view is serving the Angular application.
+3. Open your browser to: `https://localhost:5001/swagger`.
+4. In another terminal, navigate to the `eShop.API/clientapp` folder and run the following `npm` commands:
+```sh
+npm install
+npm start
+```
+5. The webpack dev server hosts the front-end and your browser will open to: `http://localhost:3000`
