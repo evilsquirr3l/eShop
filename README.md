@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/evilsquirr3l/eShop.svg?branch=master)](https://travis-ci.com/evilsquirr3l/eShop) ![.NET Core](https://github.com/evilsquirr3l/eShop/workflows/.NET%20Core/badge.svg?branch=master)
 
-Web app created by Team7. 
+Web app is created by Team7. 
 
 # Client (front-end)
 
