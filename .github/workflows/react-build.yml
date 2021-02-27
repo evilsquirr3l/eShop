@@ -1,0 +1,30 @@
+name: React Build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+    
+jobs:
+  buildAndTest:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Install dependencies
+        run: |
+          cd eShop.API/clientapp
+          yarn
+
+      - name: Build
+        run: |
+          cd eShop.API/clientapp
+          yarn build
+
+      - name: Test
+        run: |
+          cd eShop.API/clientapp
+          yarn test --watchAll=false
