@@ -1,6 +1,6 @@
 # eShop
 
-[![Build Status](https://travis-ci.com/evilsquirr3l/eShop.svg?branch=master)](https://travis-ci.com/evilsquirr3l/eShop) ![.NET Core](https://github.com/evilsquirr3l/eShop/workflows/.NET%20Core/badge.svg?branch=master) ![React build](https://github.com/evilsquirr3l/eShop/workflows/react-build/badge.svg?branch=master)
+[![Build Status](https://travis-ci.com/evilsquirr3l/eShop.svg?branch=master)](https://travis-ci.com/evilsquirr3l/eShop) ![.NET Core](https://github.com/evilsquirr3l/eShop/workflows/.NET%20Core/badge.svg?branch=master) [![React Build](https://github.com/evilsquirr3l/eShop/actions/workflows/react-build.yml/badge.svg)](https://github.com/evilsquirr3l/eShop/actions/workflows/react-build.yml)
 
 Web application is currently under development by Team7.
 
