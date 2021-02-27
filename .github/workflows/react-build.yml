@@ -2,24 +2,23 @@ name: React Build
 
 on: [pull_request]
 
+defaults:
+  run:
+    working-directory: eshop.api/clientapp
+
 jobs:
   buildAndTest:
     name: Build and Test
     runs-on: ubuntu-latest
-    env:
-      working-directory: ./eshop.api/clientapp
     
     steps:
       - uses: actions/checkout@v1
 
       - name: Install dependencies
         run: yarn
-        working-directory: ${{env.working-directory}}
 
       - name: Build
         run: yarn build
-        working-directory: ${{env.working-directory}}
 
       - name: Test
         run: yarn test --watchAll=false
-        working-directory: ${{env.working-directory}}
