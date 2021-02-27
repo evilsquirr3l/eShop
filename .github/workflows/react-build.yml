@@ -6,9 +6,7 @@ jobs:
   buildAndTest:
     name: Build and Test
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./eshop.api/clientapp
+    
     steps:
       - uses: actions/checkout@v1
 
