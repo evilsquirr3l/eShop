@@ -14,7 +14,9 @@ jobs:
         run: yarn
 
       - name: Build
+        working-directory: /eshop.api/clientapp
         run: yarn build
 
       - name: Test
+        working-directory: ./eshop.api/clientapp
         run: yarn test --watchAll=false
