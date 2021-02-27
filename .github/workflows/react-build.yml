@@ -4,7 +4,7 @@ on: [pull_request]
 
 defaults:
   run:
-    working-directory: ./eshop.api/clientapp
+    working-directory: ../../eshop.api/clientapp
 
 jobs:
   buildAndTest:
