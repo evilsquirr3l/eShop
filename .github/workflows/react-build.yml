@@ -6,21 +6,18 @@ jobs:
   buildAndTest:
     name: Build and Test
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: clientapp
     
     steps:
       - uses: actions/checkout@v1
 
       - name: Install dependencies
-        run: |
-          cd eShop.API/clientapp
-          yarn
+        run: yarn
 
       - name: Build
-        run: |
-          cd eShop.API/clientapp
-          yarn build
+        run: yarn build
 
       - name: Test
-        run: |
-          cd eShop.API/clientapp
-          yarn test --watchAll=false
+        run: yarn test --watchAll=false
