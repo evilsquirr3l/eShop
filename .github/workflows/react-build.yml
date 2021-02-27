@@ -2,10 +2,6 @@ name: React Build
 
 on: [pull_request]
 
-defaults:
-  run:
-    working-directory: ../../eshop.api/clientapp
-
 jobs:
   buildAndTest:
     name: Build and Test
