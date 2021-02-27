@@ -14,7 +14,7 @@ jobs:
         run: ls
         
       - name: Move to clientapp folder
-        run: cd eshop.api/clientapp
+        run: cd eShop.API/clientapp
 
       - name: Install dependencies
         run: yarn
