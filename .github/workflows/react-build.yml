@@ -11,10 +11,11 @@ jobs:
       - uses: actions/checkout@v1
 
       - name: Install dependencies
+        working-directory: ./eshop.api/clientapp
         run: yarn
 
       - name: Build
-        working-directory: /eshop.api/clientapp
+        working-directory: ./eshop.api/clientapp
         run: yarn build
 
       - name: Test
