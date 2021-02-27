@@ -17,10 +17,16 @@ jobs:
         run: cd eShop.API/clientapp
 
       - name: Install dependencies
-        run: yarn
+        run: |
+          ls
+          yarn
 
       - name: Build
-        run: yarn build
+        run: |
+          ls
+          yarn build
 
       - name: Test
-        run: yarn test --watchAll=false
+        run: |
+          ls
+          yarn test --watchAll=false
