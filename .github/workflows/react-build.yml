@@ -10,23 +10,17 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Show folders
-        run: ls
-        
-      - name: Move to clientapp folder
-        run: cd eShop.API/clientapp
-
       - name: Install dependencies
         run: |
-          ls
+          cd eShop.API/clientapp
           yarn
 
       - name: Build
         run: |
-          ls
+          cd eShop.API/clientapp
           yarn build
 
       - name: Test
         run: |
-          ls
+          cd eShop.API/clientapp
           yarn test --watchAll=false
