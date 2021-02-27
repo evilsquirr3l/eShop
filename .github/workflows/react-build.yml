@@ -10,6 +10,9 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
+      - name: Move to clientapp folder
+        run: cd eshop.api/clientapp
+
       - name: Install dependencies
         run: yarn
 
