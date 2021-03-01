@@ -36,10 +36,10 @@ Web application is currently under development by Team7.
 dotnet build
 dotnet run --project eShop.API
 ```
-3. Open your browser to: `https://localhost:5001/swagger`.
-4. In another terminal, navigate to the `eShop.API/clientapp` folder and run the following `npm` commands:
+5. Open your browser to: `https://localhost:5001/swagger`.
+6. In another terminal, navigate to the `eShop.API/clientapp` folder and run the following `npm` commands:
 ```sh
 npm install
 npm start
 ```
-5. The webpack dev server hosts the front-end and your browser will open to: `http://localhost:3000`
+7. The webpack dev server hosts the front-end and your browser will open to: `http://localhost:3000`
