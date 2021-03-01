@@ -7,6 +7,7 @@ Web application is currently under development by Team7.
 # Client (front-end)
 
 - [React](https://reactjs.org/docs/getting-started.html) with [Redux](https://redux.js.org/introduction/getting-started) and [TypeScript](https://www.typescriptlang.org/docs)
+- [Jest](https://jestjs.io/docs/ru/tutorial-react) for automated testing
 - [Material-UI](https://material-ui.com/)
 
 # Service (back-end)
@@ -15,6 +16,7 @@ Web application is currently under development by Team7.
 - [AutoMapper](https://github.com/AutoMapper/AutoMapper) handling Entity-to-DTO mapping
 - [FluentValidation](https://fluentvalidation.net/) for building strongly-typed validation rules
 - Unit and integration tests using [Moq](https://github.com/moq/moq4) and [nUnit](https://nunit.org/) with [FluentAssertions](https://fluentassertions.com/)
+- Authentication via [ASP NET Core Identity](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity?view=aspnetcore-5.0&tabs=visual-studio) 
 - [Swagger UI](https://github.com/swagger-api/swagger-ui)
 - [PostgreSQL](https://www.postgresql.org/) as object-relational database system
 
@@ -27,8 +29,9 @@ Web application is currently under development by Team7.
 # How to run locally
 
 1. [Download and install the .NET 5 SDK](https://dotnet.microsoft.com/download)
-2. Open a terminal such as **PowerShell**, **Command Prompt**, or **bash** and navigate to the root folder
-3. Run the following `dotnet` commands:
+2. [Download and install the Node.Js](https://nodejs.org/en/)
+3. Open a terminal such as **PowerShell**, **Command Prompt**, or **bash** and navigate to the root folder
+4. Run the following `dotnet` commands:
 ```sh
 dotnet build
 dotnet run --project eShop.API
