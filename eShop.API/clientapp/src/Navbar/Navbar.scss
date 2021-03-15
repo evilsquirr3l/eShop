@@ -1,0 +1,46 @@
+a {
+  color: #444;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  overflow: hidden;
+  padding: 0 2rem;
+}
+
+.navbar {
+  font-size: 1.2rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+}
+
+.navbar .container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 2rem;
+}
+
+.navbar .logo {
+  font-size: 2rem;
+}
+
+.navbar ul {
+  justify-self: flex-end;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar a {
+  padding: 0 1rem;
+}
+
+.navbar a:hover {
+  color: #555;
+}
