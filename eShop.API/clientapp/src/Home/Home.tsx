@@ -2,6 +2,7 @@ import Button from "@material-ui/core/Button";
 import React from "react";
 import About from "../About/About";
 import './Home.scss';
+import Feedback from "../Feedback/Feedback";
 
 const Home = () => {
     return (
@@ -32,6 +33,7 @@ const Home = () => {
                     </div>
                 </div>
             </section>
+            <Feedback />
             <About/>
         </div>
         
