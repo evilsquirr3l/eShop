@@ -1,0 +1,93 @@
+html{
+  font-family: 'Catamaran', sans-serif;
+  font-weight: 400;
+}
+
+.testimonials{
+  padding-top: 1.3em;
+  padding-bottom: 2.2em;
+  text-align: center;
+  color: #666;
+}
+
+.testimonials .test-body{
+  padding: 1em;
+}
+
+.testimonials .item{
+  text-align: center;
+  padding: 1em 0;
+}
+
+.testimonials img{
+  width: 7.2em;
+  height: 7.2em;
+  border-radius: 50%;
+}
+
+.testimonials .name{
+  color: blue;
+}
+
+.testimonials .design{
+  padding: 0.5em 0;
+  color: #777;
+}
+
+.testimonials .share{
+  margin: 0 auto;
+  width: 5em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.testimonials i{
+  color: #bfbfbf;
+  padding: 0.5em 0;
+  -webkit-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+.testimonials i:hover{color: blue;}
+
+.testimonials p{
+  max-width: 27em;
+  margin: 0 auto;
+  font-size: 1.2em;
+}
+
+.testimonials button{
+  font-size: 1em;
+  color: #333;
+  padding: 0.8em 2em;
+  border-radius: 2em;
+  cursor: pointer;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+@media (min-width: 38.4rem){
+  .testimonials{
+    font-size: 1.2em;
+  }
+  .testimonials .test-body{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+  .testimonials p{
+    text-align: left;
+    padding: 1em;
+  }
+}
+
