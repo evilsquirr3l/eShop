@@ -1,0 +1,20 @@
+.intro-section {
+  margin: 2rem 0;
+}
+
+.intro-section .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 3rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.intro-section h1 {
+  font-size: 4rem;
+  color: var(--primary-color);
+}
+
+.intro-section p {
+  margin: 1rem 0;
+}
