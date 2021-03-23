@@ -8,9 +8,9 @@ namespace Business.Abstraction
     {
         Task CreateAsync(CategoryDto categoryDto);
 
-        Task<IEnumerable<CategoryDto>> GetAllAsync();
-
         Task<CategoryDto> GetByIdAsync(int id);
+
+        Task<IEnumerable<CategoryDto>> GetAllAsync();
 
         Task UpdateAsync(CategoryDto categoryDto);
 
