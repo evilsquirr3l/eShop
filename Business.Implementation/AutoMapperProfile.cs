@@ -4,7 +4,7 @@ using Data.Entities;
 
 namespace Business.Implementation
 {
-    internal class AutoMapperProfile : Profile
+    public class AutoMapperProfile : Profile
     {
         public AutoMapperProfile()
         {
