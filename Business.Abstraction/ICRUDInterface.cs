@@ -4,7 +4,7 @@ using Business.Models;
 
 namespace Business.Abstraction
 {
-    public interface ICRUDInterface<T> where T: class
+    public interface ICrudInterface<T> where T: class
     {
         Task CreateAsync(T model);
         

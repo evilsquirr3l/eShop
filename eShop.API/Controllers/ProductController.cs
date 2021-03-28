@@ -12,9 +12,9 @@ namespace eShop.API.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly ICRUDInterface<ProductDto> _productService;
+        private readonly ICrudInterface<ProductDto> _productService;
 
-        public ProductController(ICRUDInterface<ProductDto> productService)
+        public ProductController(ICrudInterface<ProductDto> productService)
         {
             _productService = productService;
         }

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Business.Implementation.Services
 {
-    public class CartService : ICRUDInterface<CartDto>
+    public class CartService : ICrudInterface<CartDto>
     {
         private readonly ShopDbContext _dbContext;
         private readonly IMapper _mapper;
@@ -26,10 +26,10 @@ namespace Business.Implementation.Services
             _helper = helper;
         }
 
-        public async Task CreateAsync(CartDto cartDto)
+        public async Task CreateAsync(CartDto model)
         {
-            await _validator.ValidateAsync(cartDto);
-            await _dbContext.Carts.AddAsync(_mapper.Map<Cart>(cartDto));
+            await _validator.ValidateAsync(model);
+            await _dbContext.Carts.AddAsync(_mapper.Map<Cart>(model));
 
             await _dbContext.SaveChangesAsync();
         }
@@ -46,12 +46,12 @@ namespace Business.Implementation.Services
             return _mapper.Map<IEnumerable<CartDto>>(carts);
         }
 
-        public async Task UpdateAsync(int id, CartDto cartDto)
+        public async Task UpdateAsync(int id, CartDto model)
         {
             _helper.ThrowValidationExceptionIfModelIsNull(await _dbContext.Carts.FindAsync(id));
 
-            await _validator.ValidateAsync(cartDto);
-            _dbContext.Carts.Update(_mapper.Map<Cart>(cartDto));
+            await _validator.ValidateAsync(model);
+            _dbContext.Carts.Update(_mapper.Map<Cart>(model));
 
             await _dbContext.SaveChangesAsync();
         }

@@ -18,9 +18,9 @@ namespace Business.Implementation
 
             services.AddTransient(typeof(IServiceHelper<>), typeof(ServiceHelper<>));
 
-            services.AddTransient<ICRUDInterface<CartDto>, CartService>();
-            services.AddTransient<ICRUDInterface<CategoryDto>, CategoryService>();
-            services.AddTransient<ICRUDInterface<ProductDto>, ProductService>();
+            services.AddTransient<ICrudInterface<CartDto>, CartService>();
+            services.AddTransient<ICrudInterface<CategoryDto>, CategoryService>();
+            services.AddTransient<ICrudInterface<ProductDto>, ProductService>();
 
             services.AddTransient<AbstractValidator<CartDto>, CartValidation>();
             services.AddTransient<AbstractValidator<CategoryDto>, CategoryValidation>();

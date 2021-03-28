@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Business.Implementation.Services
 {
-    public class ProductService : ICRUDInterface<ProductDto>
+    public class ProductService : ICrudInterface<ProductDto>
     {
         private readonly ShopDbContext _dbContext;
         private readonly IMapper _mapper;
@@ -25,10 +25,10 @@ namespace Business.Implementation.Services
             _helper = helper;
         }
 
-        public async Task CreateAsync(ProductDto productDto)
+        public async Task CreateAsync(ProductDto model)
         {
-            await _validator.ValidateAsync(productDto);
-            await _dbContext.Products.AddAsync(_mapper.Map<Product>(productDto));
+            await _validator.ValidateAsync(model);
+            await _dbContext.Products.AddAsync(_mapper.Map<Product>(model));
             
             await _dbContext.SaveChangesAsync();
         }
@@ -45,12 +45,12 @@ namespace Business.Implementation.Services
             return _mapper.Map<IEnumerable<ProductDto>>(products);
         }
 
-        public async Task UpdateAsync(int id, ProductDto productDto)
+        public async Task UpdateAsync(int id, ProductDto model)
         {
             _helper.ThrowValidationExceptionIfModelIsNull(await _dbContext.Products.FindAsync(id));
-            await _validator.ValidateAsync(productDto);
+            await _validator.ValidateAsync(model);
             
-            _dbContext.Products.Update(_mapper.Map<Product>(productDto));
+            _dbContext.Products.Update(_mapper.Map<Product>(model));
             await _dbContext.SaveChangesAsync();
         }
 

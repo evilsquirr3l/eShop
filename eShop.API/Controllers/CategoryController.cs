@@ -12,9 +12,9 @@ namespace eShop.API.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        private readonly ICRUDInterface<CategoryDto> _categoryService;
+        private readonly ICrudInterface<CategoryDto> _categoryService;
 
-        public CategoryController(ICRUDInterface<CategoryDto> categoryService)
+        public CategoryController(ICrudInterface<CategoryDto> categoryService)
         {
             _categoryService = categoryService;
         }

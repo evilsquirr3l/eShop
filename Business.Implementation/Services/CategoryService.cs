@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Business.Implementation.Services
 {
-    public class CategoryService : ICRUDInterface<CategoryDto>
+    public class CategoryService : ICrudInterface<CategoryDto>
     {
         private readonly ShopDbContext _dbContext;
         private readonly IMapper _mapper;
@@ -25,10 +25,10 @@ namespace Business.Implementation.Services
             _helper = helper;
         }
 
-        public async Task CreateAsync(CategoryDto categoryDto)
+        public async Task CreateAsync(CategoryDto model)
         {
-            await _validator.ValidateAsync(categoryDto);
-            await _dbContext.Categories.AddAsync(_mapper.Map<Category>(categoryDto));
+            await _validator.ValidateAsync(model);
+            await _dbContext.Categories.AddAsync(_mapper.Map<Category>(model));
             
             await _dbContext.SaveChangesAsync();
         }
@@ -45,12 +45,12 @@ namespace Business.Implementation.Services
             return _mapper.Map<IEnumerable<CategoryDto>>(categories);
         }
 
-        public async Task UpdateAsync(int id, CategoryDto categoryDto)
+        public async Task UpdateAsync(int id, CategoryDto model)
         {
             _helper.ThrowValidationExceptionIfModelIsNull(await _dbContext.Categories.FindAsync(id));
 
-            await _validator.ValidateAsync(categoryDto);
-            _dbContext.Categories.Update(_mapper.Map<Category>(categoryDto));
+            await _validator.ValidateAsync(model);
+            _dbContext.Categories.Update(_mapper.Map<Category>(model));
             
             await _dbContext.SaveChangesAsync();
         }
