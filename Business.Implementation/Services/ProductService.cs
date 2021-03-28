@@ -10,17 +10,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Business.Implementation.Services
 {
-    public class ProductService : IProductService
+    public class ProductService : ICRUDInterface<ProductDto>
     {
         private readonly ShopDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly AbstractValidator<ProductDto> _validator;
+        private readonly IServiceHelper<Product> _helper;
 
-        public ProductService(IMapper mapper, ShopDbContext dbContext, AbstractValidator<ProductDto> validator)
+        public ProductService(IMapper mapper, ShopDbContext dbContext, AbstractValidator<ProductDto> validator, IServiceHelper<Product> helper)
         {
             _mapper = mapper;
             _dbContext = dbContext;
             _validator = validator;
+            _helper = helper;
         }
 
         public async Task CreateAsync(ProductDto productDto)
@@ -43,18 +45,21 @@ namespace Business.Implementation.Services
             return _mapper.Map<IEnumerable<ProductDto>>(products);
         }
 
-        public async Task UpdateAsync(ProductDto productDto)
+        public async Task UpdateAsync(int id, ProductDto productDto)
         {
+            _helper.ThrowValidationExceptionIfModelIsNull(await _dbContext.Products.FindAsync(id));
             await _validator.ValidateAsync(productDto);
-            _dbContext.Products.Update(_mapper.Map<Product>(productDto));
             
+            _dbContext.Products.Update(_mapper.Map<Product>(productDto));
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(ProductDto productDto)
+        public async Task DeleteByIdAsync(int id)
         {
-            _dbContext.Products.Remove(_mapper.Map<Product>(productDto));
-            
+            var product = await _dbContext.Products.FindAsync(id);
+            _helper.ThrowValidationExceptionIfModelIsNull(product);
+
+            _dbContext.Products.Remove(product);
             await _dbContext.SaveChangesAsync();
         }
     }

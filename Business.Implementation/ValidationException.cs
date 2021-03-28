@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 
 namespace Business.Implementation
 {
+    [Serializable]
     public class ValidationException : Exception
     {
         private const string DefaultMessage = "Validation exception has occured.";

@@ -12,12 +12,13 @@ namespace eShop.API.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly IProductService _productService;
+        private readonly ICRUDInterface<ProductDto> _productService;
 
-        public ProductController(IProductService service)
+        public ProductController(ICRUDInterface<ProductDto> productService)
         {
-            _productService = service;
+            _productService = productService;
         }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductDto>>> GetAll()
             => Ok(await _productService.GetAllAsync());
@@ -41,12 +42,12 @@ namespace eShop.API.Controllers
             return CreatedAtAction(nameof(Create), new { productDto.Id }, productDto);
         }
 
-        [HttpPut]
-        public async Task<ActionResult> Update(ProductDto productDto)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update(int id, ProductDto productDto)
         {
             try
             {
-                await _productService.UpdateAsync(productDto);
+                await _productService.UpdateAsync(id, productDto);
             }
             catch (Exception e)
             {
@@ -56,10 +57,10 @@ namespace eShop.API.Controllers
             return Ok();
         }
 
-        [HttpDelete]
-        public async Task<ActionResult> Delete(ProductDto productDto)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
         {
-            await _productService.DeleteAsync(productDto);
+            await _productService.DeleteByIdAsync(id);
 
             return Ok();
         }

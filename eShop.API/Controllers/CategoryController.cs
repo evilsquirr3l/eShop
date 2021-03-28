@@ -12,13 +12,13 @@ namespace eShop.API.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        private readonly ICategoryService _categoryService;
+        private readonly ICRUDInterface<CategoryDto> _categoryService;
 
-        public CategoryController(ICategoryService categoryService)
+        public CategoryController(ICRUDInterface<CategoryDto> categoryService)
         {
             _categoryService = categoryService;
         }
-        
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CategoryDto>>> GetAll() 
             => Ok(await _categoryService.GetAllAsync());
@@ -42,12 +42,12 @@ namespace eShop.API.Controllers
             return CreatedAtAction(nameof(Create), new {categoryDto.Id}, categoryDto);
         }
         
-        [HttpPut]
-        public async Task<ActionResult> Update(CategoryDto categoryDto)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update(int id, CategoryDto categoryDto)
         {
             try
             {
-                await _categoryService.UpdateAsync(categoryDto);
+                await _categoryService.UpdateAsync(id, categoryDto);
             }
             catch (Exception e)
             {
@@ -57,10 +57,10 @@ namespace eShop.API.Controllers
             return Ok();
         }
         
-        [HttpDelete]
-        public async Task<ActionResult> Delete(CategoryDto categoryDto)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
         {
-            await _categoryService.DeleteAsync(categoryDto);
+            await _categoryService.DeleteByIdAsync(id);
         
             return Ok();
         }
