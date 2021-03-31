@@ -15,10 +15,12 @@ namespace Business.Implementation
             var mapperConfig = new MapperConfiguration(c => c.AddProfile(new AutoMapperProfile()));
             var mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
-            
-            services.AddTransient<ICartService, CartService>();
-            services.AddTransient<ICategoryService, CategoryService>();
-            services.AddTransient<IProductService, ProductService>();
+
+            services.AddTransient(typeof(IServiceHelper<>), typeof(ServiceHelper<>));
+
+            services.AddTransient<ICrudInterface<CartDto>, CartService>();
+            services.AddTransient<ICrudInterface<CategoryDto>, CategoryService>();
+            services.AddTransient<ICrudInterface<ProductDto>, ProductService>();
 
             services.AddTransient<AbstractValidator<CartDto>, CartValidation>();
             services.AddTransient<AbstractValidator<CategoryDto>, CategoryValidation>();
