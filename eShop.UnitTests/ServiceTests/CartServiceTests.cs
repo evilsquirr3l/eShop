@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using AutoMapper;
+﻿using AutoMapper;
 using Business.Abstraction;
 using Business.Implementation;
 using Business.Implementation.Services;
@@ -9,20 +8,20 @@ using Data.Implementation;
 using FluentAssertions;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Moq;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace eShop.UnitTests.ServiceTests
 {
     public class CartServiceTests
     {
         private DbContextOptions<ShopDbContext> _options;
-        ShopDbContext _dbContext; 
-        IMapper _mapper;
+        private ShopDbContext _dbContext;
+        private IMapper _mapper;
         private AutoMapperProfile _profile;
-        Mock<AbstractValidator<CartDto>> _validator;
-        Mock<IServiceHelper<Cart>> _helper;
+        private Mock<AbstractValidator<CartDto>> _validator;
+        private Mock<IServiceHelper<Cart>> _helper;
         private CartService _service;
 
         [SetUp]
@@ -49,31 +48,31 @@ namespace eShop.UnitTests.ServiceTests
                     .UseInMemoryDatabase(databaseName: "ShopDb")
                     .Options;
             }
+
             [OneTimeSetUp]
             public void SetUp()
             {
                 using (var context = new ShopDbContext(_options))
                 {
-                    context.Carts.Add(new Cart { Id = 1, Products = new List<Product>(), TotalPrice = 0});
+                    context.Carts.Add(new Cart { Id = 1, Products = new List<Product>(), TotalPrice = 0 });
                     context.SaveChanges();
                 }
             }
-
         }
 
         [Test]
         public void GetByIdAsync_ReturnsCorrectType_WhenDbHasRequiredItem()
         {
-            var actual = _service.GetByIdAsync(1).Result;   
+            var actual = _service.GetByIdAsync(1).Result;
 
             Assert.IsInstanceOf<CartDto>(actual);
-
         }
+
         [Test]
         public void GetByIdAsync_ReturnsCorrectItem_WhenDbHasRequiredItem()
         {
             _service = new CartService(_mapper, _dbContext, _validator.Object, _helper.Object);
-            var expected = new CartDto{Id = 1,Products = new List<ProductDto>(),TotalPrice = 0};
+            var expected = new CartDto { Id = 1, Products = new List<ProductDto>(), TotalPrice = 0 };
 
             var actual = _service.GetByIdAsync(1).Result;
 
@@ -87,10 +86,7 @@ namespace eShop.UnitTests.ServiceTests
 
             var actual = _service.GetByIdAsync(0).Result;
 
-            Assert.AreEqual(null,actual);
-
+            Assert.AreEqual(null, actual);
         }
-       
     }
-
 }
