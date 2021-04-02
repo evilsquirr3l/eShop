@@ -25,7 +25,7 @@ namespace Business.Implementation.Services
             _helper = helper;
         }
 
-        public async Task CreateAsync(CartDto model)
+        public async Task AddAsync(CartDto model)
         {
             await _validator.ValidateAsync(model);
             await _dbContext.Carts.AddAsync(_mapper.Map<Cart>(model));
@@ -47,7 +47,7 @@ namespace Business.Implementation.Services
 
         public async Task UpdateAsync(int id, CartDto model)
         {
-            _helper.ThrowValidationExceptionIfModelIsNull(await _dbContext.Carts.FindAsync(id));
+            _helper.ThrowValidationExceptionIfModelIsNull(await _dbContext.Carts.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id));
 
             await _validator.ValidateAsync(model);
             _dbContext.Carts.Update(_mapper.Map<Cart>(model));

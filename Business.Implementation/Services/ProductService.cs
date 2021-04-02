@@ -25,7 +25,7 @@ namespace Business.Implementation.Services
             _helper = helper;
         }
 
-        public async Task CreateAsync(ProductDto model)
+        public async Task AddAsync(ProductDto model)
         {
             await _validator.ValidateAsync(model);
             await _dbContext.Products.AddAsync(_mapper.Map<Product>(model));

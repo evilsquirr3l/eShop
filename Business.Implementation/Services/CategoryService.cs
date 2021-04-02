@@ -25,7 +25,7 @@ namespace Business.Implementation.Services
             _helper = helper;
         }
 
-        public async Task CreateAsync(CategoryDto model)
+        public async Task AddAsync(CategoryDto model)
         {
             await _validator.ValidateAsync(model);
             await _dbContext.Categories.AddAsync(_mapper.Map<Category>(model));
