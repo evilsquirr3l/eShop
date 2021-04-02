@@ -11,7 +11,9 @@ using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using FluentValidation.Results;
 
 namespace eShop.UnitTests.ServiceTests
 {
@@ -28,6 +30,8 @@ namespace eShop.UnitTests.ServiceTests
         public void SetUp()
         {
             _validator = new Mock<AbstractValidator<CartDto>>();
+            _validator.Setup(validator => validator.ValidateAsync(It.IsAny<ValidationContext<CartDto>>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new ValidationResult());
             _context = new ShopDbContext(UnitTestsHelper.GetUnitTestDbOptions());
             _helper = new Mock<IServiceHelper<Cart>>();
             _mapper = UnitTestsHelper.CreateMapperProfile();
@@ -65,6 +69,7 @@ namespace eShop.UnitTests.ServiceTests
             await _service.AddAsync(new CartDto {Products = new List<ProductDto>(), TotalPrice = 1});
 
             _context.Carts.CountAsync().Result.Should().Be(numberOfItemsInDatabase + 1);
+            _validator.VerifyAll();
         }
 
         [Test]
@@ -87,6 +92,8 @@ namespace eShop.UnitTests.ServiceTests
             var cartAfterUpdate = await _context.Carts.AsNoTracking().FirstOrDefaultAsync(c => c.Id == 1);
             cartAfterUpdate.Id.Should().Be(cartBeforeUpdate.Id);
             cartAfterUpdate.TotalPrice.Should().NotBe(cartBeforeUpdate.TotalPrice);
+            
+            _validator.VerifyAll();
         }
     }
 }
