@@ -39,7 +39,6 @@ namespace eShop.API.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Update(int id, CategoryDto categoryDto)
         {
-            throw new Exception("Exception while fetching all the students from the storage.");
             await _categoryService.UpdateAsync(id, categoryDto);
                 return Ok();
         }
