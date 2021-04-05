@@ -47,15 +47,15 @@ namespace eShop.UnitTests.ServiceTests
         }
         
         [Test]
-        public async Task GetByIdAsync_ReturnsNotNullIfItemExists()
+        public async Task GetByIdAsync_ItemExists_ReturnsCartDto()
         {
             var actual = await _service.GetByIdAsync(1);
 
-            actual.Should().NotBeNull();
+            actual.Should().BeOfType<CartDto>();
         }
         
         [Test]
-        public async Task GetByIdAsync_ReturnsNullIfItemDoesntExist()
+        public async Task GetByIdAsync_ItemDoesntExist_ReturnsNull()
         {
             var actual = await _service.GetByIdAsync(1337);
 
@@ -92,7 +92,6 @@ namespace eShop.UnitTests.ServiceTests
             var cartAfterUpdate = await _context.Carts.AsNoTracking().FirstOrDefaultAsync(c => c.Id == 1);
             cartAfterUpdate.Id.Should().Be(cartBeforeUpdate.Id);
             cartAfterUpdate.TotalPrice.Should().NotBe(cartBeforeUpdate.TotalPrice);
-            
             _validator.VerifyAll();
         }
     }

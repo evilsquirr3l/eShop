@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace eShop.UnitTests
 {
-    internal class UnitTestsHelper
+    internal static class UnitTestsHelper
     {
         public static DbContextOptions<ShopDbContext> GetUnitTestDbOptions()
         {
@@ -16,14 +16,12 @@ namespace eShop.UnitTests
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
 
-            using (var context = new ShopDbContext(options))
-            {
-                SeedData(context);
-            }
+            using var context = new ShopDbContext(options);
+            SeedData(context);
             return options;
         }
         
-        public static void SeedData(ShopDbContext context)
+        private static void SeedData(ShopDbContext context)
         {
             context.Carts.Add(new Cart {Id = 1, Products = new List<Product>(), TotalPrice = 0});
             context.Carts.Add(new Cart {Id = 2, Products = new List<Product>(), TotalPrice = 1});
