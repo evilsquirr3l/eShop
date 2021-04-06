@@ -6,7 +6,7 @@ namespace Business.Abstraction
 {
     public interface ICrudInterface<T> where T: class
     {
-        Task CreateAsync(T model);
+        Task AddAsync(T model);
         
         Task<T> GetByIdAsync(int id);
         

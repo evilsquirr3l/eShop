@@ -28,18 +28,18 @@ namespace eShop.API.Controllers
             => Ok(await _productService.GetByIdAsync(id));
 
         [HttpPost]
-        public async Task<ActionResult> Create([FromBody] ProductDto productDto)
+        public async Task<ActionResult> Add([FromBody] ProductDto productDto)
         {
             try
             {
-                await _productService.CreateAsync(productDto);
+                await _productService.AddAsync(productDto);
             }
             catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
 
-            return CreatedAtAction(nameof(Create), new { productDto.Id }, productDto);
+            return CreatedAtAction(nameof(Add), new { productDto.Id }, productDto);
         }
 
         [HttpPut("{id}")]
