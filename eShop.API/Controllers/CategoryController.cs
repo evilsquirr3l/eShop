@@ -24,7 +24,7 @@ namespace eShop.API.Controllers
             => Ok(await _categoryService.GetAllAsync());
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<CategoryDto>>> GetById(int id)
+        public async Task<ActionResult<CategoryDto>> GetById(int id)
             => Ok(await _categoryService.GetByIdAsync(id));
         
         [HttpPost]
