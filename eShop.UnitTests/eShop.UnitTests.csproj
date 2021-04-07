@@ -22,6 +22,7 @@
     <ProjectReference Include="..\Business.Models\Business.Models.csproj" />
     <ProjectReference Include="..\Data.Entities\Data.Entities.csproj" />
     <ProjectReference Include="..\Data.Implementation\Data.Implementation.csproj" />
+    <ProjectReference Include="..\eShop.API\eShop.API.csproj" />
   </ItemGroup>
 
 </Project>
