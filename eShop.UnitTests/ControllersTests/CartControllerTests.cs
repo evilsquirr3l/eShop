@@ -15,14 +15,14 @@ namespace eShop.UnitTests.ControllersTests
     public class CartControllerTests
     {
         private Mock<ICrudInterface<CartDto>> _cartService;
-        private CartController _cartController;
+        private CartsController _cartsController;
 
         [SetUp]
         public void SetUp()
         {
             _cartService = new Mock<ICrudInterface<CartDto>>();
 
-            _cartController = new CartController(_cartService.Object);
+            _cartsController = new CartsController(_cartService.Object);
         }
         
         [Test]
@@ -30,7 +30,7 @@ namespace eShop.UnitTests.ControllersTests
         {
             _cartService.Setup(s => s.GetAllAsync()).ReturnsAsync(new List<CartDto>());
 
-            _cartController.GetAll().Result.Should().BeOfType<ActionResult<IEnumerable<CartDto>>>();
+            _cartsController.GetAll().Result.Should().BeOfType<ActionResult<IEnumerable<CartDto>>>();
         }
 
         [Test]
@@ -38,7 +38,7 @@ namespace eShop.UnitTests.ControllersTests
         {
             _cartService.Setup(s => s.GetByIdAsync(1)).ReturnsAsync(new CartDto {Id = 1});
 
-            _cartController.GetById(1).Result.Should().BeOfType<ActionResult<CartDto>>();
+            _cartsController.GetById(1).Result.Should().BeOfType<ActionResult<CartDto>>();
         }
 
         [Test]
@@ -46,7 +46,7 @@ namespace eShop.UnitTests.ControllersTests
         {
             _cartService.Setup(s => s.GetByIdAsync(999)).ThrowsAsync(new ValidationException());
 
-            await _cartController.Invoking(c => c.GetById(999)).Should().ThrowAsync<ValidationException>();
+            await _cartsController.Invoking(c => c.GetById(999)).Should().ThrowAsync<ValidationException>();
         }
 
         [Test]
@@ -55,7 +55,7 @@ namespace eShop.UnitTests.ControllersTests
             var cart = new CartDto {Id = 1};
             _cartService.Setup(s => s.UpdateAsync(1, cart));
 
-            var result = await _cartController.Update(1, cart);
+            var result = await _cartsController.Update(1, cart);
             
             _cartService.Verify(s => s.UpdateAsync(1, cart), Times.Once);
             result.Should().BeOfType<OkResult>();
@@ -67,7 +67,7 @@ namespace eShop.UnitTests.ControllersTests
             var cart = new CartDto {Id = 1, TotalPrice = -228};
             _cartService.Setup(s => s.UpdateAsync(1, cart)).ThrowsAsync(new ValidationException());
 
-            _cartController.Update(1, cart).Result.Should().BeOfType<BadRequestObjectResult>();
+            _cartsController.Update(1, cart).Result.Should().BeOfType<BadRequestObjectResult>();
         }
         
         [Test]
@@ -75,7 +75,7 @@ namespace eShop.UnitTests.ControllersTests
         {
             _cartService.Setup(s => s.DeleteByIdAsync(1));
 
-            var result = await _cartController.Delete(1);
+            var result = await _cartsController.Delete(1);
             
             _cartService.Verify(s => s.DeleteByIdAsync(1), Times.Once);
             result.Should().BeOfType<OkResult>();

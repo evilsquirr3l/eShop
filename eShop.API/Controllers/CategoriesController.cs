@@ -10,11 +10,11 @@ namespace eShop.API.Controllers
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoryController : ControllerBase
+    public class CategoriesController : ControllerBase
     {
         private readonly ICrudInterface<CategoryDto> _categoryService;
 
-        public CategoryController(ICrudInterface<CategoryDto> categoryService)
+        public CategoriesController(ICrudInterface<CategoryDto> categoryService)
         {
             _categoryService = categoryService;
         }
