@@ -30,31 +30,17 @@ namespace eShop.API.Controllers
         [HttpPost]
         public async Task<ActionResult> Add([FromBody] ProductDto productDto)
         {
-            try
-            {
+            
                 await _productService.AddAsync(productDto);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-
-            return CreatedAtAction(nameof(Add), new { productDto.Id }, productDto);
+                return CreatedAtAction(nameof(Add), new { productDto.Id }, productDto);
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult> Update(int id, ProductDto productDto)
         {
-            try
-            {
+          
                 await _productService.UpdateAsync(id, productDto);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-
-            return Ok();
+                return Ok();
         }
 
         [HttpDelete("{id}")]
