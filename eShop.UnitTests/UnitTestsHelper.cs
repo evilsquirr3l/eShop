@@ -25,7 +25,10 @@ namespace eShop.UnitTests
         {
             context.Carts.Add(new Cart {Id = 1, Products = new List<Product>(), TotalPrice = 0});
             context.Carts.Add(new Cart {Id = 2, Products = new List<Product>(), TotalPrice = 1});
-
+            context.Categories.Add(new Category { Id = 1, Products = new List<Product>(), Name="Pa" });
+            context.Categories.Add(new Category { Id = 2, Products = new List<Product>(), Name = "Pich" });
+            context.Products.Add(new Product { Id = 1,  Name = "Vi" });
+            context.Products.Add(new Product { Id = 2,  Name = "Ka" });
             context.SaveChanges();
         }
         
