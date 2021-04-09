@@ -42,7 +42,7 @@ namespace eShop.UnitTests.ControllersTests
         }
 
         [Test]
-        public async Task GetById_ItemDoesntExist_ThrowsValidationError()
+        public async Task GetById_ItemDoesNotExist_ThrowsValidationError()
         {
             _cartService.Setup(s => s.GetByIdAsync(999)).ThrowsAsync(new ValidationException());
 
