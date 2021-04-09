@@ -1,24 +1,21 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Business.Models;
-using Data.Implementation;
 using FluentAssertions;
-using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
-namespace eShop.IntegrationTests
+namespace eShop.IntegrationTests.EndpointTests
 {
     [TestFixture]
-    public class CartsIntegrationTests
+    public class CategoriesIntegrationTests
     {
         private HttpClient _client;
         private CustomWebApplicationFactory _factory;
-        private const string RequestUri = "api/carts/";
-        
+        private const string RequestUri = "api/categories/";
+
         [SetUp]
         public void Setup()
         {
@@ -27,28 +24,28 @@ namespace eShop.IntegrationTests
         }
 
         [Test]
-        public async Task CartsController_GetAll_ReturnsCarts()
+        public async Task CategoriesController_GetAll_ReturnsCategories()
         {
             var httpResponse = await _client.GetAsync(RequestUri);
 
             httpResponse.EnsureSuccessStatusCode();
             var stringResponse = await httpResponse.Content.ReadAsStringAsync();
-            var carts = JsonConvert.DeserializeObject<IEnumerable<CartDto>>(stringResponse);
+            var categories = JsonConvert.DeserializeObject<IEnumerable<CategoryDto>>(stringResponse);
 
-            carts.Count().Should().Be(2);
+            categories.Count().Should().Be(2);
         }
-        
+
         [Test]
-        public async Task CartsController_GetById_ReturnsCartDto()
+        public async Task CategoriesController_GetById_ReturnsCategoryDto()
         {
             var httpResponse = await _client.GetAsync(RequestUri + 1);
 
             httpResponse.EnsureSuccessStatusCode();
             var stringResponse = await httpResponse.Content.ReadAsStringAsync();
-            var cart = JsonConvert.DeserializeObject<CartDto>(stringResponse);
+            var categories = JsonConvert.DeserializeObject<CategoryDto>(stringResponse);
 
-            cart.Id.Should().Be(1);
-            cart.TotalPrice.Should().Be(1488);
+            categories.Id.Should().Be(1);
+            categories.Name.Should().Be("Pa");
         }
     }
 }
