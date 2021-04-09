@@ -45,15 +45,8 @@ namespace eShop.API.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Update(int id, CartDto cartDto)
         {
-            try
-            {
-                await _cartService.UpdateAsync(id, cartDto);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        
+            await _cartService.UpdateAsync(id, cartDto);
+            
             return Ok();
         }
         

@@ -20,34 +20,34 @@ namespace eShop.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CategoryDto>>> GetAll() 
+        public async Task<ActionResult<IEnumerable<CategoryDto>>> GetAll()
             => Ok(await _categoryService.GetAllAsync());
 
         [HttpGet("{id}")]
         public async Task<ActionResult<CategoryDto>> GetById(int id)
             => Ok(await _categoryService.GetByIdAsync(id));
-        
+
         [HttpPost]
         public async Task<ActionResult> Add([FromBody] CategoryDto categoryDto)
         {
-            
             await _categoryService.AddAsync(categoryDto);
+            
             return CreatedAtAction(nameof(Add), new {categoryDto.Id}, categoryDto);
         }
-        
+
         [HttpPut("{id}")]
         public async Task<ActionResult> Update(int id, CategoryDto categoryDto)
         {
-          
-                await _categoryService.UpdateAsync(id, categoryDto);
-                return Ok();
+            await _categoryService.UpdateAsync(id, categoryDto);
+            
+            return Ok();
         }
-        
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
             await _categoryService.DeleteByIdAsync(id);
-        
+
             return Ok();
         }
     }
