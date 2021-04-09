@@ -62,12 +62,12 @@ namespace eShop.UnitTests.ControllersTests
         }
         
         [Test]
-        public void Update_ServiceThrowsValidationError_ReturnsBadRequestObjectResult()
+        public void Update_ServiceThrowsValidationError_ThrowsException()
         {
             var cart = new CartDto {Id = 1, TotalPrice = -228};
             _cartService.Setup(s => s.UpdateAsync(1, cart)).ThrowsAsync(new ValidationException());
-
-            _cartsController.Update(1, cart).Result.Should().BeOfType<BadRequestObjectResult>();
+            
+            _cartsController.Invoking(c => c.Update(1, cart)).Should().ThrowAsync<ValidationException>();
         }
         
         [Test]

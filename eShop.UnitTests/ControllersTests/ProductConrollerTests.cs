@@ -67,7 +67,7 @@ namespace eShop.UnitTests.ControllersTests
             var product = new ProductDto{ Id = 1, Name = "" };
             _productService.Setup(s => s.UpdateAsync(1, product)).ThrowsAsync(new ValidationException());
 
-            _productsController.Update(1, product).Result.Should().BeOfType<BadRequestObjectResult>();
+            _productsController.Invoking(c => c.Update(1, product)).Should().ThrowAsync<ValidationException>();
         }
 
         [Test]

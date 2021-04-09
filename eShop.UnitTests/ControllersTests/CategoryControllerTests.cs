@@ -67,7 +67,7 @@ namespace eShop.UnitTests.ControllersTests
             var category = new CategoryDto { Id = 1, Name = "" };
             _categoryService.Setup(s => s.UpdateAsync(1, category)).ThrowsAsync(new ValidationException());
 
-            _categoryController.Update(1, category).Result.Should().BeOfType<BadRequestObjectResult>();
+            _categoryController.Invoking(c => c.Update(1, category)).Should().ThrowAsync<ValidationException>();
         }
 
         [Test]
