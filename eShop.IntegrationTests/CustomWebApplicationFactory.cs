@@ -17,7 +17,7 @@ namespace eShop.IntegrationTests
         {
             builder.ConfigureServices(services =>
             {
-                RemoveLibraryDbContextRegistration(services);
+                RemoveShopDbContextRegistration(services);
 
                 var serviceProvider = GetInMemoryServiceProvider();
 
@@ -53,7 +53,7 @@ namespace eShop.IntegrationTests
                 .BuildServiceProvider();
         }
 
-        private static void RemoveLibraryDbContextRegistration(IServiceCollection services)
+        private static void RemoveShopDbContextRegistration(IServiceCollection services)
         {
             var descriptor = services.SingleOrDefault(
                 d => d.ServiceType ==
