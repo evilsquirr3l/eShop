@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Data.Entities;
 using Data.Implementation;
@@ -37,6 +38,10 @@ namespace eShop.IntegrationTests
         {
             context.Carts.AddAsync(new Cart { Id = 1, TotalPrice = 1488});
             context.Carts.AddAsync(new Cart { Id = 2, TotalPrice = 1337});
+            context.Categories.Add(new Category { Id = 1, Products = new List<Product>(), Name = "Pa" });
+            context.Categories.Add(new Category { Id = 2, Products = new List<Product>(), Name = "Pich" });
+            context.Products.Add(new Product { Id = 1, Name = "Vi" });
+            context.Products.Add(new Product { Id = 2, Name = "Ka" });
 
             context.SaveChanges();
         }
