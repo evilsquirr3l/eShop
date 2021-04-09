@@ -1,5 +1,6 @@
 using Business.Implementation;
 using Data.Implementation;
+using eShop.API.Extensions.ExceptionHandling;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -41,10 +42,9 @@ namespace eShop.API
             }
             else
             {
-                app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
-
+            app.ConfigureExceptionHandler();
             app.UseSwagger();
             
             app.UseSwaggerUI(c =>
