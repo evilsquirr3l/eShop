@@ -26,7 +26,7 @@ namespace eShop.UnitTests.ControllersTests
         }
 
         [Test]
-        public async Task GetAll_ReturnsElementsAsJson()
+        public void GetAll_ReturnsElementsAsJson()
         {
             _categoryService.Setup(s => s.GetAllAsync()).ReturnsAsync(new List<CategoryDto>());
 
@@ -34,7 +34,7 @@ namespace eShop.UnitTests.ControllersTests
         }
 
         [Test]
-        public async Task GetById_CategoryWithId1Exists_ReturnsProduct()
+        public void GetById_CategoryWithId1Exists_ReturnsProduct()
         {
             _categoryService.Setup(s => s.GetByIdAsync(1)).ReturnsAsync(new CategoryDto { Id = 1 });
 
@@ -62,7 +62,7 @@ namespace eShop.UnitTests.ControllersTests
         }
 
         [Test]
-        public async Task Update_ServiceThrowsValidationError_ReturnsBadRequestObjectResult()
+        public void Update_ServiceThrowsValidationError_ReturnsBadRequestObjectResult()
         {
             var category = new CategoryDto { Id = 1, Name = "" };
             _categoryService.Setup(s => s.UpdateAsync(1, category)).ThrowsAsync(new ValidationException());

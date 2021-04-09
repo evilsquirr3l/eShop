@@ -26,7 +26,7 @@ namespace eShop.UnitTests.ControllersTests
         }
 
         [Test]
-        public async Task GetAll_ReturnsElementsAsJson()
+        public void GetAll_ReturnsElementsAsJson()
         {
             _productService.Setup(s => s.GetAllAsync()).ReturnsAsync(new List<ProductDto>());
 
@@ -34,7 +34,7 @@ namespace eShop.UnitTests.ControllersTests
         }
 
         [Test]
-        public async Task GetById_ProductWithId1Exists_ReturnsProduct()
+        public void GetById_ProductWithId1Exists_ReturnsProduct()
         {
             _productService.Setup(s => s.GetByIdAsync(1)).ReturnsAsync(new ProductDto { Id = 1 });
 
@@ -62,7 +62,7 @@ namespace eShop.UnitTests.ControllersTests
         }
 
         [Test]
-        public async Task Update_ServiceThrowsValidationError_ReturnsBadRequestObjectResult()
+        public void Update_ServiceThrowsValidationError_ReturnsBadRequestObjectResult()
         {
             var product = new ProductDto{ Id = 1, Name = "" };
             _productService.Setup(s => s.UpdateAsync(1, product)).ThrowsAsync(new ValidationException());

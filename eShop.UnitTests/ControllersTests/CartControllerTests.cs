@@ -26,7 +26,7 @@ namespace eShop.UnitTests.ControllersTests
         }
         
         [Test]
-        public async Task GetAll_ReturnsElementsAsJson()
+        public void GetAll_ReturnsElementsAsJson()
         {
             _cartService.Setup(s => s.GetAllAsync()).ReturnsAsync(new List<CartDto>());
 
@@ -34,7 +34,7 @@ namespace eShop.UnitTests.ControllersTests
         }
 
         [Test]
-        public async Task GetById_CartWithId1Exists_ReturnsCart()
+        public void GetById_CartWithId1Exists_ReturnsCart()
         {
             _cartService.Setup(s => s.GetByIdAsync(1)).ReturnsAsync(new CartDto {Id = 1});
 
@@ -62,7 +62,7 @@ namespace eShop.UnitTests.ControllersTests
         }
         
         [Test]
-        public async Task Update_ServiceThrowsValidationError_ReturnsBadRequestObjectResult()
+        public void Update_ServiceThrowsValidationError_ReturnsBadRequestObjectResult()
         {
             var cart = new CartDto {Id = 1, TotalPrice = -228};
             _cartService.Setup(s => s.UpdateAsync(1, cart)).ThrowsAsync(new ValidationException());
