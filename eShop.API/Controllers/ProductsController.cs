@@ -10,11 +10,11 @@ namespace eShop.API.Controllers
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class ProductsController : ControllerBase
     {
         private readonly ICrudInterface<ProductDto> _productService;
 
-        public ProductController(ICrudInterface<ProductDto> productService)
+        public ProductsController(ICrudInterface<ProductDto> productService)
         {
             _productService = productService;
         }
@@ -24,23 +24,22 @@ namespace eShop.API.Controllers
             => Ok(await _productService.GetAllAsync());
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> GetById(int id)
+        public async Task<ActionResult<ProductDto>> GetById(int id)
             => Ok(await _productService.GetByIdAsync(id));
 
         [HttpPost]
         public async Task<ActionResult> Add([FromBody] ProductDto productDto)
         {
-            
-                await _productService.AddAsync(productDto);
-                return CreatedAtAction(nameof(Add), new { productDto.Id }, productDto);
+            await _productService.AddAsync(productDto);
+            return CreatedAtAction(nameof(Add), new {productDto.Id}, productDto);
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult> Update(int id, ProductDto productDto)
         {
-          
-                await _productService.UpdateAsync(id, productDto);
-                return Ok();
+            await _productService.UpdateAsync(id, productDto);
+            
+            return Ok();
         }
 
         [HttpDelete("{id}")]

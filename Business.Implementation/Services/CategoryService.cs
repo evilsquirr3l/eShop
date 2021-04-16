@@ -47,11 +47,11 @@ namespace Business.Implementation.Services
 
         public async Task UpdateAsync(int id, CategoryDto model)
         {
-            _helper.ThrowValidationExceptionIfModelIsNull(await _dbContext.Categories.FindAsync(id));
+            _helper.ThrowValidationExceptionIfModelIsNull(await _dbContext.Categories.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id));
 
             await _validator.ValidateAsync(model);
             _dbContext.Categories.Update(_mapper.Map<Category>(model));
-            
+
             await _dbContext.SaveChangesAsync();
         }
 
