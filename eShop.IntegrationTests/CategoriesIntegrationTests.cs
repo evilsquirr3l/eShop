@@ -86,14 +86,28 @@ namespace eShop.IntegrationTests
             category.Id.Should().Be(3);
             category.Name.Should().Be("newCategory");
         }
+
+
+        // Maybe just checking for the SuccessStatusCode will suffice?
+        // Same with the other Create / Delete methods.
         [Test]
         public async Task CategoriesController_Delete_DeletesCategory()
         {
-            var httpResponse = await _client.DeleteAsync(RequestUri + 3);
+            var actualRequestBeforeDelete = await _client.GetAsync(RequestUri);
+            actualRequestBeforeDelete.EnsureSuccessStatusCode();
+            var stringBeforeDeleteResponse = await actualRequestBeforeDelete.Content.ReadAsStringAsync();
+            var categoriesBeforeDelete = JsonConvert.DeserializeObject<IEnumerable<CategoryDto>>(stringBeforeDeleteResponse);
 
+            
+            var httpResponse = await _client.DeleteAsync(RequestUri + 1);
+
+            var actualRequestAfterDelete = await _client.GetAsync(RequestUri);
+            actualRequestAfterDelete.EnsureSuccessStatusCode();
+            var stringAfterDeleteResponse = await actualRequestAfterDelete.Content.ReadAsStringAsync();
+            var categoriesAfterDelete = JsonConvert.DeserializeObject<IEnumerable<CategoryDto>>(stringAfterDeleteResponse);
            
-
             httpResponse.EnsureSuccessStatusCode();
+            categoriesAfterDelete.Count().Should().Be(categoriesBeforeDelete.Count() - 1);
             ;
         }
     }
