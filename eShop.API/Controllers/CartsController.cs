@@ -30,14 +30,7 @@ namespace eShop.API.Controllers
         [HttpPost]
         public async Task<ActionResult> Add([FromBody] CartDto cartDto)
         {
-            try
-            {
-                await _cartService.AddAsync(cartDto);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+            await _cartService.AddAsync(cartDto);
         
             return CreatedAtAction(nameof(Add), new {cartDto.Id}, cartDto);
         }
