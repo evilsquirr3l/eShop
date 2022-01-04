@@ -1,9 +1,0 @@
-language: csharp
-mono: none
-dist: xenial
-dotnet: 5.0.102
-install:
-  - dotnet restore
-script:
-  - dotnet build
-  - dotnet test
