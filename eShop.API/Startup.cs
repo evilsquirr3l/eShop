@@ -28,8 +28,6 @@ namespace eShop.API
             services.RegisterBusinessServices();
 
             services.AddControllers().AddFluentValidation();
-            
-            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "clientapp/build"; });
 
             services.AddSwaggerGen();
         }
@@ -64,13 +62,6 @@ namespace eShop.API
                 endpoints.MapControllerRoute(
                     "default",
                     "{controller}/{action=Index}/{id?}");
-            });
-
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "clientapp";
-
-                if (env.IsDevelopment()) spa.UseReactDevelopmentServer(npmScript: "start");
             });
         }
     }
