@@ -1,6 +1,6 @@
 namespace Database.Entities;
 
-public class OrderItems
+public class OrderItems : BaseEntity
 {
     public OrderDetails OrderDetails { get; set; }
 

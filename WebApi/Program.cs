@@ -1,8 +1,14 @@
+using Database;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContextPool<EShopDbContext>(opt =>
+    opt.UseNpgsql(builder.Configuration.GetConnectionString("eShop")));
 
 var app = builder.Build();
 
