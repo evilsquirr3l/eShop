@@ -6,6 +6,8 @@ public class Product : BaseEntity
 
     public string Description { get; set; }
 
+    public string PictureUrl { get; set; }
+
     public int Quantity { get; set; }
 
     public Category Category { get; set; }
