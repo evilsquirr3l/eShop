@@ -10,4 +10,8 @@
       <ProjectReference Include="..\Database\Database.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="11.0.0" />
+    </ItemGroup>
+
 </Project>

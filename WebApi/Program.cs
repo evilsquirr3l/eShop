@@ -1,3 +1,5 @@
+using AutoMapper;
+using Business;
 using Database;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +11,9 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContextPool<EShopDbContext>(opt =>
     opt.UseNpgsql(builder.Configuration.GetConnectionString("eShop")));
+
+var mapperConfig = new MapperConfiguration(c => c.AddProfile(new AutomapperProfile()));
+builder.Services.AddSingleton(mapperConfig.CreateMapper());
 
 var app = builder.Build();
 
