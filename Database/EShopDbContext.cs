@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Database;
 
-public class EShopDbContext : DbContext
+public sealed class EShopDbContext : DbContext
 {
     public EShopDbContext(DbContextOptions<EShopDbContext> options) : base(options)
     {
-        
+        Database.EnsureCreated();
     }
 
     public DbSet<User> Users { get; set; }
