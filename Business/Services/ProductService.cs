@@ -2,6 +2,7 @@ using AutoMapper;
 using Business.Interfaces;
 using Business.Records;
 using Database;
+using Database.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Business.Services;
@@ -32,9 +33,12 @@ public class ProductService : IProductService
         throw new NotImplementedException();
     }
 
-    public Task CreateProduct(ProductRecord productRecord)
+    public async Task CreateProduct(ProductRecord productRecord)
     {
-        throw new NotImplementedException();
+        var product = _mapper.Map<Product>(productRecord);
+
+        await _dbContext.Products.AddAsync(product);
+        await _dbContext.SaveChangesAsync();
     }
 
     public Task UpdateProductAsync(int id, ProductRecord productRecord)

@@ -11,7 +11,7 @@ internal static class UnitTestsHelper
     public static DbContextOptions<EShopDbContext> GetUnitTestDbOptions()
     {
         var options = new DbContextOptionsBuilder<EShopDbContext>()
-            .UseInMemoryDatabase("inmemory")
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
             .Options;
 
         return options;

@@ -45,4 +45,23 @@ public class ProductServiceTests
         result.Category.Id.Should().Be(categoryId);
         result.Category.Name.Should().Be(categoryName);
     }
+
+    [TestCase("testProduct", 100, 1, "test.com", 1, "description")]
+    public async Task CreateProduct_WithValidValues_CreatesProduct(string name, decimal price, int quantity, string pictureUrl, int categoryId, string description)
+    {
+        var product = new ProductRecord
+        {
+            CategoryId = categoryId, Description = description, Name = name, Price = price, Quantity = quantity, PictureUrl = pictureUrl
+        };
+
+        await _productService.CreateProduct(product);
+
+        var productEntity = await _dbContext.Products.FindAsync(1);
+        productEntity.Should().NotBeNull();
+        productEntity.Name.Should().Be(name);
+        productEntity.Price.Should().Be(price);
+        productEntity.Quantity.Should().Be(quantity);
+        productEntity.PictureUrl.Should().Be(pictureUrl);
+        productEntity.Description.Should().Be(description);
+    }
 }
