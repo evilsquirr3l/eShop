@@ -2,6 +2,7 @@ using AutoMapper;
 using Business.Interfaces;
 using Business.Records;
 using Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace Business.Services;
 
@@ -18,7 +19,9 @@ public class ProductService : IProductService
 
     public async Task<ProductRecord> GetProductAsync(int id)
     {
-        var product = await _dbContext.Products.FindAsync(id);
+        var product = await _dbContext.Products
+            .Include(x => x.Category)
+            .FirstOrDefaultAsync(x => x.Id == id);
         var productRecord = _mapper.Map<ProductRecord>(product);
         
         return productRecord;

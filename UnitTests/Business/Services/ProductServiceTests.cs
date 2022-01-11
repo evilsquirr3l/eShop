@@ -30,12 +30,11 @@ public class ProductServiceTests
         _productService = new ProductService(_dbContext, mapper);
     }
     
-    [Test]
-    public async Task GetProduct_WithId1_ReturnsProductRecordWithId1()
+    [TestCase(1, "testProduct", 1, "testCategory")]
+    public async Task GetProduct_WithId1_ReturnsCorrectProductWithDetails(int productId, string productName, int categoryId, string categoryName)
     {
-        var productId = 1;
-        var productName = "product1";
-        await _dbContext.Products.AddAsync(new Product {Id = productId, Name = productName, Description = "test", PictureUrl = "test.com"});
+        var category = new Category {Id = categoryId, Name = categoryName, Description = "test"};
+        await _dbContext.Products.AddAsync(new Product {Id = productId, Name = productName, Description = "test", PictureUrl = "test.com", Category = category});
         await _dbContext.SaveChangesAsync();
         
         var result = await _productService.GetProductAsync(productId);
@@ -43,5 +42,7 @@ public class ProductServiceTests
         result.Should().BeOfType<ProductRecord>();
         result.Id.Should().Be(productId);
         result.Name.Should().Be(productName);
+        result.Category.Id.Should().Be(categoryId);
+        result.Category.Name.Should().Be(categoryName);
     }
 }
