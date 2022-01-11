@@ -2,7 +2,9 @@ namespace Database.Entities;
 
 public class PaymentDetails : BaseEntity
 {
-    public int OrderId { get; set; }
+    public int OrderDetailsId { get; set; }
+
+    public virtual OrderDetails OrderDetails { get; set; }
 
     public int Amount { get; set; }
 

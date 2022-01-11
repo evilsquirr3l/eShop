@@ -9,8 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContextPool<EShopDbContext>(opt =>
-    opt.UseNpgsql(builder.Configuration.GetConnectionString("eShop")));
+builder.Services.AddDbContextPool<EShopDbContext>(dbContextOptionsBuilder =>
+    dbContextOptionsBuilder
+        .UseLazyLoadingProxies()
+        .UseNpgsql(builder.Configuration.GetConnectionString("eShop")));
 
 var mapperConfig = new MapperConfiguration(c => c.AddProfile(new AutomapperProfile()));
 builder.Services.AddSingleton(mapperConfig.CreateMapper());

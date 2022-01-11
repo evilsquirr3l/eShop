@@ -2,11 +2,11 @@ namespace Database.Entities;
 
 public class OrderItems : BaseEntity
 {
-    public OrderDetails OrderDetails { get; set; }
+    public virtual OrderDetails OrderDetails { get; set; }
 
-    public int OrderId { get; set; }
+    public int OrderDetailsId { get; set; }
 
-    public Product Product { get; set; }
+    public virtual Product Product { get; set; }
 
     public int ProductId { get; set; }
 

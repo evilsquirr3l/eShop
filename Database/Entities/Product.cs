@@ -10,13 +10,13 @@ public class Product : BaseEntity
 
     public int Quantity { get; set; }
 
-    public Category Category { get; set; }
+    public virtual Category Category { get; set; }
 
     public int CategoryId { get; set; }
 
     public decimal Price { get; set; }
 
-    public Discount Discount { get; set; }
+    public virtual Discount Discount { get; set; }
 
     public int DiscountId { get; set; }
 }
