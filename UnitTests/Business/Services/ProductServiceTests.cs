@@ -34,7 +34,7 @@ public class ProductServiceTests
     public async Task GetProduct_WithId1_ReturnsCorrectProductWithDetails(int productId, string productName, int categoryId, string categoryName)
     {
         var category = new Category {Id = categoryId, Name = categoryName, Description = "test"};
-        await _dbContext.Products.AddAsync(new Product {Id = productId, Name = productName, Description = "test", PictureUrl = "test.com", Category = category});
+        await _dbContext.Products.AddAsync(new Product {Id = productId, Name = productName, Description = "test", Category = category});
         await _dbContext.SaveChangesAsync();
         
         var result = await _productService.GetProductAsync(productId);
@@ -46,12 +46,12 @@ public class ProductServiceTests
         result.Category.Name.Should().Be(categoryName);
     }
 
-    [TestCase("testProduct", 100, 1, "test.com", 1, "description")]
-    public async Task CreateProduct_WithValidValues_CreatesProduct(string name, decimal price, int quantity, string pictureUrl, int categoryId, string description)
+    [TestCase("testProduct", 100, 1, 1, "description")]
+    public async Task CreateProduct_WithValidValues_CreatesProduct(string name, decimal price, int quantity, int categoryId, string description)
     {
         var product = new ProductRecord
         {
-            CategoryId = categoryId, Description = description, Name = name, Price = price, Quantity = quantity, PictureUrl = pictureUrl
+            CategoryId = categoryId, Description = description, Name = name, Price = price, Quantity = quantity,
         };
 
         await _productService.CreateProduct(product);
@@ -61,7 +61,6 @@ public class ProductServiceTests
         productEntity.Name.Should().Be(name);
         productEntity.Price.Should().Be(price);
         productEntity.Quantity.Should().Be(quantity);
-        productEntity.PictureUrl.Should().Be(pictureUrl);
         productEntity.Description.Should().Be(description);
     }
 }
