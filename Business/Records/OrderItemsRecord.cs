@@ -2,11 +2,11 @@ namespace Business.Records;
 
 public record OrderItemsRecord : BaseRecord
 {
-    public OrderDetailsRecord OrderDetailsRecord { get; set; }
+    public OrderDetailsRecord OrderDetails { get; set; }
 
     public int OrderDetailsId { get; set; }
 
-    public ProductRecord ProductRecord { get; set; }
+    public ProductRecord Product { get; set; }
 
     public int ProductId { get; set; }
 

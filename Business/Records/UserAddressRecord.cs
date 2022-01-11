@@ -2,7 +2,7 @@ namespace Business.Records;
 
 public record UserAddressRecord : BaseRecord
 {
-    public UserRecord UserRecord { get; set; }
+    public UserRecord User { get; set; }
 
     public int UserId { get; set; }
 

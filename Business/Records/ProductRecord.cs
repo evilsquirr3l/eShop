@@ -10,13 +10,13 @@ public record ProductRecord : BaseRecord
 
     public int Quantity { get; set; }
 
-    public CategoryRecord CategoryRecord { get; set; }
+    public CategoryRecord Category { get; set; }
 
     public int CategoryId { get; set; }
 
     public decimal Price { get; set; }
 
-    public DiscountRecord DiscountRecord { get; set; }
+    public DiscountRecord Discount { get; set; }
 
     public int DiscountId { get; set; }
 }
