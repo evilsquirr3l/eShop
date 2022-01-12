@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -7,9 +8,11 @@ using Business.Services;
 using Database;
 using Database.Entities;
 using FluentAssertions;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using NUnit.Framework;
+using ValidationException = System.ComponentModel.DataAnnotations.ValidationException;
 
 namespace UnitTests.Business.Services;
 
@@ -18,6 +21,7 @@ public class ProductServiceTests
 {
     private ProductService _productService;
     private EShopDbContext _dbContext;
+    private Mock<IValidator<ProductRecord>> _validator;
 
     [SetUp]
     public void SetUp()
@@ -27,7 +31,8 @@ public class ProductServiceTests
         var mapper = new Mapper(configuration);
         
         _dbContext = new EShopDbContext(UnitTestsHelper.GetUnitTestDbOptions());
-        _productService = new ProductService(_dbContext, mapper);
+        _validator = new Mock<IValidator<ProductRecord>>();
+        _productService = new ProductService(_dbContext, mapper, _validator.Object);
     }
     
     [TestCase(1, "testProduct", 1, "testCategory")]
@@ -62,5 +67,15 @@ public class ProductServiceTests
         productEntity.Price.Should().Be(price);
         productEntity.Quantity.Should().Be(quantity);
         productEntity.Description.Should().Be(description);
+    }
+
+    [Test]
+    public async Task CreateProduct_WithInvalidValues_ExecutesValidator()
+    {
+        var product = new ProductRecord() {Name = string.Empty, Description = string.Empty};
+
+        await _productService.CreateProduct(product);
+        
+        _validator.Verify(x => x.ValidateAsync(product, CancellationToken.None), Times.Once);
     }
 }

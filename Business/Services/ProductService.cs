@@ -1,8 +1,11 @@
+using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using Business.Interfaces;
 using Business.Records;
+using Business.Validators;
 using Database;
 using Database.Entities;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
 namespace Business.Services;
@@ -11,11 +14,13 @@ public class ProductService : IProductService
 {
     private readonly EShopDbContext _dbContext;
     private readonly IMapper _mapper;
+    private readonly IValidator<ProductRecord> _validator;
 
-    public ProductService(EShopDbContext dbContext, IMapper mapper)
+    public ProductService(EShopDbContext dbContext, IMapper mapper, IValidator<ProductRecord> validator)
     {
         _dbContext = dbContext;
         _mapper = mapper;
+        _validator = validator;
     }
 
     public async Task<ProductRecord> GetProductAsync(int id)
@@ -35,6 +40,7 @@ public class ProductService : IProductService
 
     public async Task CreateProduct(ProductRecord productRecord)
     {
+        await _validator.ValidateAsync(productRecord);
         var product = _mapper.Map<Product>(productRecord);
 
         await _dbContext.Products.AddAsync(product);

@@ -1,13 +1,17 @@
+using System.Reflection;
 using AutoMapper;
 using Business;
 using Database;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllersWithViews();
+builder.Services
+    .AddControllersWithViews()
+    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(Assembly.Load("Business")));
 
 builder.Services.AddDbContextPool<EShopDbContext>(dbContextOptionsBuilder =>
     dbContextOptionsBuilder
