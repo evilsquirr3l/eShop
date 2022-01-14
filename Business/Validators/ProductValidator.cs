@@ -27,7 +27,7 @@ public class ProductValidator : AbstractValidator<ProductRecord>
             var categoryExists =
                 await _dbContext.Categories.AnyAsync(x => x.Id == categoryId, cancellationToken: cancellation);
 
-            return !categoryExists;
+            return categoryExists;
         }).WithMessage("Invalid category id!");
     }
 }
