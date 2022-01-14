@@ -1,6 +1,6 @@
 using AutoMapper;
 using Business.Records;
-using Database.Entities;
+using Data.Entities;
 
 namespace Business;
 

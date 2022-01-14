@@ -1,4 +1,4 @@
-namespace Database.Entities;
+namespace Data.Entities;
 
 public class Discount : BaseEntity
 {

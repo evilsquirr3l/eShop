@@ -1,4 +1,6 @@
-namespace Database.Entities;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Data.Entities;
 
 public class Product : BaseEntity
 {
@@ -14,6 +16,7 @@ public class Product : BaseEntity
 
     public int CategoryId { get; set; }
 
+    [Column(TypeName = "decimal(7, 2)")]
     public decimal Price { get; set; }
 
     public virtual Discount Discount { get; set; }

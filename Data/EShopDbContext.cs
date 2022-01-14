@@ -1,7 +1,7 @@
-using Database.Entities;
+using Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Database;
+namespace Data;
 
 public sealed class EShopDbContext : DbContext
 {

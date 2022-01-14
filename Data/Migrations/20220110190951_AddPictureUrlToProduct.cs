@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Database.Migrations
+namespace Data.Migrations
 {
     public partial class AddPictureUrlToProduct : Migration
     {

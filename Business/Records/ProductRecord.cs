@@ -1,5 +1,4 @@
-using System.ComponentModel.DataAnnotations;
-using Database.Entities;
+using Data.Entities;
 
 namespace Business.Records;
 

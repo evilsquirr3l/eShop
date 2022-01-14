@@ -1,10 +1,8 @@
-using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using Business.Interfaces;
 using Business.Records;
-using Business.Validators;
-using Database;
-using Database.Entities;
+using Data;
+using Data.Entities;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,7 +1,7 @@
 using System.Reflection;
 using AutoMapper;
 using Business;
-using Database;
+using Data;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
