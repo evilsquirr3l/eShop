@@ -8,7 +8,7 @@ public interface IProductService
 
     public Task<IEnumerable<ProductRecord>> GetProductsListAsync();
 
-    public Task CreateProduct(ProductRecord productRecord);
+    public Task CreateProductAsync(ProductRecord productRecord);
 
     public Task UpdateProductAsync(int id, ProductRecord productRecord);
 

@@ -36,7 +36,7 @@ public class ProductService : IProductService
         throw new NotImplementedException();
     }
 
-    public async Task CreateProduct(ProductRecord productRecord)
+    public async Task CreateProductAsync(ProductRecord productRecord)
     {
         await _validator.ValidateAndThrowAsync(productRecord);
         var product = _mapper.Map<Product>(productRecord);

@@ -33,7 +33,7 @@ public class ProductServiceTests
     }
 
     [TestCase(1, "testProduct", 1, "testCategory")]
-    public async Task GetProduct_WithId1_ReturnsCorrectProductWithDetails(int productId, string productName,
+    public async Task GetProductAsync_WithId1_ReturnsCorrectProductWithDetails(int productId, string productName,
         int categoryId, string categoryName)
     {
         var category = new Category {Id = categoryId, Name = categoryName, Description = "test"};
@@ -51,15 +51,14 @@ public class ProductServiceTests
     }
 
     [TestCase("testProduct", 100, 1, "description")]
-    public async Task CreateProduct_WithValues_CreatesProduct(string name, decimal price, int quantity,
-        string description)
+    public async Task CreateProductAsync_WithValues_CreatesProduct(string name, decimal price, int quantity, string description)
     {
         var product = new ProductRecord
         {
             Description = description, Name = name, Price = price, Quantity = quantity,
         };
 
-        await _productService.CreateProduct(product);
+        await _productService.CreateProductAsync(product);
 
         var productEntity = await _dbContext.Products.FindAsync(1);
         productEntity.Should().NotBeNull();
@@ -70,12 +69,12 @@ public class ProductServiceTests
     }
 
     [Test]
-    public async Task CreateProduct_WithAnyValues_ExecutesValidator()
+    public async Task CreateProductAsync_WithAnyValues_ExecutesValidator()
     {
         var product = new ProductRecord() {Name = string.Empty, Description = string.Empty};
         _validator.Setup(x => x.ValidateAsync(It.IsAny<ValidationContext<ProductRecord>>(), CancellationToken.None));
 
-        await _productService.CreateProduct(product);
+        await _productService.CreateProductAsync(product);
 
         _validator.VerifyAll();
     }
