@@ -38,7 +38,7 @@ public class ProductService : IProductService
 
     public async Task CreateProduct(ProductRecord productRecord)
     {
-        await _validator.ValidateAsync(productRecord);
+        await _validator.ValidateAndThrowAsync(productRecord);
         var product = _mapper.Map<Product>(productRecord);
 
         await _dbContext.Products.AddAsync(product);

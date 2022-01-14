@@ -26,19 +26,21 @@ public class ProductServiceTests
         var testProfile = new AutomapperProfile();
         var configuration = new MapperConfiguration(cfg => cfg.AddProfile(testProfile));
         var mapper = new Mapper(configuration);
-        
+
         _dbContext = new EShopDbContext(UnitTestsHelper.GetUnitTestDbOptions());
         _validator = new Mock<IValidator<ProductRecord>>();
         _productService = new ProductService(_dbContext, mapper, _validator.Object);
     }
-    
+
     [TestCase(1, "testProduct", 1, "testCategory")]
-    public async Task GetProduct_WithId1_ReturnsCorrectProductWithDetails(int productId, string productName, int categoryId, string categoryName)
+    public async Task GetProduct_WithId1_ReturnsCorrectProductWithDetails(int productId, string productName,
+        int categoryId, string categoryName)
     {
         var category = new Category {Id = categoryId, Name = categoryName, Description = "test"};
-        await _dbContext.Products.AddAsync(new Product {Id = productId, Name = productName, Description = "test", Category = category});
+        await _dbContext.Products.AddAsync(new Product
+            {Id = productId, Name = productName, Description = "test", Category = category});
         await _dbContext.SaveChangesAsync();
-        
+
         var result = await _productService.GetProductAsync(productId);
 
         result.Should().BeOfType<ProductRecord>();
@@ -48,12 +50,13 @@ public class ProductServiceTests
         result.Category.Name.Should().Be(categoryName);
     }
 
-    [TestCase("testProduct", 100, 1, 1, "description")]
-    public async Task CreateProduct_WithValidValues_CreatesProduct(string name, decimal price, int quantity, int categoryId, string description)
+    [TestCase("testProduct", 100, 1, "description")]
+    public async Task CreateProduct_WithValues_CreatesProduct(string name, decimal price, int quantity,
+        string description)
     {
         var product = new ProductRecord
         {
-            CategoryId = categoryId, Description = description, Name = name, Price = price, Quantity = quantity,
+            Description = description, Name = name, Price = price, Quantity = quantity,
         };
 
         await _productService.CreateProduct(product);
@@ -67,12 +70,13 @@ public class ProductServiceTests
     }
 
     [Test]
-    public async Task CreateProduct_WithInvalidValues_ExecutesValidator()
+    public async Task CreateProduct_WithAnyValues_ExecutesValidator()
     {
         var product = new ProductRecord() {Name = string.Empty, Description = string.Empty};
+        _validator.Setup(x => x.ValidateAsync(It.IsAny<ValidationContext<ProductRecord>>(), CancellationToken.None));
 
         await _productService.CreateProduct(product);
-        
-        _validator.Verify(x => x.ValidateAsync(product, CancellationToken.None), Times.Once);
+
+        _validator.VerifyAll();
     }
 }
