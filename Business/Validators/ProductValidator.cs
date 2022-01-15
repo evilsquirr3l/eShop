@@ -22,6 +22,11 @@ public class ProductValidator : AbstractValidator<ProductRecord>
         RuleFor(x => x.Description).NotEmpty();
         RuleFor(x => x.Price).GreaterThanOrEqualTo(0);
         RuleFor(x => x.Quantity).GreaterThanOrEqualTo(0);
+        
+        //throws exception if IsDeleted == true
+        RuleFor(x => x.IsDeleted).Empty();
+        
+        //throws error if category doesn't exist
         RuleFor(x => x.CategoryId).MustAsync(async (categoryId, cancellation) =>
         {
             var categoryExists =

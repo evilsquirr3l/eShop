@@ -48,6 +48,18 @@ public class ProductServiceTests
         result.Name.Should().Be(productName);
         result.Category.Id.Should().Be(categoryId);
         result.Category.Name.Should().Be(categoryName);
+        result.IsDeleted.Should().BeFalse();
+    }
+    
+    [TestCase(1)]
+    public async Task GetProductAsync_ProductIsDeleted_ReturnsNull(int productId)
+    {
+        await _dbContext.Products.AddAsync(new Product {Id = productId, Name = "test", Description = "test", IsDeleted = true});
+        await _dbContext.SaveChangesAsync();
+
+        var result = await _productService.GetProductAsync(productId);
+
+        result.Should().BeNull();
     }
 
     [TestCase("testProduct", 100, 1, "description")]
@@ -97,6 +109,16 @@ public class ProductServiceTests
         productEntity.Quantity.Should().Be(quantity);
         productEntity.Description.Should().Be(description);
     }
+    
+    private async Task CreateTestProductWithId(int id)
+    {
+        var category = new Category {Id = id, Name = "testCategory", Description = "test"};
+        var productEntity = new Product
+            {Id = id, Name = "beforeUpdate", Description = "beforeUpdate", Category = category};
+        await _dbContext.Products.AddAsync(productEntity);
+        await _dbContext.SaveChangesAsync();
+        _dbContext.Entry(productEntity).State = EntityState.Detached;
+    }
 
     [TestCase(1)]
     public async Task UpdateProductAsync_WithAnyValues_ExecutesValidator(int id)
@@ -110,13 +132,15 @@ public class ProductServiceTests
         _validator.VerifyAll();
     }
 
-    private async Task CreateTestProductWithId(int id)
+    [TestCase(1)]
+    public async Task DeleteProductAsync_WithId1_DeletesProduct(int id)
     {
-        var category = new Category {Id = id, Name = "testCategory", Description = "test"};
-        var productEntity = new Product
-            {Id = id, Name = "beforeUpdate", Description = "beforeUpdate", Category = category};
-        await _dbContext.Products.AddAsync(productEntity);
-        await _dbContext.SaveChangesAsync();
-        _dbContext.Entry(productEntity).State = EntityState.Detached;
+        await CreateTestProductWithId(id);
+
+        await _productService.DeleteProductAsync(id);
+
+        var productEntity = await _dbContext.Products.FindAsync(id);
+        productEntity.Should().NotBeNull();
+        productEntity.IsDeleted.Should().BeTrue();
     }
 }

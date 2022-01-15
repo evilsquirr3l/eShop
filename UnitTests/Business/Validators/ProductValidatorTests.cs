@@ -70,4 +70,14 @@ public class ProductValidatorTests
 
         result.ShouldHaveValidationErrorFor(x => x.CategoryId);
     }
+    
+    [Test]
+    public async Task ProductValidator_IsDeletedIsTrue_HasError()
+    {
+        var productRecord = new ProductRecord() {Name = "test", IsDeleted = true};
+
+        var result = await _validator.TestValidateAsync(productRecord);
+
+        result.ShouldHaveValidationErrorFor(x => x.IsDeleted);
+    }
 }
