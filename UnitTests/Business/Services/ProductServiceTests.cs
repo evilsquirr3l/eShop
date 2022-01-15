@@ -8,6 +8,7 @@ using Data;
 using Data.Entities;
 using FluentAssertions;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 using NUnit.Framework;
 
@@ -33,8 +34,7 @@ public class ProductServiceTests
     }
 
     [TestCase(1, "testProduct", 1, "testCategory")]
-    public async Task GetProductAsync_WithId1_ReturnsCorrectProductWithDetails(int productId, string productName,
-        int categoryId, string categoryName)
+    public async Task GetProductAsync_WithId1_ReturnsCorrectProductWithDetails(int productId, string productName, int categoryId, string categoryName)
     {
         var category = new Category {Id = categoryId, Name = categoryName, Description = "test"};
         await _dbContext.Products.AddAsync(new Product
@@ -77,5 +77,46 @@ public class ProductServiceTests
         await _productService.CreateProductAsync(product);
 
         _validator.VerifyAll();
+    }
+    
+    [TestCase(1, "testProduct", 100, 1, "description")]
+    public async Task UpdateProductAsync_WithValues_UpdatesProduct(int id, string name, decimal price, int quantity, string description)
+    {
+        await CreateTestProductWithId(id);
+        var productAfterUpdate = new ProductRecord
+        {
+            Id = id, Description = description, Name = name, Price = price, Quantity = quantity,
+        };
+
+        await _productService.UpdateProductAsync(id, productAfterUpdate);
+
+        var productEntity = await _dbContext.Products.FindAsync(id);
+        productEntity.Should().NotBeNull();
+        productEntity.Name.Should().Be(name);
+        productEntity.Price.Should().Be(price);
+        productEntity.Quantity.Should().Be(quantity);
+        productEntity.Description.Should().Be(description);
+    }
+
+    [TestCase(1)]
+    public async Task UpdateProductAsync_WithAnyValues_ExecutesValidator(int id)
+    {
+        await CreateTestProductWithId(id);
+        var productRecord = new ProductRecord() {Id = id, Name = "after update", Description = "after update"};
+        _validator.Setup(x => x.ValidateAsync(It.IsAny<ValidationContext<ProductRecord>>(), CancellationToken.None));
+
+        await _productService.UpdateProductAsync(id, productRecord);
+
+        _validator.VerifyAll();
+    }
+
+    private async Task CreateTestProductWithId(int id)
+    {
+        var category = new Category {Id = id, Name = "testCategory", Description = "test"};
+        var productEntity = new Product
+            {Id = id, Name = "beforeUpdate", Description = "beforeUpdate", Category = category};
+        await _dbContext.Products.AddAsync(productEntity);
+        await _dbContext.SaveChangesAsync();
+        _dbContext.Entry(productEntity).State = EntityState.Detached;
     }
 }

@@ -25,6 +25,7 @@ public class ProductService : IProductService
     {
         var product = await _dbContext.Products
             .Include(x => x.Category)
+            .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == id);
         var productRecord = _mapper.Map<ProductRecord>(product);
         
@@ -45,9 +46,12 @@ public class ProductService : IProductService
         await _dbContext.SaveChangesAsync();
     }
 
-    public Task UpdateProductAsync(int id, ProductRecord productRecord)
+    public async Task UpdateProductAsync(int id, ProductRecord productRecord)
     {
-        throw new NotImplementedException();
+        await _validator.ValidateAndThrowAsync(productRecord);
+
+        _dbContext.Products.Update(_mapper.Map<Product>(productRecord));
+        await _dbContext.SaveChangesAsync();
     }
 
     public Task DeleteProductAsync(int id)
