@@ -50,7 +50,6 @@ public class ProductService : IProductService
     public async Task UpdateProductAsync(int id, ProductRecord productRecord)
     {
         await _validator.ValidateAndThrowAsync(productRecord);
-        productRecord.ModifiedAt = DateTime.Now;
 
         _dbContext.Products.Update(_mapper.Map<Product>(productRecord));
         await _dbContext.SaveChangesAsync();
