@@ -40,6 +40,7 @@ public class ProductService : IProductService
     public async Task CreateProductAsync(ProductRecord productRecord)
     {
         await _validator.ValidateAndThrowAsync(productRecord);
+        productRecord.CreatedAt = DateTime.Now;
         var product = _mapper.Map<Product>(productRecord);
 
         await _dbContext.Products.AddAsync(product);
@@ -49,6 +50,7 @@ public class ProductService : IProductService
     public async Task UpdateProductAsync(int id, ProductRecord productRecord)
     {
         await _validator.ValidateAndThrowAsync(productRecord);
+        productRecord.ModifiedAt = DateTime.Now;
 
         _dbContext.Products.Update(_mapper.Map<Product>(productRecord));
         await _dbContext.SaveChangesAsync();
@@ -58,6 +60,7 @@ public class ProductService : IProductService
     {
         var product = await _dbContext.Products.FindAsync(id);
 
+        product.ModifiedAt = DateTime.Now;
         product.IsDeleted = true;
         _dbContext.Entry(product).State = EntityState.Modified;
         await _dbContext.SaveChangesAsync();
