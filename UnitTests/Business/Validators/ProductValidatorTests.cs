@@ -17,7 +17,7 @@ public class ProductValidatorTests
     [SetUp]
     public void SetUp()
     {
-        _dbContext = new EShopDbContext(UnitTestsHelper.GetUnitTestDbOptions());
+        _dbContext = new EShopDbContext(UnitTestsHelper.UseInmemoryDatabase());
         _validator = new ProductValidator(_dbContext);
     }
 

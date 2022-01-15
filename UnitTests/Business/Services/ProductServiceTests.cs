@@ -28,7 +28,7 @@ public class ProductServiceTests
         var configuration = new MapperConfiguration(cfg => cfg.AddProfile(testProfile));
         var mapper = new Mapper(configuration);
 
-        _dbContext = new EShopDbContext(UnitTestsHelper.GetUnitTestDbOptions());
+        _dbContext = new EShopDbContext(UnitTestsHelper.UseInmemoryDatabase());
         _validator = new Mock<IValidator<ProductRecord>>();
         _productService = new ProductService(_dbContext, mapper, _validator.Object);
     }
