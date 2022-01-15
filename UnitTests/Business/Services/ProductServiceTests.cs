@@ -33,19 +33,17 @@ public class ProductServiceTests
         _productService = new ProductService(_dbContext, mapper, _validator.Object);
     }
 
-    [TestCase(1, "testProduct", 1, "testCategory")]
-    public async Task GetProductAsync_WithId1_ReturnsCorrectProductWithDetails(int productId, string productName, int categoryId, string categoryName)
+    [TestCase(1, "testProduct", 1, "testCategory", "testDescription")]
+    public async Task GetProductAsync_WithId1_ReturnsCorrectProductWithDetails(int productId, string productName, int categoryId, string categoryName, string description)
     {
-        var category = new Category {Id = categoryId, Name = categoryName, Description = "test"};
-        await _dbContext.Products.AddAsync(new Product
-            {Id = productId, Name = productName, Description = "test", Category = category});
-        await _dbContext.SaveChangesAsync();
+        await CreateTestProductWithId(productId);
 
         var result = await _productService.GetProductAsync(productId);
 
         result.Should().BeOfType<ProductRecord>();
         result.Id.Should().Be(productId);
         result.Name.Should().Be(productName);
+        result.Description.Should().Be(description);
         result.Category.Id.Should().Be(categoryId);
         result.Category.Name.Should().Be(categoryName);
         result.IsDeleted.Should().BeFalse();
@@ -91,7 +89,7 @@ public class ProductServiceTests
         _validator.VerifyAll();
     }
     
-    [TestCase(1, "testProduct", 100, 1, "description")]
+    [TestCase(1, "updatedProduct", 100, 1, "updatedDescription")]
     public async Task UpdateProductAsync_WithValues_UpdatesProduct(int id, string name, decimal price, int quantity, string description)
     {
         await CreateTestProductWithId(id);
@@ -108,16 +106,6 @@ public class ProductServiceTests
         productEntity.Price.Should().Be(price);
         productEntity.Quantity.Should().Be(quantity);
         productEntity.Description.Should().Be(description);
-    }
-    
-    private async Task CreateTestProductWithId(int id)
-    {
-        var category = new Category {Id = id, Name = "testCategory", Description = "test"};
-        var productEntity = new Product
-            {Id = id, Name = "beforeUpdate", Description = "beforeUpdate", Category = category};
-        await _dbContext.Products.AddAsync(productEntity);
-        await _dbContext.SaveChangesAsync();
-        _dbContext.Entry(productEntity).State = EntityState.Detached;
     }
 
     [TestCase(1)]
@@ -142,5 +130,15 @@ public class ProductServiceTests
         var productEntity = await _dbContext.Products.FindAsync(id);
         productEntity.Should().NotBeNull();
         productEntity.IsDeleted.Should().BeTrue();
+    }
+    
+    private async Task CreateTestProductWithId(int id)
+    {
+        var category = new Category {Id = id, Name = "testCategory", Description = "testCategoryDescription"};
+        var productEntity = new Product
+            {Id = id, Name = "testProduct", Description = "testDescription", Category = category};
+        await _dbContext.Products.AddAsync(productEntity);
+        await _dbContext.SaveChangesAsync();
+        _dbContext.Entry(productEntity).State = EntityState.Detached;
     }
 }
