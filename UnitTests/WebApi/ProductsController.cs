@@ -44,4 +44,38 @@ public class ProductsControllerTests
 
         result.Result.Should().BeOfType<NotFoundResult>();
     }
+    
+    [Test]
+    public async Task UpdateProduct_WhenProductExists_ReturnsNoContent()
+    {
+        var id = 1;
+        var productRecord = new ProductRecord {Id = id, Name = "test"};
+        _productService.Setup(x => x.GetProductAsync(id)).ReturnsAsync(productRecord);
+
+        var result = await _productsController.UpdateProduct(id, productRecord);
+
+        result.Should().BeOfType<NoContentResult>();
+    }
+    
+    [Test]
+    public async Task UpdateProduct_IdsAreNotEqual_ReturnsBadRequest()
+    {
+        var id = 1;
+        var productRecord = new ProductRecord {Id = 999, Name = "test"};
+        _productService.Setup(x => x.GetProductAsync(id)).ReturnsAsync(productRecord);
+
+        var result = await _productsController.UpdateProduct(id, productRecord);
+
+        result.Should().BeOfType<BadRequestResult>();
+    }
+    
+    [Test]
+    public async Task UpdateProduct_WhenProductDoesntExist_ReturnsNotFound()
+    {
+        var id = 999;
+
+        var result = await _productsController.UpdateProduct(id, new ProductRecord {Id = id});
+
+        result.Should().BeOfType<NotFoundResult>();
+    }
 }
