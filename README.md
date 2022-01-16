@@ -6,7 +6,7 @@ Web application is currently under development by Team7.
 
 # Client (front-end)
 
-- [Angular 13.1](https://angular.io/) with [Redux](https://redux.js.org/introduction/getting-started) and [TypeScript](https://www.typescriptlang.org/docs)
+- [Angular 13.1.1](https://angular.io/) 
 - [Jasmine](https://jasmine.github.io/) for automated testing
 - [Angular Material](https://material.angular.io/)
 
