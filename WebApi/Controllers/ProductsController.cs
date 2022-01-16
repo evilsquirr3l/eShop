@@ -61,4 +61,21 @@ public class ProductsController : ControllerBase
         await _productService.UpdateProductAsync(id, productRecord);
         return NoContent();
     }
+    
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> DeleteProduct(int productId)
+    {
+        var product = await _productService.GetProductAsync(productId);
+
+        if (product is null)
+        {
+            return NotFound();
+        }
+        
+        await _productService.DeleteProductAsync(productId);
+
+        return NoContent();
+    }
 }

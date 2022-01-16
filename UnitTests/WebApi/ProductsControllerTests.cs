@@ -62,7 +62,7 @@ public class ProductsControllerTests
     }
     
     [Test]
-    public async Task UpdateProduct_WhenProductExists_ReturnsNoContent()
+    public async Task UpdateProduct_WhenProductExists_CallsServiceAndReturnsNoContent()
     {
         var id = 1;
         var productRecord = new ProductRecord {Id = id, Name = "test"};
@@ -71,6 +71,7 @@ public class ProductsControllerTests
         var result = await _productsController.UpdateProduct(id, productRecord);
 
         result.Should().BeOfType<NoContentResult>();
+        _productService.Verify(x => x.UpdateProductAsync(id, productRecord), Times.Once);
     }
     
     [Test]
@@ -78,7 +79,6 @@ public class ProductsControllerTests
     {
         var id = 1;
         var productRecord = new ProductRecord {Id = 999, Name = "test"};
-        _productService.Setup(x => x.GetProductAsync(id)).ReturnsAsync(productRecord);
 
         var result = await _productsController.UpdateProduct(id, productRecord);
 
@@ -91,6 +91,29 @@ public class ProductsControllerTests
         var id = 999;
 
         var result = await _productsController.UpdateProduct(id, new ProductRecord {Id = id});
+
+        result.Should().BeOfType<NotFoundResult>();
+    }
+    
+    [Test]
+    public async Task DeleteProduct_WhenProductExists_CallsServiceAndReturnsNoContent()
+    {
+        var id = 1;
+        var productRecord = new ProductRecord {Id = id, Name = "test"};
+        _productService.Setup(x => x.GetProductAsync(id)).ReturnsAsync(productRecord);
+
+        var result = await _productsController.DeleteProduct(id);
+
+        result.Should().BeOfType<NoContentResult>();
+        _productService.Verify(x => x.DeleteProductAsync(id), Times.Once);
+    }
+    
+    [Test]
+    public async Task DeleteProduct_WhenProductDoesntExist_ReturnsNotFound()
+    {
+        var id = 999;
+
+        var result = await _productsController.DeleteProduct(id);
 
         result.Should().BeOfType<NotFoundResult>();
     }
