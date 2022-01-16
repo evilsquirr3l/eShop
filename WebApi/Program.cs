@@ -14,7 +14,11 @@ void AddServices()
 {
     builder.Services
         .AddControllersWithViews()
-        .AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(Assembly.Load("Business")));
+        .AddFluentValidation(fv =>
+        {
+            fv.RegisterValidatorsFromAssembly(Assembly.Load("Business"));
+            fv.DisableDataAnnotationsValidation = true;
+        });
 
     builder.Services.AddDbContextPool<EShopDbContext>(dbContextOptionsBuilder =>
         dbContextOptionsBuilder
