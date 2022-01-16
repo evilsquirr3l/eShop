@@ -25,7 +25,6 @@ jobs:
       run: dotnet test UnitTests/UnitTests.csproj 
         /p:CollectCoverage=true 
         /p:CoverletOutput=TestResults/
-        /p:ExcludeByAttribute="Obsolete,GeneratedCodeAttribute,CompilerGeneratedAttribute"
         /p:SkipAutoProps=true
     - name: Publish coverage report to coveralls.io
       uses: coverallsapp/github-action@master
