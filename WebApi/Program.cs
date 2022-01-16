@@ -6,6 +6,7 @@ using Business.Services;
 using Data;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +33,11 @@ void AddServices()
     builder.Services.AddTransient<IDateTimeProvider, DateTimeProvider>();
     builder.Services.AddTransient<IProductService, ProductService>();
     builder.Services.AddAutoMapper(typeof(AutomapperProfile).Assembly);
+
+    builder.Services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo {Title = "eShop", Description = "Web api for eShop frontend"});
+    });
 }
 
 var app = builder.Build();
@@ -42,6 +48,12 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "eShop API");
+});
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
