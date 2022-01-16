@@ -47,6 +47,7 @@ public class ProductService : IProductService
 
         await _dbContext.Products.AddAsync(product);
         await _dbContext.SaveChangesAsync();
+        productRecord.Id = product.Id;
     }
 
     public async Task UpdateProductAsync(int id, ProductRecord productRecord)

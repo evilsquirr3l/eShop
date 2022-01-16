@@ -7,6 +7,8 @@ using Moq;
 using NUnit.Framework;
 using WebApi.Controllers;
 
+#pragma warning disable CS8602
+
 namespace UnitTests.WebApi;
 
 [TestFixture]
@@ -43,6 +45,20 @@ public class ProductsControllerTests
         var result = await _productsController.GetProduct(id);
 
         result.Result.Should().BeOfType<NotFoundResult>();
+    }
+    
+    [Test]
+    public async Task CreateProduct_ExecutesService_ReturnsCreatedAtAction()
+    {
+        var id = 1;
+        var productRecord = new ProductRecord {Id = id, Name = "test", Description = "test"};
+        _productService.Setup(x => x.CreateProductAsync(productRecord));
+
+        var result = await _productsController.CreateProduct(productRecord);
+
+        result.Should().BeOfType<CreatedAtActionResult>();
+        (result as CreatedAtActionResult).RouteValues["id"].Should().Be(id);
+        (result as CreatedAtActionResult).ActionName.Should().Be(nameof(_productsController.GetProduct));
     }
     
     [Test]

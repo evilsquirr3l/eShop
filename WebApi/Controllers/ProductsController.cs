@@ -30,7 +30,17 @@ public class ProductsController : ControllerBase
         return product is not null ? product : NotFound();
     }
     
-    [HttpGet("{id}")]
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult> CreateProduct([FromBody] ProductRecord productRecord)
+    {
+        await _productService.CreateProductAsync(productRecord);
+        
+        return CreatedAtAction(nameof(GetProduct), new {id = productRecord.Id}, productRecord);
+    }
+    
+    [HttpPut]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
