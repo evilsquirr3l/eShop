@@ -1,6 +1,5 @@
 using System.Reflection;
-using AutoMapper;
-using Business;
+using Business.Automapper;
 using Data;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
@@ -9,17 +8,22 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services
-    .AddControllersWithViews()
-    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(Assembly.Load("Business")));
+AddServices();
 
-builder.Services.AddDbContextPool<EShopDbContext>(dbContextOptionsBuilder =>
-    dbContextOptionsBuilder
-        .UseLazyLoadingProxies()
-        .UseNpgsql(builder.Configuration.GetConnectionString("eShop")));
+void AddServices()
+{
+    builder.Services
+        .AddControllersWithViews()
+        .AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(Assembly.Load("Business")));
 
-var mapperConfig = new MapperConfiguration(c => c.AddProfile(new AutomapperProfile()));
-builder.Services.AddSingleton(mapperConfig.CreateMapper());
+    builder.Services.AddDbContextPool<EShopDbContext>(dbContextOptionsBuilder =>
+        dbContextOptionsBuilder
+            .UseLazyLoadingProxies()
+            .UseNpgsql(builder.Configuration.GetConnectionString("eShop")));
+
+    builder.Services.AddTransient<ModifiedAtResolver>();
+    builder.Services.AddAutoMapper(typeof(AutomapperProfile).Assembly);
+}
 
 var app = builder.Build();
 

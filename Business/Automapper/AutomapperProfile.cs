@@ -2,7 +2,7 @@ using AutoMapper;
 using Business.Records;
 using Data.Entities;
 
-namespace Business;
+namespace Business.Automapper;
 
 public class AutomapperProfile : Profile
 {
@@ -11,7 +11,7 @@ public class AutomapperProfile : Profile
         CreateMap<Product, ProductRecord>();
         CreateMap<ProductRecord, Product>()
             .ForMember(product => product.ModifiedAt, 
-                options => options.MapFrom(productRecord => DateTime.Now));
+                options => options.MapFrom<ModifiedAtResolver>());
         
         CreateMap<Category, CategoryRecord>().ReverseMap();
     }

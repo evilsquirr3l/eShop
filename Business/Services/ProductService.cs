@@ -13,12 +13,14 @@ public class ProductService : IProductService
     private readonly EShopDbContext _dbContext;
     private readonly IMapper _mapper;
     private readonly IValidator<ProductRecord> _validator;
+    private readonly IDateTimeProvider _dateTimeProvider;
 
-    public ProductService(EShopDbContext dbContext, IMapper mapper, IValidator<ProductRecord> validator)
+    public ProductService(EShopDbContext dbContext, IMapper mapper, IValidator<ProductRecord> validator, IDateTimeProvider dateTimeProvider)
     {
         _dbContext = dbContext;
         _mapper = mapper;
         _validator = validator;
+        _dateTimeProvider = dateTimeProvider;
     }
 
     public async Task<ProductRecord> GetProductAsync(int id)
@@ -40,7 +42,7 @@ public class ProductService : IProductService
     public async Task CreateProductAsync(ProductRecord productRecord)
     {
         await _validator.ValidateAndThrowAsync(productRecord);
-        productRecord.CreatedAt = DateTime.Now;
+        productRecord.CreatedAt = _dateTimeProvider.GetCurrentTime();
         var product = _mapper.Map<Product>(productRecord);
 
         await _dbContext.Products.AddAsync(product);
@@ -59,7 +61,7 @@ public class ProductService : IProductService
     {
         var product = await _dbContext.Products.FindAsync(id);
 
-        product.ModifiedAt = DateTime.Now;
+        product.ModifiedAt = _dateTimeProvider.GetCurrentTime();
         product.IsDeleted = true;
         _dbContext.Entry(product).State = EntityState.Modified;
         await _dbContext.SaveChangesAsync();
