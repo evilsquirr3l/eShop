@@ -1,4 +1,7 @@
 using System;
+using AutoMapper;
+using Business.Automapper;
+using Business.Interfaces;
 using Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,5 +16,16 @@ internal static class UnitTestsHelper
             .Options;
 
         return options;
+    }
+
+    public static Mapper CreateAutomapper(IDateTimeProvider dateTimeProvider)
+    {
+        var configuration = new MapperConfiguration(cfg =>
+        {
+            cfg.AddMaps(typeof(AutomapperProfile).Assembly);
+            cfg.ConstructServicesUsing(type => new ModifiedAtResolver(dateTimeProvider));
+        });
+
+        return new Mapper(configuration);
     }
 }

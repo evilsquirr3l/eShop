@@ -1,8 +1,6 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
-using Business.Automapper;
 using Business.Interfaces;
 using Business.Records;
 using Business.Services;
@@ -29,19 +27,14 @@ public class ProductServiceTests
     [SetUp]
     public void SetUp()
     {
-        var testProfile = new AutomapperProfile();
-        var configuration = new MapperConfiguration(cfg =>
-        {
-            cfg.AddMaps(typeof(AutomapperProfile).Assembly);
-            cfg.ConstructServicesUsing(type => new ModifiedAtResolver(_dateTimeProvider.Object));
-        });
-        var mapper = new Mapper(configuration);
 
         _dbContext = new EShopDbContext(UnitTestsHelper.UseInmemoryDatabase());
         _validator = new Mock<IValidator<ProductRecord>>();
         
         _dateTimeProvider = new Mock<IDateTimeProvider>();
         _dateTimeProvider.Setup(x => x.GetCurrentTime()).Returns(CurrentTime);
+        
+        var mapper = UnitTestsHelper.CreateAutomapper(_dateTimeProvider.Object);
         
         _productService = new ProductService(_dbContext, mapper, _validator.Object, _dateTimeProvider.Object);
     }
