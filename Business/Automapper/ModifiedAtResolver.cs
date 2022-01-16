@@ -8,7 +8,6 @@ namespace Business.Automapper;
 public class ModifiedAtResolver : IValueResolver<ProductRecord, Product, DateTime>
 {
     private readonly IDateTimeProvider _dateTimeProvider;
-
     
     public ModifiedAtResolver(IDateTimeProvider dateTimeProvider)
     {
