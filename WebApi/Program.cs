@@ -1,5 +1,8 @@
 using System.Reflection;
+using Business;
 using Business.Automapper;
+using Business.Interfaces;
+using Business.Services;
 using Data;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +29,8 @@ void AddServices()
             .UseNpgsql(builder.Configuration.GetConnectionString("eShop")));
 
     builder.Services.AddTransient<ModifiedAtResolver>();
+    builder.Services.AddTransient<IDateTimeProvider, DateTimeProvider>();
+    builder.Services.AddTransient<IProductService, ProductService>();
     builder.Services.AddAutoMapper(typeof(AutomapperProfile).Assembly);
 }
 
