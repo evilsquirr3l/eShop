@@ -1,8 +1,6 @@
 # eShop
 
-[![.NET](https://github.com/evilsquirr3l/eShop/actions/workflows/dotnet.yml/badge.svg)](https://github.com/evilsquirr3l/eShop/actions/workflows/dotnet.yml) [![Coverage Status](https://coveralls.io/repos/github/evilsquirr3l/eShop/badge.svg?branch=feature/update-readme)](https://coveralls.io/github/evilsquirr3l/eShop?branch=feature/update-readme)
-
-Web application is currently under development by Team7.
+[![.NET](https://github.com/evilsquirr3l/eShop/actions/workflows/dotnet.yml/badge.svg)](https://github.com/evilsquirr3l/eShop/actions/workflows/dotnet.yml) [![Coverage Status](https://coveralls.io/repos/github/evilsquirr3l/eShop/badge.svg?branch=master)](https://coveralls.io/github/evilsquirr3l/eShop?branch=master)
 
 # Client (front-end)
 
