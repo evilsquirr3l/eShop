@@ -22,7 +22,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test {eShop.sln} --logger:trx --results-directory ../TestResults
+      run: dotnet test eShop.sln --logger:trx --results-directory ../TestResults
         /p:CollectCoverage=true
         /p:CoverletOutput=../TestResults/
         /p:MergeWith=../TestResults/coverlet.json
