@@ -22,7 +22,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test UnitTests/UnitTests.csproj 
+      run: dotnet test
         /p:CollectCoverage=true 
         /p:CoverletOutput=TestResults/
         /p:SkipAutoProps=true
