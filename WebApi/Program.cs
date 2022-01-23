@@ -17,7 +17,7 @@ AddServices();
 void AddServices()
 {
     builder.Services
-        .AddControllersWithViews()
+        .AddControllers()
         .AddFluentValidation(fv =>
         {
             fv.RegisterValidatorsFromAssembly(Assembly.Load("Business"));
@@ -59,12 +59,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
-
-app.MapFallbackToFile("index.html");
-
+app.MapControllers();
 
 app.Run();
+
+//For creating web application factory in integration tests
+public partial class Program { }

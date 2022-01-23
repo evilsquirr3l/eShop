@@ -40,7 +40,7 @@ public class ProductsController : ControllerBase
         return CreatedAtAction(nameof(GetProduct), new {id = productRecord.Id}, productRecord);
     }
     
-    [HttpPut]
+    [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -65,16 +65,16 @@ public class ProductsController : ControllerBase
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult> DeleteProduct(int productId)
+    public async Task<ActionResult> DeleteProduct(int id)
     {
-        var product = await _productService.GetProductAsync(productId);
+        var product = await _productService.GetProductAsync(id);
 
         if (product is null)
         {
             return NotFound();
         }
         
-        await _productService.DeleteProductAsync(productId);
+        await _productService.DeleteProductAsync(id);
 
         return NoContent();
     }
