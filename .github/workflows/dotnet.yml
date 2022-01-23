@@ -22,11 +22,11 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test
-        /p:CollectCoverage=true 
-        /p:CoverletOutput=TestResults/
-        /p:SkipAutoProps=true
-        /p:CoverletOutputFormat=lcov
+      run: dotnet test {eShop.sln} --logger:trx --results-directory ../TestResults
+        /p:CollectCoverage=true
+        /p:CoverletOutput=../TestResults/
+        /p:MergeWith=../TestResults/coverlet.json
+        /p:CoverletOutputFormat=\"json,cobertura\"
     - name: Publish coverage report to coveralls.io
       uses: coverallsapp/github-action@master
       with:
