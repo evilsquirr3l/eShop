@@ -22,11 +22,12 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test UnitTests/UnitTests.csproj 
+      run: dotnet test eShop.sln
         /p:CollectCoverage=true 
         /p:CoverletOutput=TestResults/
         /p:SkipAutoProps=true
         /p:CoverletOutputFormat=lcov
+        /p:Exclude="[*]*.Migrations.*"
     - name: Publish coverage report to coveralls.io
       uses: coverallsapp/github-action@master
       with:

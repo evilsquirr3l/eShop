@@ -1,6 +1,6 @@
 # eShop
 
-[![.NET](https://github.com/evilsquirr3l/eShop/actions/workflows/dotnet.yml/badge.svg)](https://github.com/evilsquirr3l/eShop/actions/workflows/dotnet.yml) [![Coverage Status](https://coveralls.io/repos/github/evilsquirr3l/eShop/badge.svg?branch=master)](https://coveralls.io/github/evilsquirr3l/eShop?branch=master)
+[![.NET](https://github.com/evilsquirr3l/eShop/actions/workflows/dotnet.yml/badge.svg)](https://github.com/evilsquirr3l/eShop/actions/workflows/dotnet.yml) [![Coverage Status](https://coveralls.io/repos/github/evilsquirr3l/eShop/badge.svg?branch=develop)](https://coveralls.io/github/evilsquirr3l/eShop?branch=develop)
 
 # Client (front-end)
 

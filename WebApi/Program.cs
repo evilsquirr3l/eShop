@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using Business;
 using Business.Automapper;
@@ -17,7 +18,7 @@ AddServices();
 void AddServices()
 {
     builder.Services
-        .AddControllersWithViews()
+        .AddControllers()
         .AddFluentValidation(fv =>
         {
             fv.RegisterValidatorsFromAssembly(Assembly.Load("Business"));
@@ -59,12 +60,10 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
-
-app.MapFallbackToFile("index.html");
-
+app.MapControllers();
 
 app.Run();
+
+//For creating web application factory in integration tests
+[ExcludeFromCodeCoverage]
+public partial class Program { }
