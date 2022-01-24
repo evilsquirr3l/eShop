@@ -6,5 +6,5 @@ namespace Business;
 [ExcludeFromCodeCoverage]
 public class DateTimeProvider : IDateTimeProvider
 {
-    public DateTime GetCurrentTime() => DateTime.Now;
+    public DateTime GetCurrentTime() => DateTime.UtcNow;
 }
