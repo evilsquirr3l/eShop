@@ -42,6 +42,7 @@ public class ProductService : IProductService
     public async Task CreateProductAsync(ProductRecord productRecord)
     {
         productRecord.CreatedAt = _dateTimeProvider.GetCurrentTime();
+        productRecord.ModifiedAt = _dateTimeProvider.GetCurrentTime();
         var product = _mapper.Map<Product>(productRecord);
 
         await _dbContext.Products.AddAsync(product);
@@ -51,6 +52,7 @@ public class ProductService : IProductService
 
     public async Task UpdateProductAsync(int id, ProductRecord productRecord)
     {
+        productRecord.ModifiedAt = _dateTimeProvider.GetCurrentTime();
         _dbContext.Products.Update(_mapper.Map<Product>(productRecord));
         
         await _dbContext.SaveChangesAsync();
