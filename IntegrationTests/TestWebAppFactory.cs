@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using WebApi;
 
 namespace IntegrationTests;
 
@@ -16,16 +15,12 @@ public class TestWebAppFactory<TEntryPoint> : WebApplicationFactory<Program> whe
     {
         builder.ConfigureTestServices(services =>
         {
-            var descriptor = Enumerable.SingleOrDefault<ServiceDescriptor>(services, d => d.ServiceType ==
-                                                                          typeof(DbContextOptions<EShopDbContext>));
+            var descriptor = services.SingleOrDefault<ServiceDescriptor>(d => d.ServiceType == typeof(DbContextOptions<EShopDbContext>));
             if (descriptor != null)
                 services.Remove(descriptor);
-            EntityFrameworkServiceCollectionExtensions.AddDbContextPool<EShopDbContext>(services, options =>
-            {
-                InMemoryDbContextOptionsExtensions.UseInMemoryDatabase(options, "InmemoryDb");
-            });
-            
-            var sp = ServiceCollectionContainerBuilderExtensions.BuildServiceProvider(services);
+            services.AddDbContextPool<EShopDbContext>(options => { options.UseInMemoryDatabase("InmemoryDb"); });
+
+            var sp = services.BuildServiceProvider();
             using var scope = sp.CreateScope();
             using var dbContext = scope.ServiceProvider.GetRequiredService<EShopDbContext>();
             SeedData(dbContext);
@@ -33,7 +28,7 @@ public class TestWebAppFactory<TEntryPoint> : WebApplicationFactory<Program> whe
         });
     }
 
-    private void SeedData(EShopDbContext dbContext)
+    private static void SeedData(EShopDbContext dbContext)
     {
         dbContext.Categories.Add(new Category {Name = "category1", Description = "category1 description"});
         dbContext.Categories.Add(new Category {Name = "category2", Description = "category2 description"});
