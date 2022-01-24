@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Business.Records;
 using FluentAssertions;
 using NUnit.Framework;
+using WebApi;
 
 namespace IntegrationTests;
 

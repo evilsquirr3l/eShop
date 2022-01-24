@@ -65,5 +65,8 @@ app.MapControllers();
 app.Run();
 
 //For creating web application factory in integration tests
-[ExcludeFromCodeCoverage]
-public partial class Program { }
+namespace WebApi
+{
+    [ExcludeFromCodeCoverage]
+    public partial class Program { }
+}

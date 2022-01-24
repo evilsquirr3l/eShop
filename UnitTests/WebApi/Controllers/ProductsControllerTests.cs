@@ -9,7 +9,7 @@ using WebApi.Controllers;
 
 #pragma warning disable CS8602
 
-namespace UnitTests.WebApi;
+namespace UnitTests.WebApi.Controllers;
 
 [TestFixture]
 public class ProductsControllerTests
