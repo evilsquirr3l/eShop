@@ -32,6 +32,7 @@ void AddServices()
 
     builder.Services.AddTransient<IDateTimeProvider, DateTimeProvider>();
     builder.Services.AddTransient<IProductService, ProductService>();
+    builder.Services.AddTransient<ICategoryService, CategoryService>();
     builder.Services.AddAutoMapper(typeof(AutomapperProfile).Assembly);
 
     builder.Services.AddSwaggerGen(c =>
