@@ -3,7 +3,6 @@ using Business.Interfaces;
 using Business.Records;
 using Data;
 using Data.Entities;
-using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
 namespace Business.Services;
@@ -12,14 +11,12 @@ public class ProductService : IProductService
 {
     private readonly EShopDbContext _dbContext;
     private readonly IMapper _mapper;
-    private readonly IValidator<ProductRecord> _validator;
     private readonly IDateTimeProvider _dateTimeProvider;
 
-    public ProductService(EShopDbContext dbContext, IMapper mapper, IValidator<ProductRecord> validator, IDateTimeProvider dateTimeProvider)
+    public ProductService(EShopDbContext dbContext, IMapper mapper, IDateTimeProvider dateTimeProvider)
     {
         _dbContext = dbContext;
         _mapper = mapper;
-        _validator = validator;
         _dateTimeProvider = dateTimeProvider;
     }
 
@@ -29,9 +26,8 @@ public class ProductService : IProductService
             .Include(x => x.Category)
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
-        var productRecord = _mapper.Map<ProductRecord>(product);
-        
-        return productRecord;
+
+        return _mapper.Map<ProductRecord>(product);
     }
 
     public Task<IEnumerable<ProductRecord>> GetProductsListAsync()
