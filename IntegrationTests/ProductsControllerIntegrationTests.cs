@@ -50,6 +50,16 @@ public class ProductsControllerIntegrationTests
     }
     
     [Test]
+    public async Task CreateProduct_WithInvalidCategory_ReturnsBadRequest()
+    {
+        var productRecord = new ProductRecord {Name = "product", Description = "description", CategoryId = 999};
+        
+        var response = await _client.PostAsJsonAsync<ProductRecord>("api/Products", productRecord);
+
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+    }
+    
+    [Test]
     public async Task CreateProduct_WithValidProduct_ReturnsCreatedAtAction()
     {
         var productRecord = new ProductRecord {Name = "valid product", Description = "description", CategoryId = 1};
