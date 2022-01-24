@@ -24,7 +24,8 @@ public class ProductValidator : AbstractValidator<ProductRecord>
         RuleFor(x => x.Quantity).GreaterThanOrEqualTo(0);
         
         //throws error if IsDeleted == true
-        RuleFor(x => x.IsDeleted).Empty();
+        RuleFor(x => x.IsDeleted).Empty()
+            .WithMessage("You can't create deleted category!");
         
         //throws error if category doesn't exist
         RuleFor(x => x.CategoryId).MustAsync(async (categoryId, cancellation) =>

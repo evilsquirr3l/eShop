@@ -22,13 +22,15 @@ public class CategoryValidator : AbstractValidator<CategoryRecord>
         RuleFor(x => x.Description).NotEmpty();
 
         //throws error if IsDeleted == true
-        RuleFor(x => x.IsDeleted).Empty();
+        RuleFor(x => x.IsDeleted).Empty()
+            .WithMessage("You can't create deleted category!");
 
         //throws error if category with the same name (ignoring case) already exists
         RuleFor(x => x.Name).MustAsync(async (categoryName, cancellation) =>
         {
             var categoryWithTheSameNameExists =
-                await _dbContext.Categories.AnyAsync(x => string.Equals(x.Name, categoryName, StringComparison.CurrentCultureIgnoreCase),
+                // ReSharper disable once SpecifyStringComparison
+                await _dbContext.Categories.AnyAsync(x => x.Name.ToLower() == categoryName.ToLower(),
                     cancellationToken: cancellation);
 
             return !categoryWithTheSameNameExists;
