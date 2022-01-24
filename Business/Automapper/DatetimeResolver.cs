@@ -5,11 +5,11 @@ using Data.Entities;
 
 namespace Business.Automapper;
 
-public class ModifiedAtResolver : IValueResolver<ProductRecord, Product, DateTime>
+public class DatetimeResolver : IValueResolver<ProductRecord, Product, DateTime>
 {
     private readonly IDateTimeProvider _dateTimeProvider;
     
-    public ModifiedAtResolver(IDateTimeProvider dateTimeProvider)
+    public DatetimeResolver(IDateTimeProvider dateTimeProvider)
     {
         _dateTimeProvider = dateTimeProvider;
     }

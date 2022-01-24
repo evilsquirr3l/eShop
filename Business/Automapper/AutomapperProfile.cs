@@ -11,7 +11,7 @@ public class AutomapperProfile : Profile
         CreateMap<Product, ProductRecord>();
         CreateMap<ProductRecord, Product>()
             .ForMember(product => product.ModifiedAt, 
-                options => options.MapFrom<ModifiedAtResolver>());
+                options => options.MapFrom<DatetimeResolver>());
         
         CreateMap<Category, CategoryRecord>().ReverseMap();
     }

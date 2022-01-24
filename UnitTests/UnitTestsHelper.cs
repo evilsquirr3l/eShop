@@ -23,7 +23,7 @@ internal static class UnitTestsHelper
         var configuration = new MapperConfiguration(cfg =>
         {
             cfg.AddMaps(typeof(AutomapperProfile).Assembly);
-            cfg.ConstructServicesUsing(type => new ModifiedAtResolver(dateTimeProvider));
+            cfg.ConstructServicesUsing(type => new DatetimeResolver(dateTimeProvider));
         });
 
         return new Mapper(configuration);

@@ -30,7 +30,7 @@ void AddServices()
             .UseLazyLoadingProxies()
             .UseNpgsql(builder.Configuration.GetConnectionString("eShop")));
 
-    builder.Services.AddTransient<ModifiedAtResolver>();
+    builder.Services.AddTransient<DatetimeResolver>();
     builder.Services.AddTransient<IDateTimeProvider, DateTimeProvider>();
     builder.Services.AddTransient<IProductService, ProductService>();
     builder.Services.AddAutoMapper(typeof(AutomapperProfile).Assembly);
