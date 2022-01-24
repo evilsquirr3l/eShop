@@ -41,7 +41,6 @@ public class ProductService : IProductService
 
     public async Task CreateProductAsync(ProductRecord productRecord)
     {
-        await _validator.ValidateAndThrowAsync(productRecord);
         productRecord.CreatedAt = _dateTimeProvider.GetCurrentTime();
         var product = _mapper.Map<Product>(productRecord);
 
@@ -52,9 +51,8 @@ public class ProductService : IProductService
 
     public async Task UpdateProductAsync(int id, ProductRecord productRecord)
     {
-        await _validator.ValidateAndThrowAsync(productRecord);
-
         _dbContext.Products.Update(_mapper.Map<Product>(productRecord));
+        
         await _dbContext.SaveChangesAsync();
     }
 

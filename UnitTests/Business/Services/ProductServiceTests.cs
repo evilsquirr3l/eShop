@@ -1,5 +1,4 @@
 using System;
-using System.Threading;
 using System.Threading.Tasks;
 using Business.Interfaces;
 using Business.Records;
@@ -85,17 +84,6 @@ public class ProductServiceTests
         productEntity.CreatedAt.Should().Be(CurrentTime);
         productEntity.ModifiedAt.Should().Be(CurrentTime);
     }
-
-    [Test]
-    public async Task CreateProductAsync_WithAnyValues_ExecutesValidator()
-    {
-        var product = new ProductRecord() {Name = string.Empty, Description = string.Empty};
-        _validator.Setup(x => x.ValidateAsync(It.IsAny<ValidationContext<ProductRecord>>(), CancellationToken.None));
-
-        await _productService.CreateProductAsync(product);
-
-        _validator.VerifyAll();
-    }
     
     [TestCase(1, "updatedProduct", 100, 1, "updatedDescription")]
     public async Task UpdateProductAsync_WithValues_UpdatesProduct(int id, string name, decimal price, int quantity, string description)
@@ -116,19 +104,7 @@ public class ProductServiceTests
         productEntity.Description.Should().Be(description);
         productEntity.ModifiedAt.Should().Be(CurrentTime);
     }
-
-    [TestCase(1)]
-    public async Task UpdateProductAsync_WithAnyValues_ExecutesValidator(int id)
-    {
-        await CreateTestProductWithId(id);
-        var productRecord = new ProductRecord() {Id = id, Name = "after update", Description = "after update"};
-        _validator.Setup(x => x.ValidateAsync(It.IsAny<ValidationContext<ProductRecord>>(), CancellationToken.None));
-
-        await _productService.UpdateProductAsync(id, productRecord);
-
-        _validator.VerifyAll();
-    }
-
+    
     [TestCase(1)]
     public async Task DeleteProductAsync_WithId1_DeletesProduct(int id)
     {
