@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using Business;
 using Business.Automapper;
@@ -64,4 +65,5 @@ app.MapControllers();
 app.Run();
 
 //For creating web application factory in integration tests
+[ExcludeFromCodeCoverage]
 public partial class Program { }

@@ -27,6 +27,7 @@ jobs:
         /p:CoverletOutput=TestResults/
         /p:SkipAutoProps=true
         /p:CoverletOutputFormat=lcov
+        /p:Exclude=\"-[Data]Data.Migrations.*"
     - name: Publish coverage report to coveralls.io
       uses: coverallsapp/github-action@master
       with:
