@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Business.Records;
 using FluentAssertions;
 using NUnit.Framework;
+using WebApi;
 
 namespace IntegrationTests;
 
@@ -43,6 +44,16 @@ public class ProductsControllerIntegrationTests
     public async Task CreateProduct_WithInvalidProduct_ReturnsBadRequest()
     {
         var productRecord = new ProductRecord {Name = "invalid product"};
+        
+        var response = await _client.PostAsJsonAsync<ProductRecord>("api/Products", productRecord);
+
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+    }
+    
+    [Test]
+    public async Task CreateProduct_WithInvalidCategory_ReturnsBadRequest()
+    {
+        var productRecord = new ProductRecord {Name = "product", Description = "description", CategoryId = 999};
         
         var response = await _client.PostAsJsonAsync<ProductRecord>("api/Products", productRecord);
 

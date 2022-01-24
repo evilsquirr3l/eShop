@@ -30,9 +30,9 @@ void AddServices()
             .UseLazyLoadingProxies()
             .UseNpgsql(builder.Configuration.GetConnectionString("eShop")));
 
-    builder.Services.AddTransient<ModifiedAtResolver>();
     builder.Services.AddTransient<IDateTimeProvider, DateTimeProvider>();
     builder.Services.AddTransient<IProductService, ProductService>();
+    builder.Services.AddTransient<ICategoryService, CategoryService>();
     builder.Services.AddAutoMapper(typeof(AutomapperProfile).Assembly);
 
     builder.Services.AddSwaggerGen(c =>
@@ -65,5 +65,8 @@ app.MapControllers();
 app.Run();
 
 //For creating web application factory in integration tests
-[ExcludeFromCodeCoverage]
-public partial class Program { }
+namespace WebApi
+{
+    [ExcludeFromCodeCoverage]
+    public partial class Program { }
+}

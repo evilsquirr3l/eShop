@@ -8,10 +8,7 @@ public class AutomapperProfile : Profile
 {
     public AutomapperProfile()
     {
-        CreateMap<Product, ProductRecord>();
-        CreateMap<ProductRecord, Product>()
-            .ForMember(product => product.ModifiedAt, 
-                options => options.MapFrom<ModifiedAtResolver>());
+        CreateMap<Product, ProductRecord>().ReverseMap();
         
         CreateMap<Category, CategoryRecord>().ReverseMap();
     }
