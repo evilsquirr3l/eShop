@@ -5,6 +5,7 @@ using Business.Automapper;
 using Business.Interfaces;
 using Business.Services;
 using Data;
+using Data.Entities;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -28,6 +29,9 @@ void AddServices()
             .UseLazyLoadingProxies()
             .UseNpgsql(builder.Configuration.GetConnectionString("eShop")));
 
+    builder.Services.AddIdentity<User, UserRole>()
+        .AddEntityFrameworkStores<EShopDbContext>();
+    
     builder.Services.AddTransient<IDateTimeProvider, DateTimeProvider>();
     builder.Services.AddTransient<IProductService, ProductService>();
     builder.Services.AddTransient<ICategoryService, CategoryService>();

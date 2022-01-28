@@ -1,9 +1,10 @@
 using Data.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data;
 
-public sealed class EShopDbContext : DbContext
+public sealed class EShopDbContext : IdentityDbContext<User, UserRole, int>
 {
     public EShopDbContext(DbContextOptions<EShopDbContext> options) : base(options)
     {
