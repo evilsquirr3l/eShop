@@ -6,10 +6,7 @@ namespace Data;
 
 public sealed class EShopDbContext : IdentityDbContext<User, UserRole, int>
 {
-    public EShopDbContext(DbContextOptions<EShopDbContext> options) : base(options)
-    {
-        Database.EnsureCreated();
-    }
+    public EShopDbContext(DbContextOptions<EShopDbContext> options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

@@ -45,6 +45,29 @@ void AddServices()
 
 var app = builder.Build();
 
+//Create db and apply migrations
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<EShopDbContext>();
+    if (context.Database.ProviderName != "Microsoft.EntityFrameworkCore.InMemory")
+    {
+        var pendingMigrations = await context.Database.GetPendingMigrationsAsync();
+
+        var migrations = pendingMigrations.ToList();
+        if (migrations.Any())
+        {
+            Console.WriteLine($"You have {migrations.Count} pending migrations to apply.");
+            Console.WriteLine("Applying pending migrations now");
+            await context.Database.MigrateAsync();
+        }
+
+        var lastAppliedMigration = (await context.Database.GetAppliedMigrationsAsync()).Last();
+
+        Console.WriteLine($"You're on schema version: {lastAppliedMigration}");
+    }
+}
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseHsts();
