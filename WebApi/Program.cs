@@ -50,15 +50,14 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<EShopDbContext>();
-    if (context.Database.ProviderName != "Microsoft.EntityFrameworkCore.InMemory")
+    if (context.Database.ProviderName is not "Microsoft.EntityFrameworkCore.InMemory")
     {
-        var pendingMigrations = await context.Database.GetPendingMigrationsAsync();
+        var pendingMigrations = (await context.Database.GetPendingMigrationsAsync()).ToList();
 
-        var migrations = pendingMigrations.ToList();
-        if (migrations.Any())
+        if (pendingMigrations.Any())
         {
-            Console.WriteLine($"You have {migrations.Count} pending migrations to apply.");
-            Console.WriteLine("Applying pending migrations now");
+            Console.WriteLine($"You have {pendingMigrations.Count} pending migrations to apply.");
+            Console.WriteLine("Applying migrations...");
             await context.Database.MigrateAsync();
         }
 
