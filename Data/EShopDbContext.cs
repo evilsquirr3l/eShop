@@ -11,6 +11,13 @@ public sealed class EShopDbContext : IdentityDbContext<User, UserRole, int>
         Database.EnsureCreated();
     }
 
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+
+        builder.ApplyConfigurationsFromAssembly(typeof(EShopDbContext).Assembly);
+    }
+
     public DbSet<User> Users { get; set; }
 
     public DbSet<UserAddress> UserAddresses { get; set; }
