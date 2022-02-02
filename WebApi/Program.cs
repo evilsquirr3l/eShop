@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using System.Text;
 using Business;
 using Business.Automapper;
 using Business.Interfaces;
@@ -7,7 +8,12 @@ using Business.Services;
 using Data;
 using Data.Entities;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,8 +22,16 @@ AddServices();
 
 void AddServices()
 {
+    builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
+    
     builder.Services
-        .AddControllers()
+        .AddControllers(options =>
+        {
+            options.EnableEndpointRouting = false;
+            var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+
+            options.Filters.Add(new AuthorizeFilter(policy));
+        })
         .AddFluentValidation(fv =>
         {
             fv.RegisterValidatorsFromAssembly(Assembly.Load("Business"));
@@ -30,8 +44,10 @@ void AddServices()
             .UseNpgsql(builder.Configuration.GetConnectionString("eShop")));
 
     builder.Services.AddIdentity<User, UserRole>()
-        .AddEntityFrameworkStores<EShopDbContext>();
-    
+        .AddEntityFrameworkStores<EShopDbContext>()
+        .AddSignInManager<SignInManager<User>>();
+
+    builder.Services.AddTransient<IJwtAuthService, JwtAuthServiceService>();
     builder.Services.AddTransient<IDateTimeProvider, DateTimeProvider>();
     builder.Services.AddTransient<IProductService, ProductService>();
     builder.Services.AddTransient<ICategoryService, CategoryService>();
@@ -41,6 +57,18 @@ void AddServices()
     {
         c.SwaggerDoc("v1", new OpenApiInfo {Title = "eShop", Description = "Web api for eShop frontend"});
     });
+
+    builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(opt =>
+        {
+            opt.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetValue<string>("JwtSettings:TokenKey"))),
+                ValidateAudience = false,
+                ValidateIssuer = false
+            };
+        });
 }
 
 var app = builder.Build();
@@ -90,5 +118,8 @@ app.MapControllers();
 app.Run();
 
 //For creating web application factory in integration tests
-[ExcludeFromCodeCoverage]
-public partial class Program { }
+namespace WebApi
+{
+    [ExcludeFromCodeCoverage]
+    public partial class Program { }
+}
