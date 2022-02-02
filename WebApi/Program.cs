@@ -9,9 +9,7 @@ using Data;
 using Data.Entities;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -25,13 +23,7 @@ void AddServices()
     builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
     
     builder.Services
-        .AddControllers(options =>
-        {
-            options.EnableEndpointRouting = false;
-            var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-
-            options.Filters.Add(new AuthorizeFilter(policy));
-        })
+        .AddControllers()
         .AddFluentValidation(fv =>
         {
             fv.RegisterValidatorsFromAssembly(Assembly.Load("Business"));
@@ -118,8 +110,5 @@ app.MapControllers();
 app.Run();
 
 //For creating web application factory in integration tests
-namespace WebApi
-{
-    [ExcludeFromCodeCoverage]
-    public partial class Program { }
-}
+[ExcludeFromCodeCoverage]
+public partial class Program { } 
