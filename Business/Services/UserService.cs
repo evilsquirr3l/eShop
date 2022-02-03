@@ -1,3 +1,4 @@
+using AutoMapper;
 using Business.Interfaces;
 using Business.Records;
 using Data.Entities;
@@ -10,12 +11,14 @@ public class UserService : IUserService
     private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signInManager;
     private readonly IJwtAuthService _jwtAuthService;
+    private readonly IMapper _mapper;
 
-    public UserService(UserManager<User> userManager, SignInManager<User> signInManager, IJwtAuthService jwtAuthService)
+    public UserService(UserManager<User> userManager, SignInManager<User> signInManager, IJwtAuthService jwtAuthService, IMapper mapper)
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _jwtAuthService = jwtAuthService;
+        _mapper = mapper;
     }
 
     public async Task<UserRecord> LoginAsync(LoginRecord loginRecord)
@@ -31,11 +34,10 @@ public class UserService : IUserService
 
         if (result.Succeeded)
         {
-            return new UserRecord()
-            {
-                Token = _jwtAuthService.CreateToken(user),
-                Username = user.UserName
-            };
+            var userRecord = _mapper.Map<UserRecord>(user);
+            userRecord.Token = _jwtAuthService.CreateToken(user);
+
+            return userRecord;
         }
 
         throw new ArgumentException("Login failed.");
