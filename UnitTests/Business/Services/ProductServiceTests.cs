@@ -29,7 +29,7 @@ public class ProductServiceTests
         _dateTimeProvider = new Mock<IDateTimeProvider>();
         _dateTimeProvider.Setup(x => x.GetCurrentTime()).Returns(CurrentTime);
         
-        var mapper = UnitTestsHelper.CreateAutomapper(_dateTimeProvider.Object);
+        var mapper = UnitTestsHelper.CreateAutomapper();
         
         _productService = new ProductService(_dbContext, mapper, _dateTimeProvider.Object);
     }

@@ -29,7 +29,7 @@ public class CategoryServiceTests
         _dateTimeProvider = new Mock<IDateTimeProvider>();
         _dateTimeProvider.Setup(x => x.GetCurrentTime()).Returns(CurrentTime);
         
-        var mapper = UnitTestsHelper.CreateAutomapper(_dateTimeProvider.Object);
+        var mapper = UnitTestsHelper.CreateAutomapper();
         
         _categoryService = new CategoryService(_dbContext, mapper, _dateTimeProvider.Object);
     }
