@@ -1,5 +1,6 @@
 # eShop
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ad4c49edac7443e1b6308e68dda53445)](https://app.codacy.com/gh/evilsquirr3l/eShop?utm_source=github.com&utm_medium=referral&utm_content=evilsquirr3l/eShop&utm_campaign=Badge_Grade_Settings)
 [![.NET](https://github.com/evilsquirr3l/eShop/actions/workflows/dotnet.yml/badge.svg)](https://github.com/evilsquirr3l/eShop/actions/workflows/dotnet.yml) [![Coverage Status](https://coveralls.io/repos/github/evilsquirr3l/eShop/badge.svg)](https://coveralls.io/github/evilsquirr3l/eShop)
 
 # Client (front-end)
