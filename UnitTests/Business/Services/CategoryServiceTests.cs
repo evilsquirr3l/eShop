@@ -19,7 +19,7 @@ public class CategoryServiceTests
     private EShopDbContext _dbContext;
     private Mock<IDateTimeProvider> _dateTimeProvider;
 
-    private static readonly DateTime CurrentTime = new DateTime(2022, 1, 1);
+    private static readonly DateTime CurrentTime = new(2022, 1, 1);
 
     [SetUp]
     public void SetUp()
@@ -62,7 +62,7 @@ public class CategoryServiceTests
     [TestCase("testCategory", "description")]
     public async Task CreateCategoryAsync_WithValues_CreatesCategory(string name, string description)
     {
-        var category = new CategoryRecord()
+        var category = new CategoryRecord
         {
             Description = description, Name = name
         };
@@ -81,7 +81,7 @@ public class CategoryServiceTests
     public async Task UpdateCategoryAsync_WithValues_UpdatesCategory(int id, string name, string description)
     {
         await CreateTestCategoryWithId(id);
-        var categoryAfterUpdate = new CategoryRecord()
+        var categoryAfterUpdate = new CategoryRecord
         {
             Id = id, Description = description, Name = name
         };

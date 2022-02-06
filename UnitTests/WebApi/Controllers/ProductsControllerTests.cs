@@ -34,7 +34,7 @@ public class ProductsControllerTests
         var result = await _productsController.GetProduct(id);
 
         result.Should().BeOfType<ActionResult<ProductRecord>>();
-        (result as ActionResult<ProductRecord>).Value.Should().Be(productRecord);
+        result.Value.Should().Be(productRecord);
     }
     
     [Test]

@@ -25,7 +25,7 @@ public class CategoryValidatorTests
     [Test]
     public async Task CategoryValidator_NameIsEmpty_HasError()
     {
-        var categoryRecord = new CategoryRecord() {Name = string.Empty};
+        var categoryRecord = new CategoryRecord {Name = string.Empty};
 
         var result = await _validator.TestValidateAsync(categoryRecord);
 
@@ -35,7 +35,7 @@ public class CategoryValidatorTests
     [Test]
     public async Task CategoryValidator_DescriptionIsEmpty_HasError()
     {
-        var categoryRecord = new CategoryRecord() {Description = string.Empty};
+        var categoryRecord = new CategoryRecord {Description = string.Empty};
 
         var result = await _validator.TestValidateAsync(categoryRecord);
 
@@ -47,7 +47,7 @@ public class CategoryValidatorTests
     {
         await _dbContext.Categories.AddAsync(new Category {Name = "test", Description = "test"});
         await _dbContext.SaveChangesAsync();
-        var categoryRecord = new CategoryRecord() {Name = "test", Description = "test"};
+        var categoryRecord = new CategoryRecord {Name = "test", Description = "test"};
 
         var result = await _validator.TestValidateAsync(categoryRecord);
 
@@ -57,7 +57,7 @@ public class CategoryValidatorTests
     [Test]
     public async Task CategoryValidator_IsDeletedIsTrue_HasError()
     {
-        var categoryRecord = new CategoryRecord() {Name = "test", IsDeleted = true};
+        var categoryRecord = new CategoryRecord {Name = "test", IsDeleted = true};
 
         var result = await _validator.TestValidateAsync(categoryRecord);
 

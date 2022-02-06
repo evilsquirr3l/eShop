@@ -19,7 +19,7 @@ public class ProductServiceTests
     private EShopDbContext _dbContext;
     private Mock<IDateTimeProvider> _dateTimeProvider;
 
-    private static readonly DateTime CurrentTime = new DateTime(2022, 1, 1);
+    private static readonly DateTime CurrentTime = new(2022, 1, 1);
 
     [SetUp]
     public void SetUp()
@@ -71,14 +71,14 @@ public class ProductServiceTests
 
         await _productService.CreateProductAsync(product);
 
-        var producTRecord = await _dbContext.Products.FindAsync(1);
-        producTRecord.Should().NotBeNull();
-        producTRecord.Name.Should().Be(name);
-        producTRecord.Price.Should().Be(price);
-        producTRecord.Quantity.Should().Be(quantity);
-        producTRecord.Description.Should().Be(description);
-        producTRecord.CreatedAt.Should().Be(CurrentTime);
-        producTRecord.ModifiedAt.Should().Be(CurrentTime);
+        var productRecord = await _dbContext.Products.FindAsync(1);
+        productRecord.Should().NotBeNull();
+        productRecord.Name.Should().Be(name);
+        productRecord.Price.Should().Be(price);
+        productRecord.Quantity.Should().Be(quantity);
+        productRecord.Description.Should().Be(description);
+        productRecord.CreatedAt.Should().Be(CurrentTime);
+        productRecord.ModifiedAt.Should().Be(CurrentTime);
     }
     
     [TestCase(1, "updatedProduct", 100, 1, "updatedDescription")]
@@ -92,13 +92,13 @@ public class ProductServiceTests
 
         await _productService.UpdateProductAsync(id, productAfterUpdate);
 
-        var producTRecord = await _dbContext.Products.FindAsync(id);
-        producTRecord.Should().NotBeNull();
-        producTRecord.Name.Should().Be(name);
-        producTRecord.Price.Should().Be(price);
-        producTRecord.Quantity.Should().Be(quantity);
-        producTRecord.Description.Should().Be(description);
-        producTRecord.ModifiedAt.Should().Be(CurrentTime);
+        var productRecord = await _dbContext.Products.FindAsync(id);
+        productRecord.Should().NotBeNull();
+        productRecord.Name.Should().Be(name);
+        productRecord.Price.Should().Be(price);
+        productRecord.Quantity.Should().Be(quantity);
+        productRecord.Description.Should().Be(description);
+        productRecord.ModifiedAt.Should().Be(CurrentTime);
     }
     
     [TestCase(1)]
@@ -108,19 +108,19 @@ public class ProductServiceTests
 
         await _productService.DeleteProductAsync(id);
 
-        var producTRecord = await _dbContext.Products.FindAsync(id);
-        producTRecord.Should().NotBeNull();
-        producTRecord.IsDeleted.Should().BeTrue();
-        producTRecord.ModifiedAt.Should().Be(CurrentTime);
+        var productRecord = await _dbContext.Products.FindAsync(id);
+        productRecord.Should().NotBeNull();
+        productRecord.IsDeleted.Should().BeTrue();
+        productRecord.ModifiedAt.Should().Be(CurrentTime);
     }
     
     private async Task CreateTestProductWithId(int id)
     {
         var category = new Category {Id = id, Name = "testCategory", Description = "testCategoryDescription"};
-        var producTRecord = new Product
+        var productRecord = new Product
             {Id = id, Name = "testProduct", Description = "testDescription", Category = category};
-        await _dbContext.Products.AddAsync(producTRecord);
+        await _dbContext.Products.AddAsync(productRecord);
         await _dbContext.SaveChangesAsync();
-        _dbContext.Entry(producTRecord).State = EntityState.Detached;
+        _dbContext.Entry(productRecord).State = EntityState.Detached;
     }
 }

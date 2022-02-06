@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Business.Records;
 using FluentAssertions;
 using NUnit.Framework;
-using WebApi;
 
 namespace IntegrationTests;
 
@@ -45,7 +44,7 @@ public class ProductsControllerIntegrationTests
     {
         var productRecord = new ProductRecord {Name = "invalid product"};
         
-        var response = await _client.PostAsJsonAsync<ProductRecord>("api/Products", productRecord);
+        var response = await _client.PostAsJsonAsync("api/Products", productRecord);
 
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
@@ -55,7 +54,7 @@ public class ProductsControllerIntegrationTests
     {
         var productRecord = new ProductRecord {Name = "product", Description = "description", CategoryId = 999};
         
-        var response = await _client.PostAsJsonAsync<ProductRecord>("api/Products", productRecord);
+        var response = await _client.PostAsJsonAsync("api/Products", productRecord);
 
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
@@ -65,7 +64,7 @@ public class ProductsControllerIntegrationTests
     {
         var productRecord = new ProductRecord {Name = "valid product", Description = "description", CategoryId = 1};
         
-        var response = await _client.PostAsJsonAsync<ProductRecord>("api/Products", productRecord);
+        var response = await _client.PostAsJsonAsync("api/Products", productRecord);
 
         var result = await response.Content.ReadFromJsonAsync<ProductRecord>();
         response.EnsureSuccessStatusCode();
