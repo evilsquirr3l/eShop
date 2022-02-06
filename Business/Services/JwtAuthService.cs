@@ -8,11 +8,11 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Business.Services;
 
-public class JwtAuthServiceService : IJwtAuthService
+public class JwtAuthService : IJwtAuthService
 {
     private readonly JwtSettings _jwtSettings;
 
-    public JwtAuthServiceService(IOptions<JwtSettings> configuration)
+    public JwtAuthService(IOptions<JwtSettings> configuration)
     {
         _jwtSettings = configuration.Value;
     }

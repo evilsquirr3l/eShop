@@ -39,7 +39,7 @@ void AddServices()
         .AddEntityFrameworkStores<EShopDbContext>()
         .AddSignInManager<SignInManager<User>>();
 
-    builder.Services.AddTransient<IJwtAuthService, JwtAuthServiceService>();
+    builder.Services.AddTransient<IJwtAuthService, JwtAuthService>();
     builder.Services.AddTransient<IDateTimeProvider, DateTimeProvider>();
     builder.Services.AddTransient<IProductService, ProductService>();
     builder.Services.AddTransient<ICategoryService, CategoryService>();
