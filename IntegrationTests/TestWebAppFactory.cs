@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace IntegrationTests;
 
-public class TestWebAppFactory<TEntryPoint> : WebApplicationFactory<Program> where TEntryPoint : Program
+public class TestWebAppFactory: WebApplicationFactory<Program>
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {

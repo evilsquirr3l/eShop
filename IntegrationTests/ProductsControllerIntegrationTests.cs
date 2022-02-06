@@ -11,13 +11,13 @@ namespace IntegrationTests;
 [TestFixture]
 public class ProductsControllerIntegrationTests
 {
-    private TestWebAppFactory<Program> _testWebAppFactory;
+    private TestWebAppFactory _testWebAppFactory;
     private HttpClient _client;
     
     [SetUp]
     public void Setup()
     {
-        _testWebAppFactory = new TestWebAppFactory<Program>();
+        _testWebAppFactory = new TestWebAppFactory();
         _client = _testWebAppFactory.CreateClient();
     }
 
