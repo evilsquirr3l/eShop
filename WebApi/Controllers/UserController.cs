@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace WebApi.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/[controller]")]
 [Consumes("application/json")]
 public class UserController : ControllerBase
