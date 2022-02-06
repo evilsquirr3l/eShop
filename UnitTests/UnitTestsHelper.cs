@@ -1,6 +1,7 @@
 using System;
 using AutoMapper;
 using Business.Automapper;
+using Business.Interfaces;
 using Data;
 using Data.Entities;
 using Microsoft.AspNetCore.Http;
@@ -12,13 +13,13 @@ namespace UnitTests;
 
 internal static class UnitTestsHelper
 {
-    public static DbContextOptions<EShopDbContext> UseInmemoryDatabase()
+    public static EShopDbContext UseInmemoryDbContext()
     {
         var options = new DbContextOptionsBuilder<EShopDbContext>()
             .UseInMemoryDatabase(Guid.NewGuid().ToString())
             .Options;
 
-        return options;
+        return new EShopDbContext(options);
     }
 
     public static Mapper CreateAutomapper()
@@ -29,6 +30,14 @@ internal static class UnitTestsHelper
         });
 
         return new Mapper(configuration);
+    }
+    
+    public static Mock<IDateTimeProvider> DateTimeProviderMock(DateTime dateTime)
+    {
+        var dateTimeProvider = new Mock<IDateTimeProvider>();
+        dateTimeProvider.Setup(x => x.GetCurrentTime()).Returns(dateTime);
+
+        return dateTimeProvider;
     }
     
     public static (Mock<UserManager<User>> userManagerMock, Mock<SignInManager<User>> signInManagerMock) GetMockedIdentityManagers()

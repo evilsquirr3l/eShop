@@ -19,7 +19,7 @@ public class JwtAuthService : IJwtAuthService
 
     public string CreateToken(User user)
     {
-        var claims = new List<Claim> {new Claim(JwtRegisteredClaimNames.NameId, user.UserName)};
+        var claims = new List<Claim> {new(JwtRegisteredClaimNames.NameId, user.UserName)};
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.TokenKey));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512Signature);
 

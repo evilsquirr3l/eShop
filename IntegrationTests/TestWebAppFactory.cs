@@ -6,17 +6,16 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using WebApi;
 
 namespace IntegrationTests;
 
-public class TestWebAppFactory<TEntryPoint> : WebApplicationFactory<Program> where TEntryPoint : Program
+public class TestWebAppFactory: WebApplicationFactory<Program>
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.ConfigureTestServices(services =>
         {
-            var descriptor = services.SingleOrDefault<ServiceDescriptor>(d => d.ServiceType == typeof(DbContextOptions<EShopDbContext>));
+            var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<EShopDbContext>));
             if (descriptor != null)
                 services.Remove(descriptor);
             services.AddDbContextPool<EShopDbContext>(options => { options.UseInMemoryDatabase("InmemoryDb"); });

@@ -34,7 +34,7 @@ public class CategoriesControllerTests
         var result = await _categoriesController.GetCategory(id);
 
         result.Should().BeOfType<ActionResult<CategoryRecord>>();
-        (result as ActionResult<CategoryRecord>).Value.Should().Be(categoryRecord);
+        result.Value.Should().Be(categoryRecord);
     }
     
     [Test]

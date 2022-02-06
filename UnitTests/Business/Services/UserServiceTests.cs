@@ -34,7 +34,7 @@ public class UserServiceTests
     [Test]
     public async Task LoginAsync_UserIsNotFound_ThrowsArgumentException()
     {
-        var loginRecord = new LoginRecord() { Email = "any@mail.com", Password = "qwerty" };
+        var loginRecord = new LoginRecord { Email = "any@mail.com", Password = "qwerty" };
         _userManager.Setup(x => x.FindByEmailAsync(It.IsAny<string>())).ReturnsAsync(() => null!);
 
         var action = async () => await _userService.LoginAsync(loginRecord);

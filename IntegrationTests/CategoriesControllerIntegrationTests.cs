@@ -5,20 +5,19 @@ using System.Threading.Tasks;
 using Business.Records;
 using FluentAssertions;
 using NUnit.Framework;
-using WebApi;
 
 namespace IntegrationTests;
 
 [TestFixture]
 public class CategoriesControllerIntegrationTests
 {
-    private TestWebAppFactory<Program> _testWebAppFactory;
+    private TestWebAppFactory _testWebAppFactory;
     private HttpClient _client;
     
     [SetUp]
     public void Setup()
     {
-        _testWebAppFactory = new TestWebAppFactory<Program>();
+        _testWebAppFactory = new TestWebAppFactory();
         _client = _testWebAppFactory.CreateClient();
     }
 
@@ -45,7 +44,7 @@ public class CategoriesControllerIntegrationTests
     {
         var categoryRecord = new CategoryRecord {Name = "category1", Description = "category1 description"};
         
-        var response = await _client.PostAsJsonAsync<CategoryRecord>("api/Categories", categoryRecord);
+        var response = await _client.PostAsJsonAsync("api/Categories", categoryRecord);
 
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
@@ -55,7 +54,7 @@ public class CategoriesControllerIntegrationTests
     {
         var categoryRecord = new CategoryRecord {Name = "valid category", Description = "description"};
         
-        var response = await _client.PostAsJsonAsync<CategoryRecord>("api/Categories", categoryRecord);
+        var response = await _client.PostAsJsonAsync("api/Categories", categoryRecord);
 
         var result = await response.Content.ReadFromJsonAsync<CategoryRecord>();
         response.EnsureSuccessStatusCode();

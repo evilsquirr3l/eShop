@@ -21,7 +21,7 @@ public class LoginValidatorTests
     [Test]
     public async Task LoginValidator_EmailIsInvalid_HasError()
     {
-        var loginValidator = new LoginRecord() {Email = "invalidEmail"};
+        var loginValidator = new LoginRecord {Email = "invalidEmail"};
 
         var result = await _validator.TestValidateAsync(loginValidator);
 
@@ -31,7 +31,7 @@ public class LoginValidatorTests
     [Test]
     public async Task LoginValidator_EmailIsValid_DoesntHaveError()
     {
-        var loginValidator = new LoginRecord() {Email = "valid@email.com"};
+        var loginValidator = new LoginRecord {Email = "valid@email.com"};
 
         var result = await _validator.TestValidateAsync(loginValidator);
 
@@ -41,7 +41,7 @@ public class LoginValidatorTests
     [Test]
     public async Task LoginValidator_PasswordIsEmpty_HasError()
     {
-        var loginValidator = new LoginRecord() {Password = string.Empty};
+        var loginValidator = new LoginRecord {Password = string.Empty};
 
         var result = await _validator.TestValidateAsync(loginValidator);
 
