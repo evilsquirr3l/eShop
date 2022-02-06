@@ -31,7 +31,7 @@ internal static class UnitTestsHelper
         return new Mapper(configuration);
     }
     
-    public static (Mock<UserManager<User>> userManagerMock, Mock<SignInManager<User>> signInManagerMock) GetMockSignInManager()
+    public static (Mock<UserManager<User>> userManagerMock, Mock<SignInManager<User>> signInManagerMock) GetMockedIdentityManagers()
     {
         var userManagerMock = new Mock<UserManager<User>>(
             /* IUserStore<TUser> store */Mock.Of<IUserStore<User>>(),
