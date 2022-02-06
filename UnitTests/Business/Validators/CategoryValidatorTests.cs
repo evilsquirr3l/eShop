@@ -18,7 +18,7 @@ public class CategoryValidatorTests
     [SetUp]
     public void SetUp()
     {
-        _dbContext = new EShopDbContext(UnitTestsHelper.UseInmemoryDatabase());
+        _dbContext = UnitTestsHelper.UseInmemoryDbContext();
         _validator = new CategoryValidator(_dbContext);
     }
 

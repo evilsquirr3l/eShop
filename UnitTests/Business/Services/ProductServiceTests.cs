@@ -1,13 +1,11 @@
 using System;
 using System.Threading.Tasks;
-using Business.Interfaces;
 using Business.Records;
 using Business.Services;
 using Data;
 using Data.Entities;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-using Moq;
 using NUnit.Framework;
 
 namespace UnitTests.Business.Services;
@@ -17,21 +15,14 @@ public class ProductServiceTests
 {
     private ProductService _productService;
     private EShopDbContext _dbContext;
-    private Mock<IDateTimeProvider> _dateTimeProvider;
 
     private static readonly DateTime CurrentTime = new(2022, 1, 1);
 
     [SetUp]
     public void SetUp()
     {
-        _dbContext = new EShopDbContext(UnitTestsHelper.UseInmemoryDatabase());
-        
-        _dateTimeProvider = new Mock<IDateTimeProvider>();
-        _dateTimeProvider.Setup(x => x.GetCurrentTime()).Returns(CurrentTime);
-        
-        var mapper = UnitTestsHelper.CreateAutomapper();
-        
-        _productService = new ProductService(_dbContext, mapper, _dateTimeProvider.Object);
+        _dbContext = UnitTestsHelper.UseInmemoryDbContext();
+        _productService = new ProductService(_dbContext, UnitTestsHelper.CreateAutomapper(), UnitTestsHelper.DateTimeProviderMock(CurrentTime).Object);
     }
 
     [TestCase(1, "testProduct", 1, "testCategory", "testDescription")]

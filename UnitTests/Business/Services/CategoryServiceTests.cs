@@ -1,13 +1,11 @@
 using System;
 using System.Threading.Tasks;
-using Business.Interfaces;
 using Business.Records;
 using Business.Services;
 using Data;
 using Data.Entities;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-using Moq;
 using NUnit.Framework;
 
 namespace UnitTests.Business.Services;
@@ -17,25 +15,19 @@ public class CategoryServiceTests
 {
     private CategoryService _categoryService;
     private EShopDbContext _dbContext;
-    private Mock<IDateTimeProvider> _dateTimeProvider;
 
     private static readonly DateTime CurrentTime = new(2022, 1, 1);
 
     [SetUp]
     public void SetUp()
     {
-        _dbContext = new EShopDbContext(UnitTestsHelper.UseInmemoryDatabase());
-        
-        _dateTimeProvider = new Mock<IDateTimeProvider>();
-        _dateTimeProvider.Setup(x => x.GetCurrentTime()).Returns(CurrentTime);
-        
-        var mapper = UnitTestsHelper.CreateAutomapper();
-        
-        _categoryService = new CategoryService(_dbContext, mapper, _dateTimeProvider.Object);
+        _dbContext = UnitTestsHelper.UseInmemoryDbContext();
+        _categoryService = new CategoryService(_dbContext, UnitTestsHelper.CreateAutomapper(), UnitTestsHelper.DateTimeProviderMock(CurrentTime).Object);
     }
 
     [TestCase(1, "testCategoryDescription", "testCategory")]
-    public async Task GetCategoryAsync_WithId1_ReturnsCorrectCategoryWithDetails(int categoryId, string description, string categoryName)
+    public async Task GetCategoryAsync_WithId1_ReturnsCorrectCategoryWithDetails(int categoryId, string description,
+        string categoryName)
     {
         await CreateTestCategoryWithId(categoryId);
 
@@ -47,12 +39,14 @@ public class CategoryServiceTests
         result.Description.Should().Be(description);
         result.IsDeleted.Should().BeFalse();
     }
-    
+
     [TestCase(1)]
     public async Task GetCategoryAsync_CategoryIsDeleted_ReturnsNull(int categoryId)
     {
-        await _dbContext.Categories.AddAsync(new Category {Id = categoryId, Name = "test", Description = "test", IsDeleted = true});
-        await _dbContext.SaveChangesAsync();
+        var dbContext = UnitTestsHelper.UseInmemoryDbContext();
+        await dbContext.Categories.AddAsync(new Category
+            { Id = categoryId, Name = "test", Description = "test", IsDeleted = true });
+        await dbContext.SaveChangesAsync();
 
         var result = await _categoryService.GetCategoryAsync(categoryId);
 
@@ -76,7 +70,7 @@ public class CategoryServiceTests
         entity.CreatedAt.Should().Be(CurrentTime);
         entity.ModifiedAt.Should().Be(CurrentTime);
     }
-    
+
     [TestCase(1, "updatedCategory", "updatedDescription")]
     public async Task UpdateCategoryAsync_WithValues_UpdatesCategory(int id, string name, string description)
     {
@@ -94,7 +88,7 @@ public class CategoryServiceTests
         category.Description.Should().Be(description);
         category.ModifiedAt.Should().Be(CurrentTime);
     }
-    
+
     [TestCase(1)]
     public async Task DeleteCategoryAsync_WithId1_DeletesCategory(int id)
     {
@@ -107,10 +101,10 @@ public class CategoryServiceTests
         category.IsDeleted.Should().BeTrue();
         category.ModifiedAt.Should().Be(CurrentTime);
     }
-    
+
     private async Task CreateTestCategoryWithId(int id)
     {
-        var category = new Category {Id = id, Name = "testCategory", Description = "testCategoryDescription"};
+        var category = new Category { Id = id, Name = "testCategory", Description = "testCategoryDescription" };
         
         await _dbContext.Categories.AddAsync(category);
         await _dbContext.SaveChangesAsync();
