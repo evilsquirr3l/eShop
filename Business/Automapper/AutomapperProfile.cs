@@ -11,5 +11,7 @@ public class AutomapperProfile : Profile
         CreateMap<Product, ProductRecord>().ReverseMap();
         
         CreateMap<Category, CategoryRecord>().ReverseMap();
+        
+        CreateMap<User, UserRecord>().ReverseMap();
     }
 }

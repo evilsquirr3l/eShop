@@ -1,13 +1,18 @@
 using Data.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data;
 
-public sealed class EShopDbContext : DbContext
+public sealed class EShopDbContext : IdentityDbContext<User, UserRole, int>
 {
-    public EShopDbContext(DbContextOptions<EShopDbContext> options) : base(options)
+    public EShopDbContext(DbContextOptions<EShopDbContext> options) : base(options) { }
+
+    protected override void OnModelCreating(ModelBuilder builder)
     {
-        Database.EnsureCreated();
+        base.OnModelCreating(builder);
+
+        builder.ApplyConfigurationsFromAssembly(typeof(EShopDbContext).Assembly);
     }
 
     public DbSet<User> Users { get; set; }
