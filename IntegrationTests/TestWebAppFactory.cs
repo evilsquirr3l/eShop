@@ -17,7 +17,9 @@ public class TestWebAppFactory: WebApplicationFactory<Program>
         {
             var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<EShopDbContext>));
             if (descriptor != null)
+            {
                 services.Remove(descriptor);
+            }
             services.AddDbContextPool<EShopDbContext>(options => { options.UseInMemoryDatabase("InmemoryDb"); });
 
             var sp = services.BuildServiceProvider();
