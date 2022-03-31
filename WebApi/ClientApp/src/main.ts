@@ -9,7 +9,7 @@ export function getBaseUrl() {
 }
 
 const providers = [
-  {provide: 'BASE_URL', useFactory: getBaseUrl, deps: []}
+  { provide: 'BASE_URL', useFactory: getBaseUrl, deps: [] },
 ];
 
 if (environment.production) {
@@ -17,4 +17,4 @@ if (environment.production) {
 }
 
 platformBrowserDynamic(providers).bootstrapModule(AppModule)
-  .catch(err => console.log(err));
+  .catch((err) => console.log(err));
