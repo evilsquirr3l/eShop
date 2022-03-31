@@ -9,6 +9,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./WebApi/ClientApp
 
     steps:
       - uses: actions/checkout@v1
@@ -23,10 +26,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
       - run: pwd
-      - run: ls
-      - run: cd WebApi/
-      - run: ls
-      - run: cd ClientApp/
       - run: ls
       - run: npm cache clean --force
       - run: npm install
