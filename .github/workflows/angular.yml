@@ -24,9 +24,9 @@ jobs:
             ${{ runner.os }}-node-
       - run: pwd
       - run: ls
-      - run: cd /WebApi/
+      - run: cd WebApi/
       - run: ls
-      - run: cd /ClientApp/
+      - run: cd ClientApp/
       - run: ls
       - run: npm cache clean --force
       - run: npm install
