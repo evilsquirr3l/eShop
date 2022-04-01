@@ -10,6 +10,8 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import {MdbDropdownModule} from "mdb-angular-ui-kit/dropdown";
 import { ProductCardComponent } from './product-card/product-card.component';
+import { CarouselComponent } from './carousel/carousel.component';
+import {MdbCarouselModule} from "mdb-angular-ui-kit/carousel";
 
 @NgModule({
   declarations: [
@@ -17,6 +19,7 @@ import { ProductCardComponent } from './product-card/product-card.component';
     NavMenuComponent,
     HomeComponent,
     ProductCardComponent,
+    CarouselComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -27,6 +30,7 @@ import { ProductCardComponent } from './product-card/product-card.component';
       {path: '', component: HomeComponent, pathMatch: 'full'},
     ]),
     MdbDropdownModule,
+    MdbCarouselModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
