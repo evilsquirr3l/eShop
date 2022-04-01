@@ -1,34 +1,77 @@
-<header>
-  <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
-  >
-    <div class="container">
-      <a [routerLink]="['/']" class="navbar-brand">WebApi</a>
-      <button
-        (click)="toggle()"
-        [attr.aria-expanded]="isExpanded"
-        aria-label="Toggle navigation"
-        class="navbar-toggler"
-        data-target=".navbar-collapse"
-        data-toggle="collapse"
-        type="button"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div
-        [ngClass]="{ show: isExpanded }"
-        class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
-      >
-        <ul class="navbar-nav flex-grow">
-          <li
-            [routerLinkActiveOptions]="{ exact: true }"
-            [routerLinkActive]="['link-active']"
-            class="nav-item"
-          >
-            <a [routerLink]="['/']" class="nav-link text-dark">Home</a>
-          </li>
-        </ul>
-      </div>
+<!-- Navbar-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid justify-content-between">
+    <!-- Left elements -->
+    <div class="d-flex">
+      <!-- Brand -->
+      <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="#">
+        <img
+          src="./assets/icons/ukraineFlag.svg"
+          height="20"
+          alt=""
+          loading="lazy"
+          style="margin-top: 2px;"
+        />
+      </a>
+
+      <!-- Search form -->
+      <form class="input-group w-auto my-auto d-none d-sm-flex">
+        <input
+          autocomplete="off"
+          type="search"
+          class="form-control rounded"
+          placeholder="Search"
+          style="min-width: 125px;"
+        />
+        <span class="input-group-text border-0 d-none d-lg-flex"
+        ><i class="fas fa-search"></i
+        ></span>
+      </form>
     </div>
-  </nav>
-</header>
+    <!-- Left elements -->
+
+    <!-- Right elements -->
+    <ul class="navbar-nav flex-row">
+      <li class="nav-item me-3 me-lg-1">
+        <a class="nav-link d-sm-flex align-items-sm-center" href="#">
+          <img
+            src="https://mdbootstrap.com/img/new/avatars/1.webp"
+            class="rounded-circle"
+            height="22"
+            alt=""
+            loading="lazy"
+          />
+          <strong class="d-none d-sm-block ms-1">John</strong>
+        </a>
+      </li>
+      <li mdbDropdown class="nav-item dropdown me-3 me-lg-1">
+        <a
+          class="nav-link dropdown-toggle hidden-arrow"
+          href="#"
+          id="navbarDropdownMenuLink"
+          role="button"
+          mdbDropdownToggle
+          aria-expanded="false"
+        >
+          <i class="fas fa-cart-arrow-down fa-lg"></i>
+
+          <span class="badge rounded-pill badge-notification bg-danger">6</span>
+        </a>
+      </li>
+      <li mdbDropdown class="nav-item dropdown me-3 me-lg-1">
+        <a
+          class="nav-link dropdown-toggle hidden-arrow"
+          href="#"
+          role="button"
+          mdbDropdownToggle
+          aria-expanded="false"
+        >
+          <i class="fas fa-bell fa-lg"></i>
+          <span class="badge rounded-pill badge-notification bg-danger">12</span>
+        </a>
+      </li>
+    </ul>
+    <!-- Right elements -->
+  </div>
+</nav>
+<!-- Navbar -->
