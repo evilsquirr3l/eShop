@@ -8,26 +8,29 @@ import { MdbCheckboxModule } from 'mdb-angular-ui-kit/checkbox';
 import { MdbDropdownModule } from 'mdb-angular-ui-kit/dropdown';
 import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { ProductCardComponent } from './product-card/product-card.component';
-import { CarouselComponent } from './carousel/carousel.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NavMenuComponent,
-    HomeComponent,
-    ProductCardComponent,
-    CarouselComponent,
+    AppComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
     HttpClientModule,
     FormsModule,
     MdbCheckboxModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
+      {
+        path: 'home',
+        loadChildren: () => import('./eshop/eshop.module').then(m => m.EshopModule)
+      },
+      {
+        path: 'auth',
+        loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+      },
+      {
+        path: '',
+        loadChildren: () => import('./core/core.module').then(m => m.CoreModule)
+      },
     ]),
     MdbDropdownModule,
     MdbCarouselModule,
