@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EshopRoutingModule } from "./eshop-routing.module";
-import { CoreRoutingModule } from "../core/core-routing.module";
+import { EshopRoutingModule } from './eshop-routing.module';
+import { CoreRoutingModule } from '../core/core-routing.module';
 
 @NgModule({
   declarations: [
@@ -9,7 +9,7 @@ import { CoreRoutingModule } from "../core/core-routing.module";
   imports: [
     CommonModule,
     EshopRoutingModule,
-    CoreRoutingModule
-  ]
+    CoreRoutingModule,
+  ],
 })
 export class EshopModule { }

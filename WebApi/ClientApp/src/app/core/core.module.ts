@@ -1,22 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CarouselComponent } from "./components/carousel/carousel.component";
-import { NavMenuComponent } from "./components/nav-menu/nav-menu.component";
-import { MdbCarouselModule } from "mdb-angular-ui-kit/carousel";
-
+import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
+import { CarouselComponent } from './components/carousel/carousel.component';
+import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 
 @NgModule({
   declarations: [
     CarouselComponent,
-    NavMenuComponent
+    NavMenuComponent,
   ],
   exports: [
     NavMenuComponent,
-    CarouselComponent
+    CarouselComponent,
   ],
   imports: [
     CommonModule,
-    MdbCarouselModule
-  ]
+    MdbCarouselModule,
+  ],
 })
 export class CoreModule { }

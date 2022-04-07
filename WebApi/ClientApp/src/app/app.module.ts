@@ -11,25 +11,25 @@ import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
-    BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
+    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     MdbCheckboxModule,
     RouterModule.forRoot([
       {
         path: 'home',
-        loadChildren: () => import('./eshop/eshop.module').then(m => m.EshopModule)
+        loadChildren: () => import('./eshop/eshop.module').then((m) => m.EshopModule),
       },
       {
         path: 'auth',
-        loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+        loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
       },
       {
         path: '',
-        loadChildren: () => import('./core/core.module').then(m => m.CoreModule)
+        loadChildren: () => import('./core/core.module').then((m) => m.CoreModule),
       },
     ]),
     MdbDropdownModule,
