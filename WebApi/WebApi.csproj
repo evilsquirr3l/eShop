@@ -39,6 +39,22 @@
         <_ContentIncludedByDefault Remove="Pages\_ViewImports.cshtml" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="ClientApp\src\app\auth\components" />
+      <Folder Include="ClientApp\src\app\auth\models" />
+      <Folder Include="ClientApp\src\app\auth\pages" />
+      <Folder Include="ClientApp\src\app\auth\services" />
+      <Folder Include="ClientApp\src\app\core\components" />
+      <Folder Include="ClientApp\src\app\core\guards" />
+      <Folder Include="ClientApp\src\app\core\pages" />
+      <Folder Include="ClientApp\src\app\core\services" />
+      <Folder Include="ClientApp\src\app\eshop\components" />
+      <Folder Include="ClientApp\src\app\eshop\guards" />
+      <Folder Include="ClientApp\src\app\eshop\models" />
+      <Folder Include="ClientApp\src\app\eshop\pages" />
+      <Folder Include="ClientApp\src\app\eshop\services" />
+    </ItemGroup>
+
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
         <!-- Ensure Node.js is installed -->
         <Exec Command="node --version" ContinueOnError="true">
