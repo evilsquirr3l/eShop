@@ -20,7 +20,7 @@ import { AppComponent } from './app.component';
     MdbCheckboxModule,
     RouterModule.forRoot([
       {
-        path: 'home',
+        path: '',
         loadChildren: () => import('./eshop/eshop.module').then((m) => m.EshopModule),
       },
       {
@@ -30,7 +30,11 @@ import { AppComponent } from './app.component';
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'home',
+        loadChildren: () => import('./core/core.module').then((m) => m.CoreModule),
+      },
+      {
+        path: '**',
+        redirectTo: '/not-found',
       },
     ]),
     MdbDropdownModule,
