@@ -4,4 +4,3 @@ export interface BaseType {
   modifiedAt: Date,
   isDeleted: boolean
 }
-

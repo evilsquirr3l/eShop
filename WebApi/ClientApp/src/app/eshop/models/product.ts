@@ -1,11 +1,11 @@
-import { Category } from "./category";
-import { BaseType } from "./baseType";
-import { Discount } from "./discount";
+import { Category } from './category';
+import { BaseType } from './baseType';
+import { Discount } from './discount';
 
 export interface Product extends BaseType {
   name: string,
   description: string,
-  picruteUrl: string,
+  pictureUrl: string,
   quantity: number,
   category: Category,
   categoryId: number,

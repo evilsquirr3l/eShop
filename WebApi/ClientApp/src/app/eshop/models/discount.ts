@@ -1,4 +1,4 @@
-import { BaseType } from "./baseType";
+import { BaseType } from './baseType';
 
 export interface Discount extends BaseType {
   name: string,
