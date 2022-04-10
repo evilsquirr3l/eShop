@@ -39,7 +39,7 @@ public class CategoryService : ICategoryService
 
         return PagedList<CategoryRecord>.ToPagedList(mappedCategories,
             await categories.CountAsync(),
-            queryStringParameters.PageNumber,
+            queryStringParameters.CurrentPage,
             queryStringParameters.PageSize);
     }
 

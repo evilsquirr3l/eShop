@@ -9,7 +9,7 @@ public static class QueryableExtensions
         QueryStringParameters parameters)
     {
         return source
-            .Skip((parameters.PageNumber - 1) * parameters.PageSize)
+            .Skip((parameters.CurrentPage - 1) * parameters.PageSize)
             .Take(parameters.PageSize);
     }
 }
