@@ -9,12 +9,12 @@ public class PagedList<T> : List<T>
     public bool HasPrevious => CurrentPage > 1;
     public bool HasNext => CurrentPage < TotalPages;
 
-    private PagedList(List<T> items, int count, int pageNumber, int pageSize)
+    private PagedList(List<T> items, int totalCount, int currentPage, int pageSize)
     {
-        TotalCount = count;
+        TotalCount = totalCount;
         PageSize = pageSize;
-        CurrentPage = pageNumber;
-        TotalPages = (int) Math.Ceiling(count / (double) pageSize);
+        CurrentPage = currentPage;
+        TotalPages = (int) Math.Ceiling(totalCount / (double) pageSize);
 
         AddRange(items);
     }
