@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Business.Interfaces;
+using Business.Paging;
 using Business.Records;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +18,7 @@ public class CategoriesControllerTests
 {
     private CategoriesController _categoriesController;
     private Mock<ICategoryService> _categoryService;
-    
+
     [SetUp]
     public void SetUp()
     {
@@ -36,7 +38,7 @@ public class CategoriesControllerTests
         result.Should().BeOfType<ActionResult<CategoryRecord>>();
         result.Value.Should().Be(categoryRecord);
     }
-    
+
     [Test]
     public async Task GetCategory_WhenCategoryDoesntExist_ReturnsNotFound()
     {
@@ -45,6 +47,29 @@ public class CategoriesControllerTests
         var result = await _categoriesController.GetCategory(id);
 
         result.Result.Should().BeOfType<NotFoundResult>();
+    }
+
+    [Test]
+    public async Task GetCategories_ReturnsPagedListWithHeaders()
+    {
+        var categoryRecords = new List<CategoryRecord> {new CategoryRecord()};
+        var count = 1;
+        var pageNumber = 1;
+        var pageSize = 1;
+        var currentPage = 1;
+        var pagedList = PagedList<CategoryRecord>.ToPagedList(categoryRecords, count, pageNumber, pageSize);
+        var queryStringParameters = new QueryStringParameters {CurrentPage = currentPage, PageSize = pageSize};
+
+        using var context = new FakeHttpContext.FakeHttpContext();
+        var result = await _categoriesController.GetCategories(queryStringParameters);
+
+        result.Should().BeOfType<ActionResult<PagedList<CategoryRecord>>>();
+        result.Value.Count.Should().Be(count);
+        result.Value.PageSize.Should().Be(pageSize);
+        result.Value.TotalPages.Should().Be(pageNumber);
+        result.Value.CurrentPage.Should().Be(currentPage);
+        result.Value.HasNext.Should().BeFalse();
+        result.Value.HasPrevious.Should().BeFalse();
     }
     
     [Test]
@@ -60,7 +85,7 @@ public class CategoriesControllerTests
         (result as CreatedAtActionResult).RouteValues["id"].Should().Be(id);
         (result as CreatedAtActionResult).ActionName.Should().Be(nameof(_categoriesController.GetCategory));
     }
-    
+
     [Test]
     public async Task UpdateCategory_WhenCategoryExists_CallsServiceAndReturnsNoContent()
     {
@@ -73,7 +98,7 @@ public class CategoriesControllerTests
         result.Should().BeOfType<NoContentResult>();
         _categoryService.Verify(x => x.UpdateCategoryAsync(id, categoryRecord), Times.Once);
     }
-    
+
     [Test]
     public async Task UpdateCategory_IdsAreNotEqual_ReturnsBadRequest()
     {
@@ -84,7 +109,7 @@ public class CategoriesControllerTests
 
         result.Should().BeOfType<BadRequestResult>();
     }
-    
+
     [Test]
     public async Task UpdateCategory_WhenCategoryDoesntExist_ReturnsNotFound()
     {
@@ -94,7 +119,7 @@ public class CategoriesControllerTests
 
         result.Should().BeOfType<NotFoundResult>();
     }
-    
+
     [Test]
     public async Task DeleteCategory_WhenCategoryExists_CallsServiceAndReturnsNoContent()
     {
@@ -107,7 +132,7 @@ public class CategoriesControllerTests
         result.Should().BeOfType<NoContentResult>();
         _categoryService.Verify(x => x.DeleteCategoryAsync(id), Times.Once);
     }
-    
+
     [Test]
     public async Task DeleteCategory_WhenCategoryDoesntExist_ReturnsNotFound()
     {
