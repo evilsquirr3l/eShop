@@ -4,12 +4,17 @@ import { ProductCardComponent } from './components/product-card/product-card.com
 import { HomeComponent } from './pages/home/home.component';
 import { CoreRoutingModule } from '../core/core-routing.module';
 import { CoreModule } from '../core/core.module';
+import { ProductDetailsPageComponent } from "./pages/product-details-page/product-details-page.component";
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
   },
+  {
+    path: 'products/:id',
+    component: ProductDetailsPageComponent
+  }
 ];
 
 @NgModule({
