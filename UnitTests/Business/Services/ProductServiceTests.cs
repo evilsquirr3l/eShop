@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Business.Paging;
 using Business.Records;
 using Business.Services;
 using Data;
@@ -50,6 +51,45 @@ public class ProductServiceTests
         var result = await _productService.GetProductAsync(productId);
 
         result.Should().BeNull();
+    }
+    
+    [TestCase(1, 5)]
+    public async Task GetProductsListAsync_WithOneProduct_ReturnsCorrectPageResult(int currentPage, int pageSize)
+    {
+        var queryStringParameters = new QueryStringParameters()
+        {
+            CurrentPage = currentPage,
+            PageSize = pageSize
+        };
+        await CreateTestProductWithId(1);
+        
+        var result = await _productService.GetProductsListAsync(queryStringParameters);
+
+        result.Should().BeOfType<PagedList<ProductRecord>>();
+        result.TotalCount.Should().Be(1);
+        result.CurrentPage.Should().Be(currentPage);
+        result.HasNext.Should().BeFalse();
+        result.HasPrevious.Should().BeFalse();
+    }
+    
+    [TestCase(1, 1)]
+    public async Task GetProductsListAsync_WithManyProducts_ReturnsCorrectPageResult(int currentPage, int pageSize)
+    {
+        var queryStringParameters = new QueryStringParameters()
+        {
+            CurrentPage = currentPage,
+            PageSize = pageSize
+        };
+        await CreateTestProductWithId(1);
+        await CreateTestProductWithId(2);
+        
+        var result = await _productService.GetProductsListAsync(queryStringParameters);
+
+        result.Should().BeOfType<PagedList<ProductRecord>>();
+        result.TotalCount.Should().Be(2);
+        result.CurrentPage.Should().Be(currentPage);
+        result.HasNext.Should().BeTrue();
+        result.HasPrevious.Should().BeFalse();
     }
 
     [TestCase("testProduct", 100, 1, "description")]

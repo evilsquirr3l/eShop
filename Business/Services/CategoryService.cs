@@ -1,5 +1,6 @@
 using AutoMapper;
 using Business.Interfaces;
+using Business.Paging;
 using Business.Records;
 using Data;
 using Data.Entities;
@@ -29,9 +30,17 @@ public class CategoryService : ICategoryService
         return _mapper.Map<CategoryRecord>(category);
     }
 
-    public async Task<IEnumerable<CategoryRecord>> GetCategoryListAsync()
+    public async Task<PagedList<CategoryRecord>> GetCategoryListAsync(QueryStringParameters queryStringParameters)
     {
-        throw new NotImplementedException();
+        var categories = _dbContext.Categories;
+        
+        var selectedCategories = categories.OrderBy(x => x.Name).Paginate(queryStringParameters);;
+        var mappedCategories = _mapper.Map<List<CategoryRecord>>(selectedCategories);
+
+        return PagedList<CategoryRecord>.ToPagedList(mappedCategories,
+            await categories.CountAsync(),
+            queryStringParameters.CurrentPage,
+            queryStringParameters.PageSize);
     }
 
     public async Task CreateCategoryAsync(CategoryRecord categoryRecord)

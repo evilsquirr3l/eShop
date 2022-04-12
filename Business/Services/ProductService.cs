@@ -1,5 +1,6 @@
 using AutoMapper;
 using Business.Interfaces;
+using Business.Paging;
 using Business.Records;
 using Data;
 using Data.Entities;
@@ -30,9 +31,17 @@ public class ProductService : IProductService
         return _mapper.Map<ProductRecord>(product);
     }
 
-    public Task<IEnumerable<ProductRecord>> GetProductsListAsync()
+    public async Task<PagedList<ProductRecord>> GetProductsListAsync(QueryStringParameters queryStringParameters)
     {
-        throw new NotImplementedException();
+        var products = _dbContext.Products;
+        
+        var selectedProducts = products.OrderBy(x => x.Name).Paginate(queryStringParameters);;
+        var mappedProducts = _mapper.Map<List<ProductRecord>>(selectedProducts);
+
+        return PagedList<ProductRecord>.ToPagedList(mappedProducts,
+            await products.CountAsync(),
+            queryStringParameters.CurrentPage,
+            queryStringParameters.PageSize);
     }
 
     public async Task CreateProductAsync(ProductRecord productRecord)

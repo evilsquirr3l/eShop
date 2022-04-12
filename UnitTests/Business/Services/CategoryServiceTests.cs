@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Business.Paging;
 using Business.Records;
 using Business.Services;
 using Data;
@@ -38,6 +39,45 @@ public class CategoryServiceTests
         result.Name.Should().Be(categoryName);
         result.Description.Should().Be(description);
         result.IsDeleted.Should().BeFalse();
+    }
+
+    [TestCase(1, 5)]
+    public async Task GetCategoryListAsync_WithOneCategory_ReturnsCorrectPageResult(int currentPage, int pageSize)
+    {
+        var queryStringParameters = new QueryStringParameters()
+        {
+            CurrentPage = currentPage,
+            PageSize = pageSize
+        };
+        await CreateTestCategoryWithId(1);
+        
+        var result = await _categoryService.GetCategoryListAsync(queryStringParameters);
+
+        result.Should().BeOfType<PagedList<CategoryRecord>>();
+        result.TotalCount.Should().Be(1);
+        result.CurrentPage.Should().Be(currentPage);
+        result.HasNext.Should().BeFalse();
+        result.HasPrevious.Should().BeFalse();
+    }
+    
+    [TestCase(1, 1)]
+    public async Task GetCategoryListAsync_WithManyCategories_ReturnsCorrectPageResult(int currentPage, int pageSize)
+    {
+        var queryStringParameters = new QueryStringParameters()
+        {
+            CurrentPage = currentPage,
+            PageSize = pageSize
+        };
+        await CreateTestCategoryWithId(1);
+        await CreateTestCategoryWithId(2);
+        
+        var result = await _categoryService.GetCategoryListAsync(queryStringParameters);
+
+        result.Should().BeOfType<PagedList<CategoryRecord>>();
+        result.TotalCount.Should().Be(2);
+        result.CurrentPage.Should().Be(currentPage);
+        result.HasNext.Should().BeTrue();
+        result.HasPrevious.Should().BeFalse();
     }
 
     [TestCase(1)]
