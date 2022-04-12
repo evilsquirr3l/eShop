@@ -15,7 +15,7 @@ import { AppComponent } from './app.component';
     AppComponent,
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
     HttpClientModule,
     FormsModule,
     MdbCheckboxModule,

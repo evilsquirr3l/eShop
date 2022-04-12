@@ -14,4 +14,5 @@ import { RegistrationComponent } from './pages/registration/registration.compone
     RegistrationComponent,
   ],
 })
-export class AuthModule { }
+export class AuthModule {
+}

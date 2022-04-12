@@ -25,4 +25,5 @@ const routes: Routes = [
     HomeComponent,
   ],
 })
-export class EshopRoutingModule { }
+export class EshopRoutingModule {
+}

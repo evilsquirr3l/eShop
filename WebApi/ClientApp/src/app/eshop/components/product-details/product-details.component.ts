@@ -10,19 +10,10 @@ import { Discount } from '../../models/discount';
   styleUrls: ['./product-details.component.scss'],
 })
 export class ProductDetailsComponent implements OnInit {
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
   faStar = faStar;
-
   faStarHalf = faStarHalf;
-
   faCart = faCartShopping;
-
   testDate: Date = new Date();
-
   testDiscount: Discount = {
     createdAt: this.testDate,
     description: 'TestDiscountDescription',
@@ -33,12 +24,15 @@ export class ProductDetailsComponent implements OnInit {
     modifiedAt: this.testDate,
     name: 'DiscountName',
   };
-
   testCategory: Category = {
-    createdAt: this.testDate, description: 'Category Description', id: 1, isDeleted: false, modifiedAt: this.testDate, name: 'CategoryName',
+    createdAt: this.testDate,
+    description: 'Category Description',
+    id: 1,
+    isDeleted: false,
+    modifiedAt: this.testDate,
+    name: 'CategoryName',
   };
-
-  testProduct : Product = {
+  testProduct: Product = {
     category: this.testCategory,
     categoryId: this.testCategory.id,
     createdAt: this.testDate,
@@ -53,4 +47,10 @@ export class ProductDetailsComponent implements OnInit {
     price: 228,
     quantity: 5,
   };
+
+  constructor() {
+  }
+
+  ngOnInit(): void {
+  }
 }

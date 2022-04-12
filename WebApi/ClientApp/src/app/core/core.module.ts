@@ -24,4 +24,5 @@ import { CoreRoutingModule } from './core-routing.module';
     MdbDropdownModule,
   ],
 })
-export class CoreModule { }
+export class CoreModule {
+}

@@ -13,7 +13,7 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes), MdbCarouselModule],
   exports: [RouterModule],
-  declarations: [
-  ],
+  declarations: [],
 })
-export class CoreRoutingModule { }
+export class CoreRoutingModule {
+}
