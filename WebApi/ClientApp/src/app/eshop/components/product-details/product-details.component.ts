@@ -11,9 +11,13 @@ import { Discount } from '../../models/discount';
 })
 export class ProductDetailsComponent implements OnInit {
   faStar = faStar;
+
   faStarHalf = faStarHalf;
+
   faCart = faCartShopping;
+
   testDate: Date = new Date();
+
   testDiscount: Discount = {
     createdAt: this.testDate,
     description: 'TestDiscountDescription',
@@ -24,6 +28,7 @@ export class ProductDetailsComponent implements OnInit {
     modifiedAt: this.testDate,
     name: 'DiscountName',
   };
+
   testCategory: Category = {
     createdAt: this.testDate,
     description: 'Category Description',
@@ -32,6 +37,7 @@ export class ProductDetailsComponent implements OnInit {
     modifiedAt: this.testDate,
     name: 'CategoryName',
   };
+
   testProduct: Product = {
     category: this.testCategory,
     categoryId: this.testCategory.id,
