@@ -49,7 +49,7 @@ public class ProductsController : ControllerBase
         };
         
         Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
-        return Ok(products);
+        return products;
     }
     
     [HttpPost]
