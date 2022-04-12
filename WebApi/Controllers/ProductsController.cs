@@ -1,7 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
 using Business.Interfaces;
+using Business.Paging;
 using Business.Records;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace WebApi.Controllers;
 
@@ -28,6 +30,26 @@ public class ProductsController : ControllerBase
         var product = await _productService.GetProductAsync(id);
 
         return product is not null ? product : NotFound();
+    }
+    
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult<PagedList<ProductRecord>>> GetProducts([FromQuery] QueryStringParameters queryStringParameters)
+    {
+        var products = await _productService.GetProductsListAsync(queryStringParameters);
+        
+        var metadata = new
+        {
+            products.TotalCount,
+            products.PageSize,
+            products.CurrentPage,
+            products.TotalPages,
+            products.HasNext,
+            products.HasPrevious
+        };
+        
+        Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+        return products;
     }
     
     [HttpPost]

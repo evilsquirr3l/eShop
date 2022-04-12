@@ -1,3 +1,4 @@
+using Business.Paging;
 using Business.Records;
 
 namespace Business.Interfaces;
@@ -6,7 +7,7 @@ public interface ICategoryService
 {
     public Task<CategoryRecord> GetCategoryAsync(int id);
 
-    public Task<IEnumerable<CategoryRecord>> GetCategoryListAsync();
+    public Task<PagedList<CategoryRecord>> GetCategoryListAsync(QueryStringParameters queryStringParameters);
 
     public Task CreateCategoryAsync(CategoryRecord categoryRecord);
 

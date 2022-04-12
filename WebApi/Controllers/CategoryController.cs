@@ -1,7 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
 using Business.Interfaces;
+using Business.Paging;
 using Business.Records;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace WebApi.Controllers;
 
@@ -28,6 +30,26 @@ public class CategoriesController : ControllerBase
         var category = await _categoryService.GetCategoryAsync(id);
 
         return category is not null ? category : NotFound();
+    }
+
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult<PagedList<CategoryRecord>>> GetCategories([FromQuery] QueryStringParameters queryStringParameters)
+    {
+        var categories = await _categoryService.GetCategoryListAsync(queryStringParameters);
+        
+        var metadata = new
+        {
+            categories.TotalCount,
+            categories.PageSize,
+            categories.CurrentPage,
+            categories.TotalPages,
+            categories.HasNext,
+            categories.HasPrevious
+        };
+        
+        Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+        return categories;
     }
     
     [HttpPost]
