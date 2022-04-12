@@ -1,0 +1,110 @@
+<div class="card-wrapper">
+  <div class="card">
+    <!-- card left -->
+    <div class="product-imgs">
+      <div class="img-display">
+        <div class="img-showcase">
+          <img
+            alt="shoe image"
+            src="https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_1.jpg">
+          <img
+            alt="shoe image"
+            src="https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_2.jpg">
+          <img
+            alt="shoe image"
+            src="https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_3.jpg">
+          <img
+            alt="shoe image"
+            src="https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_4.jpg">
+        </div>
+      </div>
+      <div class="img-select">
+        <div class="img-item">
+          <a data-id="1" href="#">
+            <img
+              alt="shoe image"
+              src="https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_1.jpg">
+          </a>
+        </div>
+        <div class="img-item">
+          <a data-id="2" href="#">
+            <img
+              alt="shoe image"
+              src="https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_2.jpg">
+          </a>
+        </div>
+        <div class="img-item">
+          <a data-id="3" href="#">
+            <img
+              alt="shoe image"
+              src="https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_3.jpg">
+          </a>
+        </div>
+        <div class="img-item">
+          <a data-id="4" href="#">
+            <img
+              alt="shoe image"
+              src="https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_4.jpg">
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- card right -->
+    <div class="product-content">
+      <h2 class="product-title">{{testProduct.name}}</h2>
+      <a class="product-link" href="#">visit coffins store</a>
+      <div class="product-rating">
+        <fa-icon [icon]="faStar"></fa-icon>
+        <fa-icon [icon]="faStar"></fa-icon>
+        <fa-icon [icon]="faStar"></fa-icon>
+        <fa-icon [icon]="faStar"></fa-icon>
+        <fa-icon [icon]="faStarHalf"></fa-icon>
+        <span>4.7(21)</span>
+      </div>
+
+      <div class="product-price">
+        <p class="last-price">Old Price: <span>${{testProduct.price}}</span></p>
+        <p class="new-price">New Price: <span>${{testProduct.price}}</span></p>
+      </div>
+
+      <div class="product-detail">
+        <h2>about this item: </h2>
+        <p>{{testProduct.description}}</p>
+        <ul>
+          <li>Color: <span>Black</span></li>
+          <li>Available: <span>{{testProduct.quantity}} items</span></li>
+          <li>Category: <span>{{testProduct.category.name}}</span></li>
+        </ul>
+      </div>
+
+      <div class="purchase-info">
+        <input min="0" type="number" value="1">
+        <button class="btn" type="button">
+          Add to Cart
+          <fa-icon [icon]="faCart"></fa-icon>
+        </button>
+        <button class="btn" type="button">Compare</button>
+      </div>
+
+      <div [hidden]="true" class="social-links">
+        <p>Share At: </p>
+        <a href="#">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="#">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="#">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+

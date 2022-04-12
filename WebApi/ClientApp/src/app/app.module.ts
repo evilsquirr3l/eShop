@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { MdbCheckboxModule } from 'mdb-angular-ui-kit/checkbox';
 import { MdbDropdownModule } from 'mdb-angular-ui-kit/dropdown';
 import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -39,6 +40,7 @@ import { AppComponent } from './app.component';
     ]),
     MdbDropdownModule,
     MdbCarouselModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

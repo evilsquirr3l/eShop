@@ -51,7 +51,6 @@
       <Folder Include="ClientApp\src\app\core\services" />
       <Folder Include="ClientApp\src\app\eshop\components" />
       <Folder Include="ClientApp\src\app\eshop\guards" />
-      <Folder Include="ClientApp\src\app\eshop\models" />
       <Folder Include="ClientApp\src\app\eshop\pages" />
       <Folder Include="ClientApp\src\app\eshop\services" />
     </ItemGroup>
