@@ -1,6 +1,6 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
-using Business.Paging;
 using Business.Records;
 using Business.Services;
 using Data;
@@ -41,43 +41,23 @@ public class CategoryServiceTests
         result.IsDeleted.Should().BeFalse();
     }
 
-    [TestCase(1, 5)]
-    public async Task GetCategoryListAsync_WithOneCategory_ReturnsCorrectPageResult(int currentPage, int pageSize)
+    [TestCase(0, 5)]
+    public async Task GetCategoryListAsync_WithOneCategory_ReturnsCorrectPageResult(int skip, int take)
     {
-        var queryStringParameters = new QueryStringParameters()
+        var paginationModel = new PaginationModel()
         {
-            CurrentPage = currentPage,
-            PageSize = pageSize
+            Skip = skip,
+            Take = take
         };
-        await CreateTestCategoryWithId(1);
+        var testCategory = await CreateTestCategoryWithId(1);
         
-        var result = await _categoryService.GetCategoryListAsync(queryStringParameters);
+        var result = await _categoryService.GetCategoryListAsync(paginationModel);
 
-        result.Should().BeOfType<PagedList<CategoryRecord>>();
-        result.TotalCount.Should().Be(1);
-        result.CurrentPage.Should().Be(currentPage);
-        result.HasNext.Should().BeFalse();
-        result.HasPrevious.Should().BeFalse();
-    }
-    
-    [TestCase(1, 1)]
-    public async Task GetCategoryListAsync_WithManyCategories_ReturnsCorrectPageResult(int currentPage, int pageSize)
-    {
-        var queryStringParameters = new QueryStringParameters()
-        {
-            CurrentPage = currentPage,
-            PageSize = pageSize
-        };
-        await CreateTestCategoryWithId(1);
-        await CreateTestCategoryWithId(2);
-        
-        var result = await _categoryService.GetCategoryListAsync(queryStringParameters);
-
-        result.Should().BeOfType<PagedList<CategoryRecord>>();
-        result.TotalCount.Should().Be(2);
-        result.CurrentPage.Should().Be(currentPage);
-        result.HasNext.Should().BeTrue();
-        result.HasPrevious.Should().BeFalse();
+        result.Should().BeOfType<ResultSet<CategoryRecord>>();
+        result.Page.Total.Should().Be(1);
+        result.Page.Skip.Should().Be(skip);
+        result.Page.Take.Should().Be(take);
+        result.Data.FirstOrDefault()!.Name.Should().Be(testCategory.Name);
     }
 
     [TestCase(1)]
@@ -142,12 +122,14 @@ public class CategoryServiceTests
         category.ModifiedAt.Should().Be(CurrentTime);
     }
 
-    private async Task CreateTestCategoryWithId(int id)
+    private async Task<Category> CreateTestCategoryWithId(int id)
     {
         var category = new Category { Id = id, Name = "testCategory", Description = "testCategoryDescription" };
         
         await _dbContext.Categories.AddAsync(category);
         await _dbContext.SaveChangesAsync();
         _dbContext.Entry(category).State = EntityState.Detached;
+
+        return category;
     }
 }

@@ -1,10 +1,7 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Business.Interfaces;
-using Business.Paging;
 using Business.Records;
 using FluentAssertions;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
@@ -24,7 +21,7 @@ public class CategoriesControllerTests
     public void SetUp()
     {
         _categoryService = new Mock<ICategoryService>();
-        _categoriesController = new CategoriesController(_categoryService.Object);
+        _categoriesController = new CategoriesController(_categoryService.Object, UnitTestsHelper.GetOptionsWithAppConfigurationsMock().Object);
     }
 
     [Test]
@@ -53,32 +50,7 @@ public class CategoriesControllerTests
     [Test]
     public async Task GetCategories_ReturnsPagedListWithHeaders()
     {
-        var categoryRecords = new List<CategoryRecord> {new CategoryRecord()};
-        var count = 1;
-        var pageNumber = 1;
-        var pageSize = 1;
-        var currentPage = 1;
-        var pagedList = PagedList<CategoryRecord>.ToPagedList(categoryRecords, count, pageNumber, pageSize);
-        var queryStringParameters = new QueryStringParameters {CurrentPage = currentPage, PageSize = pageSize};
-        _categoryService.Setup(x => x.GetCategoryListAsync(It.IsAny<QueryStringParameters>())).ReturnsAsync(pagedList);
         
-        var httpContext = new DefaultHttpContext();
-        var controllerContext = new ControllerContext() {
-            HttpContext = httpContext,
-        };
-        
-        _categoriesController = new CategoriesController(_categoryService.Object){
-            ControllerContext = controllerContext,
-        };
-        var result = await _categoriesController.GetCategories(queryStringParameters);
-
-        result.Should().BeOfType<ActionResult<PagedList<CategoryRecord>>>();
-        result.Value.Count.Should().Be(count);
-        result.Value.PageSize.Should().Be(pageSize);
-        result.Value.TotalPages.Should().Be(pageNumber);
-        result.Value.CurrentPage.Should().Be(currentPage);
-        result.Value.HasNext.Should().BeFalse();
-        result.Value.HasPrevious.Should().BeFalse();
     }
     
     [Test]

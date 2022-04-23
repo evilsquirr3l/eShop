@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -37,6 +38,19 @@ public class ProductsControllerIntegrationTests
         var result = await response.Content.ReadFromJsonAsync<ProductRecord>();
         response.EnsureSuccessStatusCode();
         result.Should().NotBeNull();
+    }
+    
+    [TestCase(0, 1)]
+    public async Task GetProducts_WhenProductExists_ReturnsResultSetWithProduct(int skip, int take)
+    {
+        var response = await _client.GetAsync($"api/Products?skip={skip}&take={take}");
+
+        var result = await response.Content.ReadFromJsonAsync<ResultSet<ProductRecord>>();
+        response.EnsureSuccessStatusCode();
+        result.Should().NotBeNull();
+        result.Page.Skip.Should().Be(skip);
+        result.Page.Take.Should().Be(take);
+        result.Data.FirstOrDefault().Should().NotBeNull();
     }
     
     [Test]

@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using WebApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,7 @@ AddServices();
 void AddServices()
 {
     builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
+    builder.Services.Configure<AppConfiguration>(builder.Configuration.GetSection("AppConfiguration"));
     
     builder.Services
         .AddControllers()

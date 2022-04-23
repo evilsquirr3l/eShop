@@ -1,9 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
 using Business.Interfaces;
-using Business.Paging;
 using Business.Records;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using Microsoft.Extensions.Options;
+using WebApi.Models;
 
 namespace WebApi.Controllers;
 
@@ -16,10 +16,14 @@ namespace WebApi.Controllers;
 public class CategoriesController : ControllerBase
 {
     private readonly ICategoryService _categoryService;
+    private readonly int _defaultSkipLimit;
+    private readonly int _defaultTakeLimit;
 
-    public CategoriesController(ICategoryService categoryService)
+    public CategoriesController(ICategoryService categoryService, IOptions<AppConfiguration> configuration)
     {
         _categoryService = categoryService;
+        _defaultSkipLimit = configuration.Value.DefaultSkipLimit;
+        _defaultTakeLimit = configuration.Value.DefaultTakeLimit;
     }
 
     [HttpGet("{id}")]
@@ -34,21 +38,16 @@ public class CategoriesController : ControllerBase
 
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<PagedList<CategoryRecord>>> GetCategories([FromQuery] QueryStringParameters queryStringParameters)
+    public async Task<ActionResult<ResultSet<CategoryRecord>>> GetCategories([FromQuery] int? skip = null, [FromQuery] int? take = null)
     {
-        var categories = await _categoryService.GetCategoryListAsync(queryStringParameters);
-        
-        var metadata = new
+        var paginationModel = new PaginationModel()
         {
-            categories.TotalCount,
-            categories.PageSize,
-            categories.CurrentPage,
-            categories.TotalPages,
-            categories.HasNext,
-            categories.HasPrevious
+            Skip = skip ?? _defaultSkipLimit,
+            Take = take ?? _defaultTakeLimit
         };
         
-        Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+        var categories = await _categoryService.GetCategoryListAsync(paginationModel);
+        
         return categories;
     }
     

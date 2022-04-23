@@ -1,10 +1,7 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Business.Interfaces;
-using Business.Paging;
 using Business.Records;
 using FluentAssertions;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
@@ -24,7 +21,7 @@ public class ProductsControllerTests
     public void SetUp()
     {
         _productService = new Mock<IProductService>();
-        _productsController = new ProductsController(_productService.Object);
+        _productsController = new ProductsController(_productService.Object, UnitTestsHelper.GetOptionsWithAppConfigurationsMock().Object);
     }
 
     [Test]
@@ -53,32 +50,7 @@ public class ProductsControllerTests
     [Test]
     public async Task GetProducts_ReturnsPagedListWithHeaders()
     {
-        var productRecords = new List<ProductRecord> {new ProductRecord()};
-        var count = 1;
-        var pageNumber = 1;
-        var pageSize = 1;
-        var currentPage = 1;
-        var pagedList = PagedList<ProductRecord>.ToPagedList(productRecords, count, pageNumber, pageSize);
-        var queryStringParameters = new QueryStringParameters {CurrentPage = currentPage, PageSize = pageSize};
-        _productService.Setup(x => x.GetProductsListAsync(It.IsAny<QueryStringParameters>())).ReturnsAsync(pagedList);
         
-        var httpContext = new DefaultHttpContext();
-        var controllerContext = new ControllerContext() {
-            HttpContext = httpContext,
-        };
-        
-        _productsController = new ProductsController(_productService.Object){
-            ControllerContext = controllerContext,
-        };
-        var result = await _productsController.GetProducts(queryStringParameters);
-
-        result.Should().BeOfType<ActionResult<PagedList<ProductRecord>>>();
-        result.Value.Count.Should().Be(count);
-        result.Value.PageSize.Should().Be(pageSize);
-        result.Value.TotalPages.Should().Be(pageNumber);
-        result.Value.CurrentPage.Should().Be(currentPage);
-        result.Value.HasNext.Should().BeFalse();
-        result.Value.HasPrevious.Should().BeFalse();
     }
     
     [Test]

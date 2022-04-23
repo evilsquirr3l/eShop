@@ -14,9 +14,10 @@ public class QueryableExtensionsTests
     public void Paginate_WithListOfThreeItems_ReturnsCorrectValue()
     {
         var strings = new List<string> {"1", "2", "3"}.AsQueryable();
-        var queryStringsParameter = new QueryStringParameters {CurrentPage = 2, PageSize = 1};
+        var queryStringsParameter = new PaginationModel() {Skip = 1, Take = 2};
         var result = strings.Paginate(queryStringsParameter);
 
         result.Should().Contain("2");
+        result.Should().Contain("3");
     }
 }

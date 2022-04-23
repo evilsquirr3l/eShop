@@ -30,17 +30,24 @@ public class CategoryService : ICategoryService
         return _mapper.Map<CategoryRecord>(category);
     }
 
-    public async Task<PagedList<CategoryRecord>> GetCategoryListAsync(QueryStringParameters queryStringParameters)
+    public async Task<ResultSet<CategoryRecord>> GetCategoryListAsync(PaginationModel paginationModel)
     {
         var categories = _dbContext.Categories;
         
-        var selectedCategories = categories.OrderBy(x => x.Name).Paginate(queryStringParameters);;
+        var selectedCategories = categories.Paginate(paginationModel).OrderBy(x => x.Name);
         var mappedCategories = _mapper.Map<List<CategoryRecord>>(selectedCategories);
 
-        return PagedList<CategoryRecord>.ToPagedList(mappedCategories,
-            await categories.CountAsync(),
-            queryStringParameters.CurrentPage,
-            queryStringParameters.PageSize);
+        return new ResultSet<CategoryRecord>
+        {
+            Data = mappedCategories,
+            Page = new Page
+            {
+                Count = mappedCategories.Count,
+                Skip = paginationModel.Skip,
+                Take = paginationModel.Take,
+                Total = await categories.CountAsync()
+            }
+        };
     }
 
     public async Task CreateCategoryAsync(CategoryRecord categoryRecord)
