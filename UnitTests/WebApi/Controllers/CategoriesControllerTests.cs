@@ -21,7 +21,8 @@ public class CategoriesControllerTests
     public void SetUp()
     {
         _categoryService = new Mock<ICategoryService>();
-        _categoriesController = new CategoriesController(_categoryService.Object, UnitTestsHelper.GetOptionsWithAppConfigurationsMock().Object);
+        _categoriesController = new CategoriesController(_categoryService.Object,
+            UnitTestsHelper.GetOptionsWithAppConfigurationsMock().Object);
     }
 
     [Test]
@@ -47,12 +48,19 @@ public class CategoriesControllerTests
         result.Result.Should().BeOfType<NotFoundResult>();
     }
 
-    [Test]
-    public async Task GetCategories_ReturnsPagedListWithHeaders()
+    [TestCase(0, 1)]
+    public async Task GetCategories_ReturnsResultSet(int skip, int take)
     {
-        
+        var resultSet = new ResultSet<CategoryRecord>();
+        _categoryService.Setup(x =>
+                x.GetCategoryListAsync(It.Is<PaginationModel>(
+                    x => x.Skip == skip && x.Take == take)))
+            .ReturnsAsync(resultSet);
+
+        var result = await _categoriesController.GetCategories(skip, take);
+        result.Value.Should().Be(resultSet);
     }
-    
+
     [Test]
     public async Task CreateCategory_ExecutesService_ReturnsCreatedAtAction()
     {

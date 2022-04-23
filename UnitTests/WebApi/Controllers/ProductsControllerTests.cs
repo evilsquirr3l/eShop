@@ -47,10 +47,17 @@ public class ProductsControllerTests
         result.Result.Should().BeOfType<NotFoundResult>();
     }
     
-    [Test]
-    public async Task GetProducts_ReturnsPagedListWithHeaders()
+    [TestCase(0, 1)]
+    public async Task GetProducts_ReturnsResultSet(int skip, int take)
     {
-        
+        var resultSet = new ResultSet<ProductRecord>();
+        _productService.Setup(x =>
+                x.GetProductsListAsync(It.Is<PaginationModel>(
+                    x => x.Skip == skip && x.Take == take)))
+            .ReturnsAsync(resultSet);
+
+        var result = await _productsController.GetProducts(skip, take);
+        result.Value.Should().Be(resultSet);
     }
     
     [Test]
