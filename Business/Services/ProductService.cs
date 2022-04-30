@@ -31,17 +31,24 @@ public class ProductService : IProductService
         return _mapper.Map<ProductRecord>(product);
     }
 
-    public async Task<PagedList<ProductRecord>> GetProductsListAsync(QueryStringParameters queryStringParameters)
+    public async Task<ResultSet<ProductRecord>> GetProductsListAsync(PaginationModel paginationModel)
     {
         var products = _dbContext.Products;
         
-        var selectedProducts = products.OrderBy(x => x.Name).Paginate(queryStringParameters);;
-        var mappedProducts = _mapper.Map<List<ProductRecord>>(selectedProducts);
+        var selectedCategories = products.Paginate(paginationModel).OrderBy(x => x.Name);
+        var mappedProducts = _mapper.Map<List<ProductRecord>>(selectedCategories);
 
-        return PagedList<ProductRecord>.ToPagedList(mappedProducts,
-            await products.CountAsync(),
-            queryStringParameters.CurrentPage,
-            queryStringParameters.PageSize);
+        return new ResultSet<ProductRecord>
+        {
+            Data = mappedProducts,
+            Page = new Page
+            {
+                Count = mappedProducts.Count,
+                Skip = paginationModel.Skip,
+                Take = paginationModel.Take,
+                Total = await products.CountAsync()
+            }
+        };
     }
 
     public async Task CreateProductAsync(ProductRecord productRecord)

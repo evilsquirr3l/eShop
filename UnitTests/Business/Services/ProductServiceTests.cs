@@ -1,6 +1,6 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
-using Business.Paging;
 using Business.Records;
 using Business.Services;
 using Data;
@@ -52,44 +52,24 @@ public class ProductServiceTests
 
         result.Should().BeNull();
     }
-    
-    [TestCase(1, 5)]
-    public async Task GetProductsListAsync_WithOneProduct_ReturnsCorrectPageResult(int currentPage, int pageSize)
-    {
-        var queryStringParameters = new QueryStringParameters()
-        {
-            CurrentPage = currentPage,
-            PageSize = pageSize
-        };
-        await CreateTestProductWithId(1);
-        
-        var result = await _productService.GetProductsListAsync(queryStringParameters);
 
-        result.Should().BeOfType<PagedList<ProductRecord>>();
-        result.TotalCount.Should().Be(1);
-        result.CurrentPage.Should().Be(currentPage);
-        result.HasNext.Should().BeFalse();
-        result.HasPrevious.Should().BeFalse();
-    }
-    
-    [TestCase(1, 1)]
-    public async Task GetProductsListAsync_WithManyProducts_ReturnsCorrectPageResult(int currentPage, int pageSize)
+    [TestCase(0, 5)]
+    public async Task GetProductsListAsync_WithOneProduct_ReturnsCorrectPageResult(int skip, int take)
     {
-        var queryStringParameters = new QueryStringParameters()
+        var paginationModel = new PaginationModel()
         {
-            CurrentPage = currentPage,
-            PageSize = pageSize
+            Skip = skip,
+            Take = take
         };
-        await CreateTestProductWithId(1);
-        await CreateTestProductWithId(2);
+        var testProduct = await CreateTestProductWithId(1);
         
-        var result = await _productService.GetProductsListAsync(queryStringParameters);
+        var result = await _productService.GetProductsListAsync(paginationModel);
 
-        result.Should().BeOfType<PagedList<ProductRecord>>();
-        result.TotalCount.Should().Be(2);
-        result.CurrentPage.Should().Be(currentPage);
-        result.HasNext.Should().BeTrue();
-        result.HasPrevious.Should().BeFalse();
+        result.Should().BeOfType<ResultSet<ProductRecord>>();
+        result.Page.Total.Should().Be(1);
+        result.Page.Skip.Should().Be(skip);
+        result.Page.Take.Should().Be(take);
+        result.Data.FirstOrDefault()!.Name.Should().Be(testProduct.Name);
     }
 
     [TestCase("testProduct", 100, 1, "description")]
@@ -145,13 +125,15 @@ public class ProductServiceTests
         productRecord.ModifiedAt.Should().Be(CurrentTime);
     }
     
-    private async Task CreateTestProductWithId(int id)
+    private async Task<Product> CreateTestProductWithId(int id)
     {
         var category = new Category {Id = id, Name = "testCategory", Description = "testCategoryDescription"};
-        var productRecord = new Product
+        var product = new Product
             {Id = id, Name = "testProduct", Description = "testDescription", Category = category};
-        await _dbContext.Products.AddAsync(productRecord);
+        await _dbContext.Products.AddAsync(product);
         await _dbContext.SaveChangesAsync();
-        _dbContext.Entry(productRecord).State = EntityState.Detached;
+        _dbContext.Entry(product).State = EntityState.Detached;
+
+        return product;
     }
 }

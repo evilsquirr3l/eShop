@@ -7,7 +7,9 @@ using Data.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Moq;
+using WebApi.Models;
 
 namespace UnitTests;
 
@@ -30,6 +32,16 @@ internal static class UnitTestsHelper
         });
 
         return new Mapper(configuration);
+    }
+
+    public static Mock<IOptions<AppConfiguration>> GetOptionsWithAppConfigurationsMock()
+    {
+        var appConfiguration =  new AppConfiguration {DefaultSkipLimit = 0, DefaultTakeLimit = 50};
+        
+        var optionsMock = new Mock<IOptions<AppConfiguration>>();
+        optionsMock.Setup(x => x.Value).Returns(appConfiguration);
+
+        return optionsMock;
     }
     
     public static Mock<IDateTimeProvider> DateTimeProviderMock(DateTime dateTime)

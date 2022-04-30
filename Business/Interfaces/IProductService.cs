@@ -1,4 +1,3 @@
-using Business.Paging;
 using Business.Records;
 
 namespace Business.Interfaces;
@@ -7,7 +6,7 @@ public interface IProductService
 {
     public Task<ProductRecord> GetProductAsync(int id);
 
-    public Task<PagedList<ProductRecord>> GetProductsListAsync(QueryStringParameters queryStringParameters);
+    public Task<ResultSet<ProductRecord>> GetProductsListAsync(PaginationModel paginationModel);
 
     public Task CreateProductAsync(ProductRecord productRecord);
 

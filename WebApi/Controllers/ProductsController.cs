@@ -1,9 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
 using Business.Interfaces;
-using Business.Paging;
 using Business.Records;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using Microsoft.Extensions.Options;
+using WebApi.Models;
 
 namespace WebApi.Controllers;
 
@@ -16,10 +16,15 @@ namespace WebApi.Controllers;
 public class ProductsController : ControllerBase
 {
     private readonly IProductService _productService;
+    private readonly int _defaultSkipLimit;
+    private readonly int _defaultTakeLimit;
 
-    public ProductsController(IProductService productService)
+    public ProductsController(IProductService productService, IOptions<AppConfiguration> configuration)
     {
         _productService = productService;
+        
+        _defaultSkipLimit = configuration.Value.DefaultSkipLimit;
+        _defaultTakeLimit = configuration.Value.DefaultTakeLimit;
     }
 
     [HttpGet("{id}")]
@@ -34,21 +39,16 @@ public class ProductsController : ControllerBase
     
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<PagedList<ProductRecord>>> GetProducts([FromQuery] QueryStringParameters queryStringParameters)
+    public async Task<ActionResult<ResultSet<ProductRecord>>> GetProducts([FromQuery] int? skip = null, [FromQuery] int? take = null)
     {
-        var products = await _productService.GetProductsListAsync(queryStringParameters);
-        
-        var metadata = new
+        var paginationModel = new PaginationModel()
         {
-            products.TotalCount,
-            products.PageSize,
-            products.CurrentPage,
-            products.TotalPages,
-            products.HasNext,
-            products.HasPrevious
+            Skip = skip ?? _defaultSkipLimit,
+            Take = take ?? _defaultTakeLimit
         };
         
-        Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+        var products = await _productService.GetProductsListAsync(paginationModel);
+        
         return products;
     }
     
